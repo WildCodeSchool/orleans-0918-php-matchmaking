@@ -9,9 +9,7 @@
         {% endblock %}
     </head>
     <body>
-    {% form_theme form 'bootstrap_4_layout.html.twig' %}
     {% block body %}{% endblock %}
-
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
