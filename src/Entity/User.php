@@ -20,14 +20,14 @@ class User
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
-     * @Assert\Regex("/[a-zA-Zéèàïç]/")
+     * @Assert\Length(max="255", maxMessage="Le prénom doit contenir 255 caractères maximum")
      */
     private $FirstName;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
-     * @Assert\Regex("/[a-zA-Zéèàïç]/")
+     * @Assert\Length(max="255", maxMessage="Le nom doit contenir 255 caractères maximum")
      */
     private $LastName;
 
@@ -35,6 +35,7 @@ class User
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Email
+     * @Assert\Length(max="255", maxMessage="L'adresse mail doit contenir 255 caractères maximum")
      */
     private $EMail;
 
