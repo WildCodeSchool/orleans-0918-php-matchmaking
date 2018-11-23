@@ -2,26 +2,26 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Event;
 use App\Form\EventType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class EventController extends AbstractController
 {
     /**
-     * @Route("/event/add", name="event_add")
+     * @Route("admin/event/add", name="event_add")
      */
-    public function add(Request $request):Response
+    public function add(Request $request): Response
     {
         $event = new Event();
-        
+
         $form = $this->createForm(
             EventType::class,
             $event,
-             ['method' => Request::METHOD_POST]
+            ['method' => Request::METHOD_POST]
         );
         $form->handleRequest($request);
 

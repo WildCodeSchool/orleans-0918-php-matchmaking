@@ -7,12 +7,12 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class IsFutureDateValidator extends ConstraintValidator
 {
-    public function validate($date, Constraint $constraint)
+    public function validate($date, Constraint $constraint) :void
     {
         $todayDate = new \DateTime();
         $dateDiffSign = $todayDate->diff($date)->format('%R%');
 
-        if ( $dateDiffSign === "-") {
+        if ($dateDiffSign === "-") {
             // If you're using the new 2.5 validation API (you probably are!)
             $this->context->buildViolation($constraint->message)
                 ->setParameter('%string%', $dateDiffSign)
