@@ -45,7 +45,7 @@ class FormatEventType extends AbstractType
                     'attr' => ['accept' => 'text/csv'],
                     'constraints' => [
                         new Constraints\NotBlank(),
-                        new Constraints\File(['maxSize' => '1024k', 'mimeTypes' => 'text/csv'])
+                        new Constraints\File(['maxSize' => '1024k', 'mimeTypes' => ['text/csv', 'text/plain']])
                     ]
                 ]
             )
