@@ -19,13 +19,16 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class SettingsController
  * @package App\Controller
  */
-
 class SettingsController extends AbstractController
 {
     /**
      * @Route("/settings", name="settings")
+     * @param Request $request
+     * @return Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function index(Request $request) : Response
+    public function index(Request $request): Response
     {
         // FormatEvent_Add
         $formAddFormatEvent = $this->createForm(FormatEventType::class);
@@ -49,11 +52,9 @@ class SettingsController extends AbstractController
 
                 if (empty($resultImportCSV)) {
                     return $this->redirectToRoute('settings', ['status' => 'validateAddFormatEvent']);
-                }
-                else {
+                } else {
                     $errorAddFormatEvent = $resultImportCSV;
                 }
-
             } else {
                 $errorAddFormatEvent = 'Ce format existe déjà dans la base de données.';
             }
@@ -75,7 +76,7 @@ class SettingsController extends AbstractController
      * @param int $numberOfTables
      * @return array
      */
-    private function checkFormatEventAlreadyExist(int $numberOfTables) : array
+    private function checkFormatEventAlreadyExist(int $numberOfTables): array
     {
         $formatEvent = $this->getDoctrine()
             ->getRepository(FormatEvent::class)
@@ -92,22 +93,22 @@ class SettingsController extends AbstractController
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-   private function addFormatEventAndGetLastEvent(EntityManager $em, array $dataset) : array
-   {
-      // Add format event
-      $formatEvent = new FormatEvent();
-      $formatEvent->setName($dataset['name']);
-      $formatEvent->setNumberOfTables($dataset['numberOfTables']);
-      $em->persist($formatEvent);
-      $em->flush();
+    private function addFormatEventAndGetLastEvent(EntityManager $em, array $dataset): array
+    {
+        // Add format event
+        $formatEvent = new FormatEvent();
+        $formatEvent->setName($dataset['name']);
+        $formatEvent->setNumberOfTables($dataset['numberOfTables']);
+        $em->persist($formatEvent);
+        $em->flush();
 
-      // Get Last Id event
-      $lastFormatEvent = $this->getDoctrine()
-          ->getRepository(FormatEvent::class)
-          ->findBy([], ['id' => 'desc'], 1, 0);
+        // Get Last Id event
+        $lastFormatEvent = $this->getDoctrine()
+            ->getRepository(FormatEvent::class)
+            ->findBy([], ['id' => 'desc'], 1, 0);
 
-      return $lastFormatEvent;
-   }
+        return $lastFormatEvent;
+    }
 
     /**
      * Check if the number of Tables it's ok in database
@@ -116,20 +117,20 @@ class SettingsController extends AbstractController
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-   private function checkNumberOfTableInDB(EntityManager $em, int $numberOfTables)
-   {
-       for ($i = 1; $i <= $numberOfTables; $i++) {
-           $tableEventExist = $this->getTableDetails($i);
+    private function checkNumberOfTableInDB(EntityManager $em, int $numberOfTables)
+    {
+        for ($i = 1; $i <= $numberOfTables; $i++) {
+            $tableEventExist = $this->getTableDetails($i);
 
-           if (empty($tableEventExist)) {
-               // Add Table
-               $tableEvent = new TableEvent();
-               $tableEvent->setName('Table ' . $i);
-               $em->persist($tableEvent);
-               $em->flush();
-           }
-       }
-   }
+            if (empty($tableEventExist)) {
+                // Add Table
+                $tableEvent = new TableEvent();
+                $tableEvent->setName('Table ' . $i);
+                $em->persist($tableEvent);
+                $em->flush();
+            }
+        }
+    }
 
     /**
      * Import CSV and Insert values in database
@@ -140,10 +141,10 @@ class SettingsController extends AbstractController
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-   private function importFormatEventCsvFile(EntityManager $em, array $dataset, array $formatEvent) : string
-   {
+    private function importFormatEventCsvFile(EntityManager $em, array $dataset, array $formatEvent): string
+    {
 
-       $resultImport = '';
+        $resultImport = '';
 
         try {
             $csvFile = Reader::createFromPath($dataset['csvFile']->getPathName(), 'r');
@@ -160,7 +161,7 @@ class SettingsController extends AbstractController
                 }
 
                 // Add Rounds in Database
-                for ($i = 1; $i < count($record)-1; $i++) {
+                for ($i = 1; $i < count($record) - 1; $i++) {
                     $roundEvent = new RoundEvent();
                     $roundEvent->setFormatEvent($formatEvent[0]);
                     $roundEvent->setTableEvent($tableEvent[0]);
@@ -170,26 +171,25 @@ class SettingsController extends AbstractController
                     $em->flush();
                 }
             }
-        }
-        catch (Exception $exception) {
+        } catch (Exception $exception) {
             $resultImport = $exception->getMessage();
         }
 
         return $resultImport;
-   }
+    }
 
     /**
      * @param int $tableNumber
      * @return array
      */
-   private function getTableDetails(int $tableNumber) : array
-   {
-       return $this->getDoctrine()
-           ->getRepository(TableEvent::class)
-           ->createQueryBuilder('t')
-           ->where('t.name LIKE :number')
-           ->setParameter('number', '%' . $tableNumber . '%')
-           ->getQuery()
-           ->getResult();
-   }
+    private function getTableDetails(int $tableNumber): array
+    {
+        return $this->getDoctrine()
+            ->getRepository(TableEvent::class)
+            ->createQueryBuilder('t')
+            ->where('t.name LIKE :number')
+            ->setParameter('number', '%' . $tableNumber . '%')
+            ->getQuery()
+            ->getResult();
+    }
 }
