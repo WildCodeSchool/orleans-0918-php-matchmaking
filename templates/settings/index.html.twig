@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{#{% form_theme formAddFormatEvent 'bootstrap_4_horizontal_layout.html.twig' %}#}
+
+{% block title %}
+    Paramètres - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="text-center">Paramètres</h1>
+            <!-- TODO : Gestion temps globaux -->
+        <hr/>
+        {% include 'settings/_addFormatEvent_form.html.twig' %}
+    </div>
+{% endblock %}
