@@ -2,14 +2,15 @@
 @import "~bootswatch/dist/lumen/variables";
 @import "~bootswatch/dist/lumen/bootswatch";
 
+$fontNavbarTitle:BrandonBold, Arial, sans-serif;
+$colorTitleProjetIO:#FF9800;
+$colorBackgroundProjetIO:#343a40;
+$colorBtnProjetIO:#17a2b8;
+
 @font-face {
     font-family: BrandonBold;
     src: url(../../assets/fonts/BrandonText-Bold.otf);
 }
-
-$colorTitleProjetIO:#FF9800;
-$colorBackgroundProjetIO:#343a40;
-$colorBtnProjetIO:#17a2b8;
 
 body {
     background-color: white;
@@ -18,7 +19,7 @@ body {
 .navbarProjetIO {
     a {
         font-weight:bold;
-        font-family: BrandonBold, Arial, sans-serif;
+        font-family: $fontNavbarTitle;
     }
     background-color: $colorBackgroundProjetIO;
     span {
