@@ -1,0 +1,15 @@
+    <p>
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            Ajouter un administrateur
+        </button>
+    </p>
+    <div class="collapse" id="collapseExample">
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-lg-3 col-md-12">{{ form_row(form.FirstName, {'label': 'Prénom', 'attr': {'placeholder': "Mathieu"} }) }}</div>
+            <div class="col-lg-3 col-md-12"> {{ form_row(form.LastName, {'label': 'Nom', 'attr': {'placeholder': "HOARAU"} }) }}</div>
+            <div class="col-lg-3 col-md-12">{{ form_row(form.EMail, {'label': 'E-mail', 'attr': {'placeholder': "Mathieuhoarau@laposte.net"} }) }}</div>
+            <div class="col-1 d-flex align-self-center mt-2"><button class="btn btn-primary">{{ button_label|default('Valider') }}</button></div>
+        </div>
+        {{ form_end(form) }}
+    </div>

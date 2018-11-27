@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des administrateurs{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="text-center">Gestion des administrateurs</h1>
+        <hr/>
+        {{ include('admin/_formAdd.html.twig') }}
+    </div>
+{% endblock %}
