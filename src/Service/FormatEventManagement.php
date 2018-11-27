@@ -43,36 +43,36 @@ class FormatEventManagement
     }
 
     /**
-     * @param array $dataset
+     * @param array $datasets
      * @return string
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function addFormatEvent(array $dataset) : string
+    public function addFormatEvent(array $datasets) : string
     {
         // Add format Event and get the last event
-        $lastFormatEvent = $this->addFormatEventAndGetLastEvent($dataset);
+        $lastFormatEvent = $this->addFormatEventAndGetLastEvent($datasets);
         // Check if number of tables in db is OK
-        $this->checkNumberOfTableInDB($dataset['numberOfTables']);
+        $this->checkNumberOfTableInDB($datasets['numberOfTables']);
         // Import CSV File
-        $resultImport = $this->importFormatEventCsvFile($dataset, $lastFormatEvent);
+        $resultImport = $this->importFormatEventCsvFile($datasets, $lastFormatEvent);
 
         return $resultImport;
     }
 
     /**
      * Add format event and get the last Event
-     * @param array $dataset
+     * @param array $datasets
      * @return array
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function addFormatEventAndGetLastEvent(array $dataset): array
+    public function addFormatEventAndGetLastEvent(array $datasets): array
     {
         // Add format event
         $formatEvent = new FormatEvent();
-        $formatEvent->setName($dataset['name']);
-        $formatEvent->setNumberOfTables($dataset['numberOfTables']);
+        $formatEvent->setName($datasets['name']);
+        $formatEvent->setNumberOfTables($datasets['numberOfTables']);
         $this->em->persist($formatEvent);
         $this->em->flush();
 
@@ -128,12 +128,12 @@ class FormatEventManagement
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function importFormatEventCsvFile(array $dataset, array $formatEvent): string
+    public function importFormatEventCsvFile(array $datasets, array $formatEvent): string
     {
         $resultImport = '';
 
         try {
-            $records = $this->csvReader->read($dataset['csvFile']->getPathName());
+            $records = $this->csvReader->read($datasets['csvFile']->getPathName());
             $tableRound = 1;
             $tableEvent = null;
 

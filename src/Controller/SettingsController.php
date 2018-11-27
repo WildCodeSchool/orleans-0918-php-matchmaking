@@ -34,12 +34,12 @@ class SettingsController extends AbstractController
         $formAddFormatEvent->handleRequest($request);
 
         if ($formAddFormatEvent->isSubmitted() && $formAddFormatEvent->isValid()) {
-            $dataset = $formAddFormatEvent->getData();
+            $datasets = $formAddFormatEvent->getData();
             // Check the format does not already exist
-            $formatAlreadyExist = $formatEventManagement->checkFormatEventAlreadyExist($dataset['numberOfTables']);
+            $formatAlreadyExist = $formatEventManagement->checkFormatEventAlreadyExist($datasets['numberOfTables']);
 
             if (empty($formatAlreadyExist)) {
-                $resultImportCSV = $formatEventManagement->addFormatEvent($dataset);
+                $resultImportCSV = $formatEventManagement->addFormatEvent($datasets);
                 if (empty($resultImportCSV)) {
                     return $this->redirectToRoute('settings', ['status' => 'validateAddFormatEvent']);
                 } else {
