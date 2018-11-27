@@ -1,6 +1,18 @@
 @import "~bootstrap/scss/bootstrap";
 @import "~bootswatch/dist/lumen/variables";
 @import "~bootswatch/dist/lumen/bootswatch";
-body {
-    background-color: white;
+
+$labelInputFile: 'Parcourir';
+$borderColorH1: #000000;
+
+h1 {
+    text-align: center;
+    padding: 0.2em;
+    margin: auto;
+    margin-top: 1em;
+    border: 1px solid $borderColorH1;
+}
+
+.custom-file-label::after {
+    content: $labelInputFile;
 }

@@ -21,32 +21,21 @@ class SettingsController extends AbstractController
      * @param Request $request
      * @param FormatEventManagement $formatEventManagement
      * @return Response
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function index(Request $request, FormatEventManagement $formatEventManagement): Response
     {
         // FormatEvent_Add
         $formAddFormatEvent = $this->createForm(FormatEventType::class);
-        $errorAddFormatEvent = '';
         $validateAddFormatEvent = '';
+        $resultImportCsv = '';
 
         $formAddFormatEvent->handleRequest($request);
 
         if ($formAddFormatEvent->isSubmitted() && $formAddFormatEvent->isValid()) {
             $datasets = $formAddFormatEvent->getData();
-            // Check the format does not already exist
-            $formatAlreadyExist = $formatEventManagement->checkFormatEventAlreadyExist($datasets['numberOfTables']);
-
-            if (empty($formatAlreadyExist)) {
-                $resultImportCSV = $formatEventManagement->addFormatEvent($datasets);
-                if (empty($resultImportCSV)) {
-                    return $this->redirectToRoute('settings', ['status' => 'validateAddFormatEvent']);
-                } else {
-                    $errorAddFormatEvent = $resultImportCSV;
-                }
-            } else {
-                $errorAddFormatEvent = 'Ce format existe déjà dans la base de données.';
+            $resultImportCsv = $formatEventManagement->addFormatEvent($datasets);
+            if (empty($resultImportCsv)) {
+                return $this->redirectToRoute('settings', ['status' => 'validateAddFormatEvent']);
             }
         }
 
@@ -57,7 +46,7 @@ class SettingsController extends AbstractController
         return $this->render('settings/index.html.twig', [
             'formAddFormatEvent' => $formAddFormatEvent->createView(),
             'validateAddFormatEvent' => $validateAddFormatEvent,
-            'errorAddFormatEvent' => $errorAddFormatEvent
+            'errorAddFormatEvent' => $resultImportCsv
         ]);
     }
 }

@@ -26,18 +26,6 @@ class FormatEventType extends AbstractType
                 ]
             )
             ->add(
-                'numberOfTables',
-                Type\IntegerType::class,
-                [
-                    'label' => 'Nombre de table',
-                    'attr' => ['value' => 3, 'min' => 3],
-                    'constraints' => [
-                        new Constraints\NotBlank(),
-                        new Constraints\Type('integer')
-                    ]
-                ]
-            )
-            ->add(
                 'csvFile',
                 Type\FileType::class,
                 [
