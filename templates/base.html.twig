@@ -1,4 +1,3 @@
-{% form_theme form 'bootstrap_4_layout.html.twig' %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,10 +9,12 @@
         {% endblock %}
     </head>
     <body>
-    {% block body %}{% endblock %}
+        <header>
+            {% include 'navbar.html.twig' %}
+        </header>
+        {% block body %}{% endblock %}
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
-
     </body>
 </html>
