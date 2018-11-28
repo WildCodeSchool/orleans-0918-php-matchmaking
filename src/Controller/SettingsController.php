@@ -31,7 +31,6 @@ class SettingsController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
         }
 
         return $this->render('settings/index.html.twig', [
