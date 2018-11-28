@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    Paramètres - {{ parent() }}
+{% endblock %}
+{% block body %}
+    <div class="container">
+        {{ include('settings/_formTimer.html.twig') }}
+        <hr/>
+    </div>
+{% endblock %}
