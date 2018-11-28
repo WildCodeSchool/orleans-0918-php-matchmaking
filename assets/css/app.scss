@@ -1,6 +1,35 @@
 @import "~bootstrap/scss/bootstrap";
 @import "~bootswatch/dist/lumen/variables";
 @import "~bootswatch/dist/lumen/bootswatch";
+
+$fontNavbarTitle:BrandonBold, Arial, sans-serif;
+$colorTitleProjetIO:#FF9800;
+$colorBackgroundProjetIO:#343a40;
+$colorBtnProjetIO:#17a2b8;
+
+@font-face {
+    font-family: BrandonBold;
+    src: url(../../assets/fonts/BrandonText-Bold.otf);
+}
+
 body {
     background-color: white;
+}
+
+.navbarProjetIO {
+    a {
+        font-weight:bold;
+        font-family: $fontNavbarTitle;
+    }
+    background-color: $colorBackgroundProjetIO;
+    span {
+        color:$colorTitleProjetIO;
+    }
+    button {
+        color:$colorBtnProjetIO;
+        border: 1px solid $colorBtnProjetIO;
+        span {
+            color: $colorBtnProjetIO;
+        }
+    }
 }
