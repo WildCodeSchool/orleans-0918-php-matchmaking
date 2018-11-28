@@ -3,10 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity("email")
  */
 class User implements UserInterface
 {
@@ -19,16 +22,43 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\Email(
+     *     message = "L'e-mail que vous avez fourni n'est pas une adresse valide.",
+     *     checkMX = true
+     * )
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 180,
+     *      minMessage = "L'adresse doit comporter au moins {{ limit }} caractères.",
+     *      maxMessage = "L'adresse doit comporter au maximum {{ limit }} caractères."
+     * )
+     * @Assert\NotBlank
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 255,
+     *      minMessage = "Le prénom doit comporter au moins {{ limit }} caractères.",
+     *      maxMessage = "Le prénom doit comporter au maximum {{ limit }} caractères."
+     * )
+     * @Assert\Regex("/^[a-z ,.'-]+$/i")
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 255,
+     *      minMessage = "Le nom doit comporter au moins {{ limit }} caractères.",
+     *      maxMessage = "Le nom doit comporter au maximum {{ limit }} caractères."
+     * )
+     * @Assert\Regex("/^[a-z ,.'-]+$/i")
      */
     private $lastName;
 
