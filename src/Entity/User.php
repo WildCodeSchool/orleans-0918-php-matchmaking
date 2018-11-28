@@ -40,7 +40,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Length(
-     *      min = 3,
+     *      min = 2,
      *      max = 255,
      *      minMessage = "Le prénom doit comporter au moins {{ limit }} caractères.",
      *      maxMessage = "Le prénom doit comporter au maximum {{ limit }} caractères."
@@ -53,7 +53,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Length(
-     *      min = 3,
+     *      min = 2,
      *      max = 255,
      *      minMessage = "Le nom doit comporter au moins {{ limit }} caractères.",
      *      maxMessage = "Le nom doit comporter au maximum {{ limit }} caractères."
