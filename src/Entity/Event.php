@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use App\AppBundle\Validator\Constraints\IsFutureDate;
+use App\Validator\Constraints\IsFutureDate;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
@@ -46,22 +46,22 @@ class Event
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $round_minutes;
+    private $roundMinutes;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $round_seconds;
+    private $roundSeconds;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $pause_minutes;
+    private $pauseMinutes;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $pause_seconds;
+    private $pauseSeconds;
 
     public function getId(): ?int
     {
@@ -118,48 +118,48 @@ class Event
 
     public function getRoundMinutes(): ?int
     {
-        return $this->round_minutes;
+        return $this->roundMinutes;
     }
 
-    public function setRoundMinutes(?int $round_minutes): self
+    public function setRoundMinutes(?int $roundMinutes): self
     {
-        $this->round_minutes = $round_minutes;
+        $this->roundMinutes = $roundMinutes;
 
         return $this;
     }
 
     public function getRoundSeconds(): ?int
     {
-        return $this->round_seconds;
+        return $this->roundSeconds;
     }
 
-    public function setRoundSeconds(?int $round_seconds): self
+    public function setRoundSeconds(?int $roundSeconds): self
     {
-        $this->round_seconds = $round_seconds;
+        $this->roundSeconds = $roundSeconds;
 
         return $this;
     }
 
     public function getPauseMinutes(): ?int
     {
-        return $this->pause_minutes;
+        return $this->pauseMinutes;
     }
 
-    public function setPauseMinutes(?int $pause_minutes): self
+    public function setPauseMinutes(?int $pauseMinutes): self
     {
-        $this->pause_minutes = $pause_minutes;
+        $this->pauseMinutes = $pauseMinutes;
 
         return $this;
     }
 
     public function getPauseSeconds(): ?int
     {
-        return $this->pause_seconds;
+        return $this->pauseSeconds;
     }
 
-    public function setPauseSeconds(?int $pause_seconds): self
+    public function setPauseSeconds(?int $pauseSeconds): self
     {
-        $this->pause_seconds = $pause_seconds;
+        $this->pauseSeconds = $pauseSeconds;
 
         return $this;
     }
