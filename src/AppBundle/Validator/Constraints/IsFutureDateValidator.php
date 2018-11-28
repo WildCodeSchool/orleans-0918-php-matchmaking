@@ -13,7 +13,6 @@ class IsFutureDateValidator extends ConstraintValidator
         $dateDiffSign = $todayDate->diff($date)->format('%R%');
 
         if ($dateDiffSign === "-") {
-            // If you're using the new 2.5 validation API (you probably are!)
             $this->context->buildViolation($constraint->message)
                 ->setParameter('%string%', $dateDiffSign)
                 ->addViolation();
