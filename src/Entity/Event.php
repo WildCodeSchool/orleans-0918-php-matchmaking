@@ -45,21 +45,45 @@ class Event
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\GreaterThanOrEqual(
+     * value = 0,
+     * message = "La valeur ne peut être inférieure à 0"
+     * )
      */
     private $roundMinutes;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\LessThan(
+     * value = 60,
+     * message = "La valeur ne peut être supérieure à 59"
+     * )
+     * @Assert\GreaterThanOrEqual(
+     * value = 0,
+     * message = "La valeur ne peut être inférieure à 0"
+     * )
      */
     private $roundSeconds;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\GreaterThanOrEqual(
+     * value = 0,
+     * message = "La valeur ne peut être inférieure à 0"
+     * )
      */
     private $pauseMinutes;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\LessThan(
+     * value = 60,
+     * message = "La valeur ne peut être supérieure à 59"
+     * )
+     * @Assert\GreaterThanOrEqual(
+     * value = 0,
+     * message = "La valeur ne peut être inférieure à 0"
+     * )
      */
     private $pauseSeconds;
 
