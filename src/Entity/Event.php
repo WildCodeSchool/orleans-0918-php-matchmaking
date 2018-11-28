@@ -28,7 +28,7 @@ class Event
     private $title;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      * @IsFutureDate
      */
     private $date;

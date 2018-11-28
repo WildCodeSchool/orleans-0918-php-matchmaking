@@ -12,14 +12,10 @@ class IsFutureDateValidator extends ConstraintValidator
 
         if ($date instanceof \DateTime) {
             $todayDate = new \DateTime();
-            $dateDiffSign = $todayDate // La date actuelle
-            ->diff($date) // Compare avec la date entrée par l'utilisateur
-            ->format('%R%') // Donne le signe de la comparaison (+ ou -)
-            ;
 
-            if ($dateDiffSign === "-") {
+            if ($date < $todayDate) {
                 $this->context->buildViolation($constraint->message)
-                    ->setParameter('%string%', $dateDiffSign)
+                    ->setParameter('%string%', "error: past datetime")
                     ->addViolation();
             }
         }
