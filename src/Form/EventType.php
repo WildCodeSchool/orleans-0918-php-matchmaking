@@ -27,16 +27,16 @@ class EventType extends AbstractType
             ->add('description', TextareaType::class)
             ->add('date', DateTimeType::class, array(
                 'data' => $currentDate))
-            ->add('round_minutes', IntegerType::class, array(
+            ->add('roundMinutes', IntegerType::class, array(
                 'required' => false,
                 'empty_data' => $roundMinutes))
-            ->add('round_seconds', IntegerType::class, array(
+            ->add('roundSeconds', IntegerType::class, array(
                 'required' => false,
                 'empty_data' => $roundSeconds))
-            ->add('pause_minutes', IntegerType::class, array(
+            ->add('pauseMinutes', IntegerType::class, array(
                 'required' => false,
                 'empty_data' => $pauseMinutes))
-            ->add('pause_seconds', IntegerType::class, array(
+            ->add('pauseSeconds', IntegerType::class, array(
                 'required' => false,
                 'empty_data' => $pauseSeconds))
         ;
