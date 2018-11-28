@@ -45,7 +45,7 @@ class User implements UserInterface
      *      minMessage = "Le prénom doit comporter au moins {{ limit }} caractères.",
      *      maxMessage = "Le prénom doit comporter au maximum {{ limit }} caractères."
      * )
-     * @Assert\Regex("/^[a-z ,.'-]+$/i")
+     * @Assert\Regex("/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u")
      */
     private $firstName;
 
@@ -58,7 +58,7 @@ class User implements UserInterface
      *      minMessage = "Le nom doit comporter au moins {{ limit }} caractères.",
      *      maxMessage = "Le nom doit comporter au maximum {{ limit }} caractères."
      * )
-     * @Assert\Regex("/^[a-z ,.'-]+$/i")
+     * @Assert\Regex("/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u")
      */
     private $lastName;
 
@@ -108,7 +108,7 @@ class User implements UserInterface
      */
     public function setFirstName($firstName): void
     {
-        $this->firstName = $firstName;
+        $this->firstName = ucwords(strtolower($firstName));
     }
 
     /**
@@ -124,7 +124,7 @@ class User implements UserInterface
      */
     public function setLastName($lastName): void
     {
-        $this->lastName = $lastName;
+        $this->lastName = ucwords(strtolower($lastName));
     }
 
     /**
