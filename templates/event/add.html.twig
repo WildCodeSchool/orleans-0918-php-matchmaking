@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Add an event{% endblock %}
+{% block title %}Ajouter un événement{% endblock %}
 
 
 
@@ -11,16 +11,16 @@
     {{ form_start(form) }}
     {{ form_row(form.title, {'label': 'Titre'}) }}
     {{ form_row(form.description) }}
-    {{ form_row(form.date) }}
+    {{ form_row(form.date, {'label': 'Date / Heure'}) }}
     <hr />
-    <h4>Gestion timers</h4>
+    <h4>Gestion des timers</h4>
     <div class="row">
         <div class="col-md-3 col-ms-6">{{ form_row(form.round_minutes, {'label': 'Temps de tour (minutes)'}) }}</div>
         <div class="col-md-3 col-ms-6">{{ form_row(form.round_seconds, {'label': 'Temps de tour (secondes)'}) }}</div>
         <div class="col-md-3 col-ms-6">{{ form_row(form.pause_minutes, {'label': 'Temps de pause (minutes)'}) }}</div>
         <div class="col-md-3 col-ms-6">{{ form_row(form.pause_seconds, {'label': 'Temps de pause (secondes)'}) }}</div>
     </div>
-    <button class="btn btn btn-primary btn-lg btn-block">{{ button_label|default('Save') }}</button>
+    <button class="btn btn btn-primary btn-lg btn-block">{{ button_label|default('Valider') }}</button>
     {{ form_end(form) }}
 </div>
 {% endblock %}
