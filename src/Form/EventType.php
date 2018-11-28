@@ -15,10 +15,10 @@ class EventType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $round_minutes = "10";
-        $round_seconds = "20";
-        $pause_minutes = "30";
-        $pause_seconds = "50";
+        $roundMinutes = "10";
+        $roundSeconds = "20";
+        $pauseMinutes = "30";
+        $pauseSeconds = "50";
 
         $currentDate = new \DateTime();
 
@@ -29,16 +29,16 @@ class EventType extends AbstractType
                 'data' => $currentDate))
             ->add('round_minutes', IntegerType::class, array(
                 'required' => false,
-                'empty_data' => $round_minutes))
+                'empty_data' => $roundMinutes))
             ->add('round_seconds', IntegerType::class, array(
                 'required' => false,
-                'empty_data' => $round_seconds))
+                'empty_data' => $roundSeconds))
             ->add('pause_minutes', IntegerType::class, array(
                 'required' => false,
-                'empty_data' => $pause_minutes))
+                'empty_data' => $pauseMinutes))
             ->add('pause_seconds', IntegerType::class, array(
                 'required' => false,
-                'empty_data' => $pause_seconds))
+                'empty_data' => $pauseSeconds))
         ;
     }
 
