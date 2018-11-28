@@ -27,11 +27,6 @@ class FormatEvent
      */
     private $numberOfPlayers;
 
-    public function __construct()
-    {
-        $this->roundEvents = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
