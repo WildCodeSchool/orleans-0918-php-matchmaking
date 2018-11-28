@@ -13,8 +13,14 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
+    const NEW_MANAGER_ROLE=["ROLE_MANAGER"];
+    const DEFAULT_ACTIVATION=false;
+    const DEFAULT_PASSWORD="";
+
     /**
+     * @param AuthenticationUtils $authenticationUtils
      * @Route("/login", name="app_login")
+     * @return Response
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
@@ -39,9 +45,9 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setActivated(false);
-            $user->setPassword("");
-            $user->setRoles(["ROLE_MANAGER"]);
+            $user->setActivated(self::DEFAULT_ACTIVATION);
+            $user->setPassword(self::DEFAULT_PASSWORD);
+            $user->setRoles(self::NEW_MANAGER_ROLE);
             $em->persist($user);
             $em->flush();
         }
