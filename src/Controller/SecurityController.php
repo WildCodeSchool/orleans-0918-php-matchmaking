@@ -13,10 +13,6 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
-    const NEW_MANAGER_ROLE=["ROLE_MANAGER"];
-    const DEFAULT_ACTIVATION=false;
-    const DEFAULT_PASSWORD="";
-
     /**
      * @param AuthenticationUtils $authenticationUtils
      * @Route("/login", name="app_login")
@@ -30,28 +26,5 @@ class SecurityController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
-    }
-
-    /**
-     * @Route("/manager/manager", name="app_manager")
-     * @param Request $request
-     * @param EntityManagerInterface $em
-     * @return Response
-     */
-    public function newManager(Request $request, EntityManagerInterface $em): Response
-    {
-        $user=new User();
-        $form=$this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user->setActivated(self::DEFAULT_ACTIVATION);
-            $user->setPassword(self::DEFAULT_PASSWORD);
-            $user->setRoles(self::NEW_MANAGER_ROLE);
-            $em->persist($user);
-            $em->flush();
-        }
-
-        return $this->render('security/new_manager.html.twig', ['form' => $form->createView()]);
     }
 }
