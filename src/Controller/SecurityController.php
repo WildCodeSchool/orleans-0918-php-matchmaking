@@ -33,7 +33,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/manager", name="app_manager")
+     * @Route("/manager/manager", name="app_manager")
      * @param Request $request
      * @param EntityManagerInterface $em
      * @return Response
