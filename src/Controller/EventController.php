@@ -11,6 +11,22 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class EventController extends AbstractController
 {
+
+    /**
+     * @Route("manager/events", name="event_list")
+     */
+    public function list(): Response
+    {
+        $events = $this
+            ->getDoctrine()
+            ->getRepository(Event::class)
+            ->findAll();
+
+        return $this->render('event/list.html.twig', [
+            'events' => $events,
+        ]);
+    }
+    
     /**
      * @Route("admin/event/add", name="event_add")
      */
@@ -29,6 +45,13 @@ class EventController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
             $em->flush();
+
+            $this->addFlash(
+                'success',
+                'Votre événement à été ajouté !'
+            );
+
+            return $this->redirectToRoute('event_list');
         }
 
         return $this->render('event/add.html.twig', [
