@@ -10,16 +10,12 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use App\Entity\Timer;
 
 class EventType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $roundMinutes = "10";
-        $roundSeconds = "20";
-        $pauseMinutes = "30";
-        $pauseSeconds = "50";
-
         $currentDate = new \DateTime();
 
         $builder
@@ -27,18 +23,10 @@ class EventType extends AbstractType
             ->add('description', TextareaType::class)
             ->add('date', DateTimeType::class, array(
                 'data' => $currentDate))
-            ->add('roundMinutes', IntegerType::class, array(
-                'required' => false,
-                'empty_data' => $roundMinutes))
-            ->add('roundSeconds', IntegerType::class, array(
-                'required' => false,
-                'empty_data' => $roundSeconds))
-            ->add('pauseMinutes', IntegerType::class, array(
-                'required' => false,
-                'empty_data' => $pauseMinutes))
-            ->add('pauseSeconds', IntegerType::class, array(
-                'required' => false,
-                'empty_data' => $pauseSeconds))
+            ->add('roundMinutes', IntegerType::class)
+            ->add('roundSeconds', IntegerType::class)
+            ->add('pauseMinutes', IntegerType::class)
+            ->add('pauseSeconds', IntegerType::class)
         ;
     }
 
