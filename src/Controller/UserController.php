@@ -17,6 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UserController extends AbstractController
 {
+    const NEW_ADMIN_ROLE=["ROLE_ADMIN", "ROLE_MANAGER"];
     const NEW_MANAGER_ROLE=["ROLE_MANAGER"];
     const DEFAULT_ACTIVATION=false;
     const DEFAULT_PASSWORD="";
@@ -50,6 +51,29 @@ class UserController extends AbstractController
         }
 
         return $this->render('user/new_manager.html.twig', ['form' => $form->createView()]);
+    }
+
+    /**
+     * @Route("/admin", name="app_admin")
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @return Response
+     */
+    public function newAdmin(Request $request, EntityManagerInterface $em): Response
+    {
+        $user=new User();
+        $form=$this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user->setActivated(self::DEFAULT_ACTIVATION);
+            $user->setPassword(self::DEFAULT_PASSWORD);
+            $user->setRoles(self::NEW_ADMIN_ROLE);
+            $em->persist($user);
+            $em->flush();
+        }
+
+        return $this->render('user/new_admin.html.twig', ['form' => $form->createView()]);
     }
 
     /**
