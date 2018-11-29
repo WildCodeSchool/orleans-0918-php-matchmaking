@@ -6,6 +6,7 @@ $fontNavbarTitle:BrandonBold, Arial, sans-serif;
 $colorTitleProjetIO:#FF9800;
 $colorBackgroundProjetIO:#343a40;
 $colorBtnProjetIO:#17a2b8;
+$borderColorH1: #000000;
 
 @font-face {
     font-family: BrandonBold;
@@ -32,4 +33,12 @@ body {
             color: $colorBtnProjetIO;
         }
     }
+}
+
+h1 {
+    text-align: center;
+    padding: 0.2em;
+    margin: auto;
+    margin-top: 1em;
+    border: 1px solid $borderColorH1;
 }
