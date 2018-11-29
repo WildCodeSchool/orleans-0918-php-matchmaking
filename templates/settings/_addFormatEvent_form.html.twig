@@ -6,7 +6,7 @@
 
 {% for label, messages in app.flashes %}
     {% for message in messages %}
-        <div class="row">
+        <div class="row mt-3">
             <div class="col-12 alert alert-dismissible alert-{{ label }} flash-{{ label }}">
                 {{ message }}
             </div>
