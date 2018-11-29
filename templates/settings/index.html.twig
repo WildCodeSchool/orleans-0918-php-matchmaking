@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Paramètres - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Paramètres</h1>
+        <hr class="w-75 mx-auto">
+        {% include 'settings/_addFormatEvent_form.html.twig' %}
+    </div>
+{% endblock %}
