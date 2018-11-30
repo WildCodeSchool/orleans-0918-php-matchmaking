@@ -18,10 +18,8 @@ class EventController extends AbstractController
      */
     public function index(EventRepository $eventRepository): Response
     {
-        $events = $eventRepository->findAll();
-
         return $this->render('event/list.html.twig', [
-            'events' => $events,
+            'events' => $eventRepository->findAll(),
         ]);
     }
     
