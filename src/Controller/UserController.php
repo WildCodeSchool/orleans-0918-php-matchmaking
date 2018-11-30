@@ -62,7 +62,7 @@ class UserController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'Votre utilisateur à été créé !'
+                'Votre utilisateur a été créé !'
             );
         } else {
             $this->addFlash(
