@@ -8,27 +8,20 @@
 <div class="container">
     <h1 class="text-center">Éditer un événement</h1>
    
-    {{ form_start(form) }}
-    {{ form_row(form.title, {'label': 'Titre'}) }}
-    {{ form_row(form.description) }}
-    {{ form_row(form.date, {'label': 'Date / Heure'}) }}
+    {{ form_start(formEdit) }}
+    {{ form_row(formEdit.title, {'label': 'Titre'}) }}
+    {{ form_row(formEdit.description) }}
+    {{ form_row(formEdit.date, {'label': 'Date / Heure'}) }}
     <hr />
     <h4>Gestion des timers</h4>
 
-    {% for flashMessage in app.flashes('success') %}
-        <div class="alert alert-dismissible alert-success">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            {{ flashMessage }}
-        </div>
-    {% endfor %}
-
     <div class="row">
-        <div class="col-md-3 col-ms-6">{{ form_row(form.roundMinutes, {'label': 'Temps de tour (minutes)'}) }}</div>
-        <div class="col-md-3 col-ms-6">{{ form_row(form.roundSeconds, {'label': 'Temps de tour (secondes)'}) }}</div>
-        <div class="col-md-3 col-ms-6">{{ form_row(form.pauseMinutes, {'label': 'Temps de pause (minutes)'}) }}</div>
-        <div class="col-md-3 col-ms-6">{{ form_row(form.pauseSeconds, {'label': 'Temps de pause (secondes)'}) }}</div>
+        <div class="col-md-3 col-ms-6">{{ form_row(formEdit.roundMinutes, {'label': 'Temps de tour (minutes)'}) }}</div>
+        <div class="col-md-3 col-ms-6">{{ form_row(formEdit.roundSeconds, {'label': 'Temps de tour (secondes)'}) }}</div>
+        <div class="col-md-3 col-ms-6">{{ form_row(formEdit.pauseMinutes, {'label': 'Temps de pause (minutes)'}) }}</div>
+        <div class="col-md-3 col-ms-6">{{ form_row(formEdit.pauseSeconds, {'label': 'Temps de pause (secondes)'}) }}</div>
     </div>
     <button class="btn btn btn-primary btn-lg btn-block">{{ button_label|default('Valider') }}</button>
-    {{ form_end(form) }}
+    {{ form_end(formEdit) }}
 </div>
 {% endblock %}
