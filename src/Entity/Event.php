@@ -44,7 +44,10 @@ class Event
     private $description;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
+     * @Assert\NotBlank(
+     * message = "La valeur ne peut être nulle"
+     * )
      * @Assert\GreaterThanOrEqual(
      * value = 0,
      * message = "La valeur ne peut être inférieure à 0"
@@ -53,7 +56,10 @@ class Event
     private $roundMinutes;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
+     * @Assert\NotBlank(
+     * message = "La valeur ne peut être nulle"
+     * )
      * @Assert\LessThan(
      * value = 60,
      * message = "La valeur ne peut être supérieure à 59"
@@ -66,7 +72,10 @@ class Event
     private $roundSeconds;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
+     * @Assert\NotBlank(
+     * message = "La valeur ne peut être nulle"
+     * )
      * @Assert\GreaterThanOrEqual(
      * value = 0,
      * message = "La valeur ne peut être inférieure à 0"
@@ -75,7 +84,10 @@ class Event
     private $pauseMinutes;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
+     * @Assert\NotBlank(
+     * message = "La valeur ne peut être nulle"
+     * )
      * @Assert\LessThan(
      * value = 60,
      * message = "La valeur ne peut être supérieure à 59"
