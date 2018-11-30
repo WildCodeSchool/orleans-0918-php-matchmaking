@@ -41,7 +41,7 @@ class EventController extends AbstractController
         $event->setRoundSeconds($timer->getRoundSeconds());
         $event->setPauseMinutes($timer->getPauseMinutes());
         $event->setPauseSeconds($timer->getPauseSeconds());
-        $event->setDate($todayDate);        
+        $event->setDate($todayDate);
 
         $form = $this->createForm(
             EventType::class,
