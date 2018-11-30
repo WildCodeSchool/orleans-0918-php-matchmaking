@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Timer;
 
 class EventController extends AbstractController
 {
@@ -17,6 +18,15 @@ class EventController extends AbstractController
     public function add(Request $request): Response
     {
         $event = new Event();
+
+        $timer = $this->getDoctrine()
+            ->getRepository(Timer::class)
+            ->findOneBy([], ['id' => 'desc'], 1, 0);
+
+        $event->setRoundMinutes($timer->getRoundMinutes());
+        $event->setRoundSeconds($timer->getRoundSeconds());
+        $event->setPauseMinutes($timer->getPauseMinutes());
+        $event->setPauseSeconds($timer->getPauseSeconds());
 
         $form = $this->createForm(
             EventType::class,
