@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Exception\CsvException;
 use App\Form\FormatEventType;
-use App\Service\Csv;
+use App\Service\CsvFormatEvent;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,10 +20,10 @@ class SettingsController extends AbstractController
     /**
      * @Route("/settings", name="settings")
      * @param Request $request
-     * @param Csv $csv
+     * @param CsvFormatEvent $csvFormatEvent
      * @return Response
      */
-    public function index(Request $request, Csv $csv): Response
+    public function index(Request $request, CsvFormatEvent $csvFormatEvent): Response
     {
         // Add FormatEvent
         $formAddFormatEvent = $this->createForm(FormatEventType::class);
@@ -31,10 +31,12 @@ class SettingsController extends AbstractController
 
         if ($formAddFormatEvent->isSubmitted() && $formAddFormatEvent->isValid()) {
             $datasets = $formAddFormatEvent->getData();
-            $csv->setPath($datasets['csvFile']->getPathName());
+            $csvFormatEvent->setCsvName($datasets['name']);
+            $csvFormatEvent->setPath($datasets['csvFile']->getPathName());
 
             try {
-                $csv->validate();
+                $csvFormatEvent->validate();
+                $csvFormatEvent->import();
             } catch (CsvException $csvException) {
                 $this->addFlash(
                     'danger',
