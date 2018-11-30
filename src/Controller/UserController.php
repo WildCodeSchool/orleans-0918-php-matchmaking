@@ -6,7 +6,6 @@ use App\Entity\User;
 use App\Form\User1Type;
 use App\Form\UserType;
 use App\Repository\UserRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,12 +39,11 @@ class UserController extends AbstractController
     }
 
     /**
-     * @param UserRepository $userRepository
      * @param Request $request
      * @return Response
      * @Route("/manager/update", name="app_manager_update", methods="POST")
      */
-    public function updateManager(Request $request, UserRepository $userRepository): Response
+    public function updateManager(Request $request): Response
     {
         $form=$this->createForm(UserType::class);
         $form->handleRequest($request);
