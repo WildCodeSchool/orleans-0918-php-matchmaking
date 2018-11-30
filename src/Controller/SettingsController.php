@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\FormatEvent;
 use App\Entity\Timer;
 use App\Form\TimerType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -32,10 +33,16 @@ class SettingsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
         }
+  
+        // FormatEvents List
+        $formatEvents = $this->getDoctrine()
+            ->getRepository(FormatEvent::class)
+            ->findBy([], ['numberOfPlayers' => 'ASC']);
 
         return $this->render('settings/index.html.twig', [
             'timer' => $timer,
             'formTimer' => $form->createView(),
+            'formatEvents' => $formatEvents,
         ]);
     }
 }

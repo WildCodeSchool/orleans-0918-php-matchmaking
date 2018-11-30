@@ -1,10 +1,14 @@
 {% extends 'base.html.twig' %}
+
 {% block title %}
-    Paramètres
+    Paramètres - {{ parent() }}
 {% endblock %}
+
 {% block body %}
     <div class="container">
         {{ include('settings/_formTimer.html.twig') }}
         <hr/>
+        <hr class="w-75 mx-auto">
+        {% include 'settings/_listFormatEvent.html.twig' %}
     </div>
 {% endblock %}
