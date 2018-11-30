@@ -89,4 +89,23 @@ class EventController extends AbstractController
             'formEdit' => $form->createView(),
         ]);
     }
+
+     /**
+     * @Route("/{id}", name="event_delete", methods="DELETE")
+     */
+    public function delete(Request $request, Event $event): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$event->getId(), $request->request->get('_token'))) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($event);
+            $em->flush();
+
+            $this->addFlash(
+                'success',
+                'Votre événement à été supprimé !'
+            );
+        }
+
+        return $this->redirectToRoute('event_list');
+    }
 }
