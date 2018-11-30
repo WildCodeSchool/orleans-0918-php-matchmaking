@@ -8,13 +8,6 @@
 <div class="event_list container">
     <h1 class="text-center">Liste des événements</h1>
 
-    {% for flashMessage in app.flashes('success') %}
-        <div class="alert alert-dismissible alert-success">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            {{ flashMessage }}
-        </div>
-    {% endfor %}
-
     <a href="{{path('event_add')}}" class="btn btn-primary">Ajouter un événement</a>
 
         {% for event in events %}

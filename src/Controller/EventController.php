@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\EventRepository;
 
 class EventController extends AbstractController
 {
@@ -15,12 +16,9 @@ class EventController extends AbstractController
     /**
      * @Route("manager/events", name="event_list")
      */
-    public function index(): Response
+    public function index(EventRepository $eventRepository): Response
     {
-        $events = $this
-            ->getDoctrine()
-            ->getRepository(Event::class)
-            ->findAll();
+        $events = $eventRepository->findAll();
 
         return $this->render('event/list.html.twig', [
             'events' => $events,
