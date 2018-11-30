@@ -8,10 +8,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Timer;
+use App\Repository\EventRepository;
 
 class EventController extends AbstractController
 {
+
+    /**
+     * @Route("manager/events", name="event_list")
+     */
+    public function index(EventRepository $eventRepository): Response
+    {
+        return $this->render('event/list.html.twig', [
+            'events' => $eventRepository->findAll(),
+        ]);
+    }
+    
     /**
      * @Route("admin/event/add", name="event_add")
      */
@@ -39,6 +50,13 @@ class EventController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
             $em->flush();
+
+            $this->addFlash(
+                'success',
+                'Votre événement à été ajouté !'
+            );
+
+            return $this->redirectToRoute('event_list');
         }
 
         return $this->render('event/add.html.twig', [

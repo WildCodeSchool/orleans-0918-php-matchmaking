@@ -12,6 +12,13 @@
         <header>
             {% include '_navbar.html.twig' %}
         </header>
+        {% for flashMessage in app.flashes('success') %}
+            <div class="alert alert-dismissible alert-success container">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+
         {% block body %}{% endblock %}
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
