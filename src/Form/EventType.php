@@ -21,8 +21,7 @@ class EventType extends AbstractType
         $builder
             ->add('title', TextType::class)
             ->add('description', TextareaType::class)
-            ->add('date', DateTimeType::class, array(
-                'data' => $currentDate))
+            ->add('date', DateTimeType::class)
             ->add('roundMinutes', IntegerType::class)
             ->add('roundSeconds', IntegerType::class)
             ->add('pauseMinutes', IntegerType::class)
