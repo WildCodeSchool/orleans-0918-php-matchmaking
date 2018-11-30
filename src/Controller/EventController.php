@@ -15,7 +15,7 @@ class EventController extends AbstractController
     /**
      * @Route("manager/events", name="event_list")
      */
-    public function list(): Response
+    public function index(): Response
     {
         $events = $this
             ->getDoctrine()
