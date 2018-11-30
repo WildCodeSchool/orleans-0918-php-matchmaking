@@ -6,7 +6,8 @@
 
 {% block body %}
     <div class="container">
-        <h1>Paramètres</h1>
+        {{ include('settings/_formTimer.html.twig') }}
+        <hr/>
         <hr class="w-75 mx-auto">
         {% include 'settings/_listFormatEvent.html.twig' %}
     </div>

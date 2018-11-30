@@ -31,6 +31,15 @@ $borderColorH1: #000000;
     }
 }
 
+.userForm {
+    button {
+        margin-top:32px;
+        &:hover {
+            margin-top:33px !important;
+        }
+    }
+}
+
 h1 {
     text-align: center;
     padding: 0.2em;
