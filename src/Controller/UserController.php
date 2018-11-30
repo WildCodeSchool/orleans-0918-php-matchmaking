@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/manager")
+ * @Route("/user")
  */
 class UserController extends AbstractController
 {
@@ -22,34 +22,56 @@ class UserController extends AbstractController
     const DEFAULT_PASSWORD="";
 
     /**
-     * @Route("/", name="user_index", methods="GET")
+     * @param UserRepository $userRepository
+     * @return Response
+     * @Route("/manager", name="app_manager", methods="GET|POST")
      */
-    public function index(UserRepository $userRepository): Response
+    public function listManager(UserRepository $userRepository): Response
     {
-        return $this->render('user/index.html.twig', ['users' => $userRepository->findAll()]);
+
+        $form=$this->createForm(UserType::class, null, [
+        'action' => $this->generateUrl('app_manager_update'),
+        'method' => 'POST',
+        ]);
+        return $this->render('user/manager.html.twig', [
+            'form' => $form->createView(),
+            'users' => $userRepository->findAll()
+        ]);
     }
 
     /**
-     * @Route("/manager", name="app_manager")
+     * @param UserRepository $userRepository
      * @param Request $request
-     * @param EntityManagerInterface $em
      * @return Response
+     * @Route("/manager/update", name="app_manager_update", methods="POST")
      */
-    public function newManager(Request $request, EntityManagerInterface $em): Response
+    public function updateManager(Request $request, UserRepository $userRepository): Response
     {
-        $user=new User();
-        $form=$this->createForm(UserType::class, $user);
+        $form=$this->createForm(UserType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user = $form->getData();
+
             $user->setActivated(self::DEFAULT_ACTIVATION);
             $user->setPassword(self::DEFAULT_PASSWORD);
             $user->setRoles(self::NEW_MANAGER_ROLE);
-            $em->persist($user);
-            $em->flush();
+
+            $this->getDoctrine()->getManager()->persist($user);
+            $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash(
+                'success',
+                'Votre utilisateur à été créé !'
+            );
+        } else {
+            $this->addFlash(
+                'error',
+                'Les données que vous avez saisies ne sont pas valides.'
+            );
         }
 
-        return $this->render('user/new_manager.html.twig', ['form' => $form->createView()]);
+        return $this->redirectToRoute('app_manager');
     }
 
     /**
