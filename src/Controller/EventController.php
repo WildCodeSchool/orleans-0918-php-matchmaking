@@ -30,6 +30,15 @@ class EventController extends AbstractController
     {
         $event = new Event();
 
+        $timer = $this->getDoctrine()
+            ->getRepository(Timer::class)
+            ->findOneBy([], ['id' => 'desc'], 1, 0);
+
+        $event->setRoundMinutes($timer->getRoundMinutes());
+        $event->setRoundSeconds($timer->getRoundSeconds());
+        $event->setPauseMinutes($timer->getPauseMinutes());
+        $event->setPauseSeconds($timer->getPauseSeconds());
+
         $form = $this->createForm(
             EventType::class,
             $event,
@@ -52,6 +61,31 @@ class EventController extends AbstractController
 
         return $this->render('event/add.html.twig', [
             'formEvent' => $form->createView(),
+        ]);
+    }
+
+     /**
+     * @Route("/manager/event/edit/{id}", name="event_edit", methods="GET|POST")
+     */
+    public function edit(Request $request, Event $event): Response
+    {
+        $form = $this->createForm(EventType::class, $event);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash(
+                'success',
+                'Votre événement à bien été modifié !'
+            );
+
+            return $this->redirectToRoute('event_list');
+        }
+
+        return $this->render('event/edit.html.twig', [
+            'event' => $event,
+            'formEdit' => $form->createView(),
         ]);
     }
 }
