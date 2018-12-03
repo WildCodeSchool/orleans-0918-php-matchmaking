@@ -49,7 +49,7 @@ class SettingsController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'Vos modifications ont été enregistrées.'
+                'Le nouveau format a été ajouté.'
             );
         }
 

@@ -47,10 +47,13 @@ class CsvFormatEvent extends Csv
             throw new CsvException('L\'en-tête de votre fichier doit être : Table, Player, Round 1, Round 2, etc.');
         }
 
-        // Check Grid Round
+        // Check if format not already exists and verify Grid Round
         $nbRound = count($headerCsv) - 2;
         $validGridRound = ($nbRound - 1) ** 2;
         $this->setNumberOfPlayers($validGridRound);
+        if (!$this->checkFormatEventExists()) {
+            throw new CsvException('Ce format est déjà présent dans la base.');
+        }
         if ($validGridRound !== ($nbLineInCsv - 1)) {
             throw new CsvException('Votre matrice n\'est pas valide.');
         }
@@ -247,6 +250,19 @@ class CsvFormatEvent extends Csv
         }
 
         return $result;
+    }
+
+    /**
+     * Check if the format event already exists
+     * @return bool
+     */
+    public function checkFormatEventExists() : bool
+    {
+        $formatEvent = $this->getEm()
+            ->getRepository(FormatEvent::class)
+            ->findBy(['numberOfPlayers' => $this->getNumberOfPlayers()], [], 1, 0);
+
+        return empty($formatEvent);
     }
 
     /**
