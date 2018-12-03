@@ -15,11 +15,11 @@ class EventController extends AbstractController
 {
 
     /**
-     * @Route("manager/events", name="event_list")
+     * @Route("manager/events", name="event_index")
      */
     public function index(EventRepository $eventRepository): Response
     {
-        return $this->render('event/list.html.twig', [
+        return $this->render('event/index.html.twig', [
             'events' => $eventRepository->findAll(),
         ]);
     }
@@ -57,7 +57,7 @@ class EventController extends AbstractController
                 'Votre événement à été ajouté !'
             );
 
-            return $this->redirectToRoute('event_list');
+            return $this->redirectToRoute('event_index');
         }
 
         return $this->render('event/add.html.twig', [
@@ -81,12 +81,31 @@ class EventController extends AbstractController
                 'Votre événement à bien été modifié !'
             );
 
-            return $this->redirectToRoute('event_list');
+            return $this->redirectToRoute('event_index');
         }
 
         return $this->render('event/edit.html.twig', [
             'event' => $event,
             'formEdit' => $form->createView(),
         ]);
+    }
+
+     /**
+     * @Route("/{id}", name="event_delete", methods="DELETE")
+     */
+    public function delete(Request $request, Event $event): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$event->getId(), $request->request->get('_token'))) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($event);
+            $em->flush();
+
+            $this->addFlash(
+                'success',
+                'Votre événement à été supprimé !'
+            );
+        }
+
+        return $this->redirectToRoute('event_index');
     }
 }
