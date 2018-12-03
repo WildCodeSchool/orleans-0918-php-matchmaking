@@ -23,13 +23,13 @@ class UserController extends AbstractController
     /**
      * @param UserRepository $userRepository
      * @return Response
-     * @Route("/manager", name="app_manager", methods="GET|POST")
+     * @Route("/manager", name="manager_index", methods="GET|POST")
      */
-    public function listManager(UserRepository $userRepository): Response
+    public function indexManager(UserRepository $userRepository): Response
     {
 
         $form=$this->createForm(UserType::class, null, [
-        'action' => $this->generateUrl('app_manager_update'),
+        'action' => $this->generateUrl('manager_update'),
         'method' => 'POST',
         ]);
         return $this->render('user/manager.html.twig', [
@@ -41,7 +41,7 @@ class UserController extends AbstractController
     /**
      * @param Request $request
      * @return Response
-     * @Route("/manager/update", name="app_manager_update", methods="POST")
+     * @Route("/manager/update", name="manager_update", methods="POST")
      */
     public function updateManager(Request $request): Response
     {
@@ -69,7 +69,7 @@ class UserController extends AbstractController
             );
         }
 
-        return $this->redirectToRoute('app_manager');
+        return $this->redirectToRoute('manager_index');
     }
 
     /**
