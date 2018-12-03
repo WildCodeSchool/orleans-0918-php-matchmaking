@@ -54,7 +54,7 @@ class EventController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'Votre événement à été ajouté !'
+                'Votre événement a été ajouté !'
             );
 
             return $this->redirectToRoute('event_list');
@@ -78,7 +78,7 @@ class EventController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'Votre événement à bien été modifié !'
+                'Votre événement a bien été modifié !'
             );
 
             return $this->redirectToRoute('event_list');
