@@ -64,7 +64,7 @@ class UserController extends AbstractController
             );
         } else {
             $this->addFlash(
-                'error',
+                'danger',
                 'Les données que vous avez saisies ne sont pas valides.'
             );
         }
