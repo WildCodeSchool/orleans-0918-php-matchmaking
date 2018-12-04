@@ -15,11 +15,11 @@ class EventController extends AbstractController
 {
 
     /**
-     * @Route("manager/events", name="event_list")
+     * @Route("manager/events", name="event_index")
      */
     public function index(EventRepository $eventRepository): Response
     {
-        return $this->render('event/list.html.twig', [
+        return $this->render('event/index.html.twig', [
             'events' => $eventRepository->findAll(),
         ]);
     }
@@ -60,7 +60,7 @@ class EventController extends AbstractController
                 'Votre événement à été ajouté !'
             );
 
-            return $this->redirectToRoute('event_list');
+            return $this->redirectToRoute('event_index');
         }
 
         return $this->render('event/add.html.twig', [
@@ -84,7 +84,7 @@ class EventController extends AbstractController
                 'Votre événement à bien été modifié !'
             );
 
-            return $this->redirectToRoute('event_list');
+            return $this->redirectToRoute('event_index');
         }
 
         return $this->render('event/edit.html.twig', [
