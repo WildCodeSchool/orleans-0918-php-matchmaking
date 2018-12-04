@@ -57,7 +57,7 @@ class EventController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'Votre événement à été ajouté !'
+                'Votre événement a été ajouté !'
             );
 
             return $this->redirectToRoute('event_index');
@@ -81,7 +81,7 @@ class EventController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'Votre événement à bien été modifié !'
+                'Votre événement a bien été modifié !'
             );
 
             return $this->redirectToRoute('event_index');
@@ -91,5 +91,24 @@ class EventController extends AbstractController
             'event' => $event,
             'formEdit' => $form->createView(),
         ]);
+    }
+
+     /**
+     * @Route("/{id}", name="event_delete", methods="DELETE")
+     */
+    public function delete(Request $request, Event $event): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$event->getId(), $request->request->get('_token'))) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($event);
+            $em->flush();
+
+            $this->addFlash(
+                'success',
+                'Votre événement à été supprimé !'
+            );
+        }
+
+        return $this->redirectToRoute('event_index');
     }
 }

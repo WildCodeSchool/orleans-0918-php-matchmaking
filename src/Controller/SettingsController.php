@@ -32,6 +32,11 @@ class SettingsController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash(
+                'success',
+                'Les Timers ont été mis à jour.'
+            );
         }
   
         // FormatEvents List
