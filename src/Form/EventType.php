@@ -23,6 +23,7 @@ class EventType extends AbstractType
         $builder
             ->add('title', TextType::class)
             ->add('description', TextareaType::class)
+            ->add('date', DateTimeType::class)
             ->add('formatEvent', EntityType::class, [
                 'class' => FormatEvent::class,
                 'choice_label' => 'name',
@@ -31,8 +32,6 @@ class EventType extends AbstractType
                         ->orderBy('f.numberOfPlayers', 'ASC');
                 }
             ])
-            ->add('date', DateTimeType::class, array(
-                'data' => $currentDate))
             ->add('roundMinutes', IntegerType::class)
             ->add('roundSeconds', IntegerType::class)
             ->add('pauseMinutes', IntegerType::class)

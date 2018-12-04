@@ -20,7 +20,7 @@ class EventController extends AbstractController
     public function index(EventRepository $eventRepository): Response
     {
         return $this->render('event/index.html.twig', [
-            'events' => $eventRepository->findAll(),
+            'events' => $eventRepository->findBy([], ['date' => 'DESC']),
         ]);
     }
     
@@ -35,10 +35,13 @@ class EventController extends AbstractController
             ->getRepository(Timer::class)
             ->findOneBy([], ['id' => 'desc'], 1, 0);
 
+        $todayDate = new \DateTime();
+
         $event->setRoundMinutes($timer->getRoundMinutes());
         $event->setRoundSeconds($timer->getRoundSeconds());
         $event->setPauseMinutes($timer->getPauseMinutes());
         $event->setPauseSeconds($timer->getPauseSeconds());
+        $event->setDate($todayDate);
 
         $form = $this->createForm(
             EventType::class,
