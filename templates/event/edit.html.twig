@@ -11,6 +11,13 @@
     {{ form_start(formEdit) }}
     {{ form_row(formEdit.title, {'label': 'Titre'}) }}
     {{ form_row(formEdit.description) }}
+    <hr />
+    <div class="row">
+        <div class="col-lg-6">
+            {{ form_row(formEdit.formatEvent, {'label': 'Format de l\'événement'}) }}
+        </div>
+    </div>
+    <hr />
     {{ form_row(formEdit.date, {'label': 'Date / Heure'}) }}
     <hr />
     <h4>Gestion des timers</h4>
