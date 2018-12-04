@@ -12,8 +12,10 @@
 
         {% for event in events %}
             <div class="row d-flex align-items-center">
-                <div class="col-1"><span class="badge badge-info">[{{ event.date|date('d/m/Y') }}]</span></div>
-                <div class="col-10">{{ event.title }}</div>
+                <div class="col-10 col-xs-12">
+                <span class="badge badge-info">[{{ event.date|date('d/m/Y') }}]</span>
+                <span class="offset-1">{{ event.title }}</span>
+            </div>
                 <div class="col-1">
                     <a href="{{ path('event_edit', {'id': event.id }) }}" ><i class="fas fa-edit"></i></a>
                 </div>
