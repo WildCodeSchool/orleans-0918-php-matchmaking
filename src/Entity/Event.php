@@ -119,6 +119,7 @@ class Event
     /**
      * @Vich\UploadableField(mapping="logos", fileNameProperty="logo")
      * @var File
+     * @Assert\Image(maxSize="2M",maxSizeMessage="Cette image est trop volumineuse, 2Mo maximum")
      */
     private $logoFile;
 
