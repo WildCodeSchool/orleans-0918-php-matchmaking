@@ -7,7 +7,7 @@ $colorTitleProjetIO:#FF9800;
 $colorBackgroundProjetIO:#343a40;
 $colorBtnProjetIO:#17a2b8;
 $borderColorH1: #000000;
-
+$browse: "Parcourir";
 @font-face {
     font-family: BrandonBold;
     src: url(../../assets/fonts/BrandonText-Bold.otf);
@@ -46,4 +46,8 @@ h1 {
     margin: auto;
     margin-top: 1em;
     border: 1px solid $borderColorH1;
+}
+
+.custom-file-label::after {
+    content: $browse;
 }
