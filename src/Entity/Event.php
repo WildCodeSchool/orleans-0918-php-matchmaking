@@ -99,6 +99,15 @@ class Event
      */
     private $pauseSeconds;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\FormatEvent", inversedBy="events")
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank(
+     * message = "La valeur ne peut être nulle"
+     * )
+     */
+    private $formatEvent;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -196,6 +205,18 @@ class Event
     public function setPauseSeconds(?int $pauseSeconds): self
     {
         $this->pauseSeconds = $pauseSeconds;
+
+        return $this;
+    }
+
+    public function getFormatEvent(): ?FormatEvent
+    {
+        return $this->formatEvent;
+    }
+
+    public function setFormatEvent(?FormatEvent $formatEvent): self
+    {
+        $this->formatEvent = $formatEvent;
 
         return $this;
     }

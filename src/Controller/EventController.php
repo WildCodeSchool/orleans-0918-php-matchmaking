@@ -15,12 +15,12 @@ class EventController extends AbstractController
 {
 
     /**
-     * @Route("manager/events", name="event_list")
+     * @Route("manager/events", name="event_index")
      */
     public function index(EventRepository $eventRepository): Response
     {
-        return $this->render('event/list.html.twig', [
-            'events' => $eventRepository->findAll(),
+        return $this->render('event/index.html.twig', [
+            'events' => $eventRepository->findBy([], ['date' => 'DESC']),
         ]);
     }
     
@@ -35,10 +35,13 @@ class EventController extends AbstractController
             ->getRepository(Timer::class)
             ->findOneBy([], ['id' => 'desc'], 1, 0);
 
+        $todayDate = new \DateTime();
+
         $event->setRoundMinutes($timer->getRoundMinutes());
         $event->setRoundSeconds($timer->getRoundSeconds());
         $event->setPauseMinutes($timer->getPauseMinutes());
         $event->setPauseSeconds($timer->getPauseSeconds());
+        $event->setDate($todayDate);
 
         $form = $this->createForm(
             EventType::class,
@@ -54,10 +57,10 @@ class EventController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'Votre événement à été ajouté !'
+                'Votre événement a été ajouté !'
             );
 
-            return $this->redirectToRoute('event_list');
+            return $this->redirectToRoute('event_index');
         }
 
         return $this->render('event/add.html.twig', [
@@ -78,15 +81,34 @@ class EventController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'Votre événement à bien été modifié !'
+                'Votre événement a bien été modifié !'
             );
 
-            return $this->redirectToRoute('event_list');
+            return $this->redirectToRoute('event_index');
         }
 
         return $this->render('event/edit.html.twig', [
             'event' => $event,
             'formEdit' => $form->createView(),
         ]);
+    }
+
+     /**
+     * @Route("/{id}", name="event_delete", methods="DELETE")
+     */
+    public function delete(Request $request, Event $event): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$event->getId(), $request->request->get('_token'))) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($event);
+            $em->flush();
+
+            $this->addFlash(
+                'success',
+                'Votre événement à été supprimé !'
+            );
+        }
+
+        return $this->redirectToRoute('event_index');
     }
 }

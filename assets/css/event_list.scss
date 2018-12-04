@@ -1,4 +1,7 @@
 .event_list {
+    h1 {
+        margin-bottom: 20px;
+    }
     .btn {
         margin-bottom: 20px;
         margin-left: 20px;
@@ -15,6 +18,9 @@
             :hover {
                 color: rgb(61, 168, 255);;
             }
+        }
+        .btn {
+            margin: 0;
         }
     }
 }
