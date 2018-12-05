@@ -37,7 +37,7 @@ class EventController extends AbstractController
             ->findOneBy([], ['id' => 'desc'], 1, 0);
 
         $todayDate = new \DateTime();
-        $logoDir = new File(__DIR__.'/../../public/images/logos/defaultLogo.png');
+        $logoDir = new File($this->getParameter('kernel.project_dir').'/public/images/logos/defaultLogo.png');
 
         $event->setRoundMinutes($timer->getRoundMinutes());
         $event->setRoundSeconds($timer->getRoundSeconds());
