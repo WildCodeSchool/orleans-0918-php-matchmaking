@@ -14,6 +14,9 @@
         <hr/>
         <div class="row">
             <div class="col-lg-6">
+                {{ form_row(formEdit.formatEvent, {'label': 'Format de l\'événement'}) }}
+            </div>
+            <div class="col-lg-6">
                 {{ form_row(formEdit.logoFile, {'label': 'Modification du logo'}) }}
             </div>
         </div>
@@ -21,7 +24,6 @@
         {{ form_row(formEdit.date, {'label': 'Date / Heure'}) }}
         <hr/>
         <h4>Gestion des timers</h4>
-
         <div class="row">
             <div class="col-md-3 col-ms-6">{{ form_row(formEdit.roundMinutes, {'label': 'Temps de tour (minutes)'}) }}</div>
             <div class="col-md-3 col-ms-6">{{ form_row(formEdit.roundSeconds, {'label': 'Temps de tour (secondes)'}) }}</div>
