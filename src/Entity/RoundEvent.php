@@ -33,10 +33,10 @@ class RoundEvent
     private $formatEvent;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\TableEvent")
+     * @ORM\ManyToOne(targetEntity="App\Entity\TableEvent", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
-    private $TableEvent;
+    private $tableEvent;
 
     public function getId(): ?int
     {
@@ -81,12 +81,12 @@ class RoundEvent
 
     public function getTableEvent(): ?TableEvent
     {
-        return $this->TableEvent;
+        return $this->tableEvent;
     }
 
-    public function setTableEvent(?TableEvent $TableEvent): self
+    public function setTableEvent(?TableEvent $tableEvent): self
     {
-        $this->TableEvent = $TableEvent;
+        $this->tableEvent = $tableEvent;
 
         return $this;
     }

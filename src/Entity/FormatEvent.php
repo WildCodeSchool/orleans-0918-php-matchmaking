@@ -5,9 +5,11 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\FormatEventRepository")
+ * @UniqueEntity("numberOfPlayers")
  */
 class FormatEvent
 {
@@ -24,12 +26,12 @@ class FormatEvent
     private $name;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", unique=true)
      */
     private $numberOfPlayers;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\RoundEvent", mappedBy="formatEvent")
+     * @ORM\OneToMany(targetEntity="App\Entity\RoundEvent", mappedBy="formatEvent", cascade={"persist"})
      */
     private $roundEvents;
 

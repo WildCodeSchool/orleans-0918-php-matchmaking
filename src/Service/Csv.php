@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Exception\CsvException;
 use League\Csv\Reader;
 
 abstract class Csv implements CsvImportInterface, CsvValidatorInterface
@@ -56,13 +57,9 @@ abstract class Csv implements CsvImportInterface, CsvValidatorInterface
             throw new \LogicException('File format is not valid !');
         }
 
-        try {
-            $this->read();
-            $result = $this->_validate();
-            $this->setState($result);
-        } catch (\Exception $e) {
-            $this->setState(false);
-        }
+        $this->read();
+        $result = $this->_validate();
+        $this->setState($result);
 
         return $this->isState();
     }
