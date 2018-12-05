@@ -58,7 +58,7 @@ abstract class Csv implements CsvImportInterface, CsvValidatorInterface
         }
 
         $this->read();
-        $result = $this->_validate();
+        $result = $this->__validate();
         $this->setState($result);
 
         return $this->isState();
@@ -67,7 +67,7 @@ abstract class Csv implements CsvImportInterface, CsvValidatorInterface
     /**
      * @return bool
      */
-    abstract protected function _validate() : bool;
+    abstract protected function __validate() : bool;
 
     /**
      * Import CSV
@@ -78,10 +78,10 @@ abstract class Csv implements CsvImportInterface, CsvValidatorInterface
             throw new \LogicException("Validate method must be call before import method !");
         }
 
-        $this->_import();
+        $this->__import();
     }
 
-    abstract protected function _import() : void;
+    abstract protected function __import() : void;
 
     /**
      * @return string

@@ -32,7 +32,7 @@ class CsvFormatEvent extends Csv
     /**
      * @return bool
      */
-    protected function _validate(): bool
+    protected function __validate(): bool
     {
         $nbLineInCsv = count($this->getDataset());
         $headerCsv = $this->getDataset()[0];
@@ -70,7 +70,7 @@ class CsvFormatEvent extends Csv
     /**
      * Import CSV in database
      */
-    protected function _import(): void
+    protected function __import(): void
     {
         $this->getEm()->getConnection()->beginTransaction();
 

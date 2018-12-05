@@ -6,14 +6,11 @@ $fontNavbarTitle:BrandonBold, Arial, sans-serif;
 $colorTitleProjetIO:#FF9800;
 $colorBackgroundProjetIO:#343a40;
 $colorBtnProjetIO:#17a2b8;
+$browse: "Parcourir";
 
 @font-face {
     font-family: BrandonBold;
     src: url(../../assets/fonts/BrandonText-Bold.otf);
-}
-
-body {
-    background-color: white;
 }
 
 .navbarProjetIO {
@@ -32,4 +29,8 @@ body {
             color: $colorBtnProjetIO;
         }
     }
+}
+
+.custom-file-label::after {
+    content: $browse;
 }
