@@ -32,7 +32,9 @@ class EventType extends AbstractType
                         ->orderBy('f.numberOfPlayers', 'ASC');
                 }
             ])
-            ->add('logoFile', FileType::class)
+            ->add('logoFile', FileType::class, [
+                'required' => false
+            ])
             ->add('roundMinutes', IntegerType::class)
             ->add('roundSeconds', IntegerType::class)
             ->add('pauseMinutes', IntegerType::class)

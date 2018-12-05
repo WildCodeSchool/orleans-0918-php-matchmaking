@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Event;
 use App\Form\EventType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -36,11 +37,14 @@ class EventController extends AbstractController
             ->findOneBy([], ['id' => 'desc'], 1, 0);
 
         $todayDate = new \DateTime();
+        $logoDir = new File(__DIR__.'/../../public/images/logos/defaultLogo.png');
 
         $event->setRoundMinutes($timer->getRoundMinutes());
         $event->setRoundSeconds($timer->getRoundSeconds());
         $event->setPauseMinutes($timer->getPauseMinutes());
         $event->setPauseSeconds($timer->getPauseSeconds());
+        $event->setLogoFile($logoDir);
+        $event->setLogo('defaultLogo.png');
         $event->setDate($todayDate);
 
         $form = $this->createForm(
@@ -60,7 +64,7 @@ class EventController extends AbstractController
                 'Votre événement a été ajouté !'
             );
 
-            return $this->redirectToRoute('event_index');
+             return $this->redirectToRoute('event_index');
         }
 
         return $this->render('event/add.html.twig', [
