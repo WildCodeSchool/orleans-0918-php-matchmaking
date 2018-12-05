@@ -7,6 +7,7 @@ $colorTitleProjetIO:#FF9800;
 $colorBackgroundProjetIO:#343a40;
 $colorBtnProjetIO:#17a2b8;
 $borderColorH1: #000000;
+$listButtonColor: #ffffff;
 
 @font-face {
     font-family: BrandonBold;
@@ -39,6 +40,14 @@ $borderColorH1: #000000;
             margin-top:33px !important;
         }
     }
+}
+
+.createButton {
+    margin-top:30px;
+}
+
+.listButton {
+    background-color:$listButtonColor;
 }
 
 h1 {
