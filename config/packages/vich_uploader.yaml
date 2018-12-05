@@ -5,3 +5,4 @@ vich_uploader:
         logos:
             uri_prefix: /images/logos
             upload_destination: '%kernel.project_dir%/public/images/logos'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer

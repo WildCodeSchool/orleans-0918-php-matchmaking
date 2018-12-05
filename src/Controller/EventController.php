@@ -37,14 +37,13 @@ class EventController extends AbstractController
             ->findOneBy([], ['id' => 'desc'], 1, 0);
 
         $todayDate = new \DateTime();
-        $logoDir = new File($this->getParameter('kernel.project_dir').'/public/images/logos/defaultLogo.png');
+        $logoPath = new File($this->getParameter('kernel.project_dir').'/public/images/logos/defaultLogo.png');
 
         $event->setRoundMinutes($timer->getRoundMinutes());
         $event->setRoundSeconds($timer->getRoundSeconds());
         $event->setPauseMinutes($timer->getPauseMinutes());
         $event->setPauseSeconds($timer->getPauseSeconds());
-        $event->setLogoFile($logoDir);
-        $event->setLogo('defaultLogo.png');
+        $event->setLogoFile($logoPath);
         $event->setDate($todayDate);
 
         $form = $this->createForm(

@@ -115,7 +115,7 @@ class Event
      * @ORM\Column(type="string", length=255)
      * @var string
      */
-    private $logo;
+    private $logo = 'defaultLogo.png';
 
     /**
      * @Vich\UploadableField(mapping="logos", fileNameProperty="logo")
