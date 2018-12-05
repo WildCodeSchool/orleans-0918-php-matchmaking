@@ -1,26 +1,32 @@
-<div class="event_gestionary container text-center">
+{% block stylesheets %}
+     {{ encore_entry_link_tags('event_gestionary') }}
+{% endblock %}
+
+
+<div id="event_gestionary" class="event_gestionary container text-center">
     <hr />
-    <h1 class="text-center">Attribuer des gestionaires</h1>
-    <div class="">
-        <span class="badge badge-primary">
-            Mathieu@caramail.fr
-            <button class="btn btn-link"><i class="fas fa-times"></i></button>
-        </span>
-        <span class="badge badge-primary">
-            User@mail.com
-            <button class="btn btn-link"><i class="fas fa-times"></i></button>
-        </span>
-        <span class="badge badge-primary">
-            User@mail.com
-            <button class="btn btn-link"><i class="fas fa-times"></i></button>
-        </span>
+    <h1 class="text-center">Attribuer des gestionnaires</h1>
+    <div id="badge_list" class="my-3">
     </div>
     <div class="form-group">
         <label class="col-form-label col-form-label-lg" for="gestionaryInput" hidden>Entrez un nom</label>
-        <input class="form-control form-control-lg" type="text" placeholder=".form-control-lg" id="gestionaryInput">
-        <button class="btn btn btn-primary btn-lg btn-block">{{ button_label|default('Valider') }}</button>
+        <input class="form-control form-control-lg text-center" type="text" placeholder="Entrez l'email pour rechercher un gestionnaire" id="gestionaryInput">
+        <div class="gestionary_list list-group">
+            {% for manager in managers %}
+            <a href="#event_gestionary" class="list-group-item list-group-item-action">
+                Email : <strong>{{ manager.email }}</strong>
+                Prénom : <strong>{{ manager.firstName }}</strong> 
+                Nom : <strong>{{ manager.lastName }}</strong>
+            </a>
+                
+            {% endfor %}
+        </div>
+        <button class="btn btn btn-primary btn-lg btn-block my-3">{{ button_label|default('Valider') }}</button>
     </div>
-    <div class="">
 
     </div>
 </div>
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('event_gestionary') }}
+{% endblock %}

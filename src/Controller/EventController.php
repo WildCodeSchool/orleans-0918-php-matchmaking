@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\EventRepository;
 use App\Entity\Timer;
+use App\Entity\User;
 
 class EventController extends AbstractController
 {
@@ -62,6 +63,7 @@ class EventController extends AbstractController
 
         return $this->render('event/add.html.twig', [
             'formEvent' => $form->createView(),
+            'managers' => $this->getDoctrine()->getRepository(User::class)->findAll()
         ]);
     }
 
