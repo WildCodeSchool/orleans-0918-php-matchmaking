@@ -8,6 +8,8 @@ $colorBackgroundProjetIO:#343a40;
 $colorBtnProjetIO:#17a2b8;
 $borderColorH1: #000000;
 $browse: "Parcourir";
+$listButtonColor: #ffffff;
+
 @font-face {
     font-family: BrandonBold;
     src: url(../../assets/fonts/BrandonText-Bold.otf);
@@ -39,6 +41,14 @@ $browse: "Parcourir";
             margin-top:33px !important;
         }
     }
+}
+
+.createButton {
+    margin-top:30px;
+}
+
+.listButton {
+    background-color:$listButtonColor;
 }
 
 h1 {
