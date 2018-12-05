@@ -108,7 +108,7 @@ class UserController extends AbstractController
      */
     public function delete(Request $request, User $user): Response
     {
-        $role=$user->getRoles();
+        $roles=$user->getRoles();
 
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             $em = $this->getDoctrine()->getManager();
@@ -126,7 +126,7 @@ class UserController extends AbstractController
             );
         }
 
-        if ($role[0]=="ROLE_MANAGER") {
+        if (in_array("ROLE_MANAGER", $roles)) {
             return $this->redirectToRoute('manager_index');
         }
     }
