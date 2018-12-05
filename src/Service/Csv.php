@@ -2,19 +2,19 @@
 
 namespace App\Service;
 
-use Doctrine\ORM\EntityManagerInterface;
+use League\Csv\Reader;
 
-class Csv implements CsvImportInterface, CsvValidatorInterface
+abstract class Csv implements CsvImportInterface, CsvValidatorInterface
 {
     /**
      * @var string
      */
-    private $path;
+    private $name;
 
     /**
-     * @var EntityManagerInterface
+     * @var string
      */
-    private $em;
+    private $path;
 
     /**
      * contains CSV data
@@ -28,17 +28,22 @@ class Csv implements CsvImportInterface, CsvValidatorInterface
     private $state = false;
 
     /**
-     * Defined a CSV header Format
+     * @var array
      */
-    const CSV_HEADER_FORMAT = [];
+    private $csvHeaderFormat = [];
 
-    public function __construct(EntityManagerInterface $em)
+    /**
+     * Read CSV file
+     */
+    public function read(): void
     {
-        $this->em = $em;
+        $csv = Reader::createFromPath($this->getPath());
+        $recordsIterator = $csv->getRecords();
+        $this->setDataset(iterator_to_array($recordsIterator));
     }
 
     /**
-     * Verify if CSV file is correctly formating
+     * Valid CSV
      * @return bool
      */
     public function validate(): bool
@@ -51,19 +56,70 @@ class Csv implements CsvImportInterface, CsvValidatorInterface
             throw new \LogicException('File format is not valid !');
         }
 
-        $this->setState(true);
+        try {
+            $this->read();
+            $result = $this->_validate();
+            $this->setState($result);
+        } catch (\Exception $e) {
+            $this->setState(false);
+        }
 
         return $this->isState();
     }
 
     /**
-     * Test and Import format in database
+     * @return bool
+     */
+    abstract protected function _validate() : bool;
+
+    /**
+     * Import CSV
      */
     public function import(): void
     {
         if (!$this->isState()) {
             throw new \LogicException("Validate method must be call before import method !");
         }
+
+        $this->_import();
+    }
+
+    abstract protected function _import() : void;
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     * @return Csv
+     */
+    public function setName(string $name): Csv
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath(): string
+    {
+        return $this->path;
+    }
+
+    /**
+     * @param string $path
+     * @return Csv
+     */
+    public function setPath(string $path): Csv
+    {
+        $this->path = $path;
+        return $this;
     }
 
     /**
@@ -84,7 +140,6 @@ class Csv implements CsvImportInterface, CsvValidatorInterface
         return $this;
     }
 
-
     /**
      * @return bool
      */
@@ -104,38 +159,20 @@ class Csv implements CsvImportInterface, CsvValidatorInterface
     }
 
     /**
-     * @return EntityManagerInterface
+     * @return array
      */
-    public function getEm(): EntityManagerInterface
+    public function getCsvHeaderFormat(): array
     {
-        return $this->em;
+        return $this->csvHeaderFormat;
     }
 
     /**
-     * @param EntityManagerInterface $em
+     * @param array $csvHeaderFormat
      * @return Csv
      */
-    public function setEm(EntityManagerInterface $em): Csv
+    public function setCsvHeaderFormat(array $csvHeaderFormat): Csv
     {
-        $this->em = $em;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPath(): string
-    {
-        return $this->path;
-    }
-
-    /**
-     * @param string $path
-     * @return Csv
-     */
-    public function setPath(string $path): Csv
-    {
-        $this->path = $path;
+        $this->csvHeaderFormat = $csvHeaderFormat;
         return $this;
     }
 }

@@ -30,9 +30,9 @@ class SettingsController extends AbstractController
         $formAddFormatEvent->handleRequest($request);
 
         if ($formAddFormatEvent->isSubmitted() && $formAddFormatEvent->isValid()) {
-            $datasets = $formAddFormatEvent->getData();
-            $csvFormatEvent->setCsvName($datasets['name']);
-            $csvFormatEvent->setPath($datasets['csvFile']->getPathName());
+            $dataset = $formAddFormatEvent->getData();
+            $csvFormatEvent->setName($dataset['name']);
+            $csvFormatEvent->setPath($dataset['csvFile']->getPathName());
 
             try {
                 $csvFormatEvent->validate();

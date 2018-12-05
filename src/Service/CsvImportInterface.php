@@ -9,7 +9,7 @@ namespace App\Service;
 interface CsvImportInterface
 {
     /**
-     * Import CSV in database
+     * Import CSV
      */
     public function import() : void;
 }
