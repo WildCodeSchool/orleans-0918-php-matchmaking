@@ -28,5 +28,5 @@ yarn-error.log
 /.phpcs-cache
 /phpcs.xml
 ###< squizlabs/php_codesniffer ###
-/public/build/images/logos/*
-!/public/build/images/logos/defaultLogo.png
+/public/images/logos/*
+!/public/images/logos/defaultLogo.png
