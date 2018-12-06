@@ -39,7 +39,7 @@ class Player
      * @ORM\Column(type="string", nullable=true, length=10)
      * @Assert\Length(
      * max=10,
-     * maxMessage = "La valeur ne peut être supérieure à 10"
+     * maxMessage = "Le numéro de téléphone n'est pas valide"
      * )
      */
     private $phoneNumber;

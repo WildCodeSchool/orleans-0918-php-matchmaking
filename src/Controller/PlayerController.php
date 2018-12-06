@@ -32,6 +32,11 @@ class PlayerController extends AbstractController
             $em->persist($player);
             $em->flush();
 
+            $this->addFlash(
+                'success',
+                'Les Timers ont été mis à jour.'
+            );
+
             return $this->redirectToRoute('player');
         }
 
