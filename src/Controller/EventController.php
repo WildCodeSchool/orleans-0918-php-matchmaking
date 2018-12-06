@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\EventRepository;
 use App\Entity\Timer;
+use Knp\Component\Pager\PaginatorInterface;
 
 class EventController extends AbstractController
 {
@@ -17,10 +18,19 @@ class EventController extends AbstractController
     /**
      * @Route("manager/events", name="event_index")
      */
-    public function index(EventRepository $eventRepository): Response
+    public function index(Request $request, EventRepository $eventRepository, PaginatorInterface $paginator): Response
     {
+        $em = $this->getDoctrine()->getmanager()->getRepository(Event::class);
+        $events = $em->findBy([], ['date'=>'DESC']);
+
+        $result = $paginator->paginate(
+            $events,
+            $request->query->getInt('page', 1),
+            $request->query->getInt('limit', 2)
+        );
+
         return $this->render('event/index.html.twig', [
-            'events' => $eventRepository->findBy([], ['date' => 'DESC']),
+            'events' => $result,
         ]);
     }
     
