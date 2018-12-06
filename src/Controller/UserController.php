@@ -69,7 +69,6 @@ class UserController extends AbstractController
                     'Cet e-mail est déjà utilisé !'
                 );
             }
-
         } elseif ($form->isSubmitted() && $form->isValid() && $request->request->has('edit')) {
             $editedUser = $form->getData();
 
