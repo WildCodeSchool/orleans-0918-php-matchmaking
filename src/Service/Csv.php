@@ -2,7 +2,6 @@
 
 namespace App\Service;
 
-use App\Exception\CsvException;
 use League\Csv\Reader;
 
 abstract class Csv implements CsvImportInterface, CsvValidatorInterface
