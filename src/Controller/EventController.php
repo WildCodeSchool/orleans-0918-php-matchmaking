@@ -26,7 +26,7 @@ class EventController extends AbstractController
         $result = $paginator->paginate(
             $events,
             $request->query->getInt('page', 1),
-            $request->query->getInt('limit', 2)
+            $request->query->getInt('limit',6)
         );
 
         return $this->render('event/index.html.twig', [
