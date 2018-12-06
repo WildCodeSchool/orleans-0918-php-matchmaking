@@ -7,6 +7,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class EventFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -17,6 +18,7 @@ class EventFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager)
     {
+        $date = new \DateTime();
         $faker = Faker\Factory::create('fr_FR');
         for ($i = 0; $i < 10; $i++) {
             $event = new Event();
@@ -27,6 +29,8 @@ class EventFixtures extends Fixture implements DependentFixtureInterface
             $event->setPauseSeconds(rand(0, 59));
             $event->setRoundMinutes(rand(1, 2));
             $event->setRoundSeconds(rand(0, 59));
+            $event->setUpdatedAt($date);
+            $event->setLogo('defaultLogo.png');
             $manager->persist($event);
             $event->setFormatEvent($this->getReference('formatEvent_' . rand(0, 3)));
         }
