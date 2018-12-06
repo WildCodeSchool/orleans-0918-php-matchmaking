@@ -21,19 +21,19 @@ class EventController extends AbstractController
     public function index(Request $request, EventRepository $eventRepository, PaginatorInterface $paginator): Response
     {
         $em = $this->getDoctrine()->getmanager()->getRepository(Event::class);
-        $events = $em->findBy([], ['date'=>'DESC']);
+        $events = $em->findBy([], ['date' => 'DESC']);
 
         $result = $paginator->paginate(
             $events,
             $request->query->getInt('page', 1),
-            $request->query->getInt('limit',6)
+            $request->query->getInt('limit', 6)
         );
 
         return $this->render('event/index.html.twig', [
-            'events' => $result,
+            'events' => $result
         ]);
     }
-    
+
     /**
      * @Route("admin/event/add", name="event_add")
      */
@@ -78,7 +78,7 @@ class EventController extends AbstractController
         ]);
     }
 
-     /**
+    /**
      * @Route("/manager/event/edit/{id}", name="event_edit", methods="GET|POST")
      */
     public function edit(Request $request, Event $event): Response
@@ -103,12 +103,12 @@ class EventController extends AbstractController
         ]);
     }
 
-     /**
+    /**
      * @Route("/{id}", name="event_delete", methods="DELETE")
      */
     public function delete(Request $request, Event $event): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$event->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $event->getId(), $request->request->get('_token'))) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($event);
             $em->flush();
