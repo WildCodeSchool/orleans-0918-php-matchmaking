@@ -8,7 +8,6 @@
 
 namespace App\Controller;
 
-
 use App\Entity\Player;
 use App\Form\PlayerType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -45,6 +44,4 @@ class PlayerController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
-
 }
