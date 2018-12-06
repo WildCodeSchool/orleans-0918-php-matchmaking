@@ -16,7 +16,7 @@
                 <td>{{ user.lastName }}</td>
                 <td>{{ user.email }}</td>
                 <td><i class="fas fa-pencil-alt"></i></td>
-                <td><i class="fas fa-trash-alt"></i></td>
+                <td>{% include 'user/_delete_form.html.twig' %}</td>
             </tr>
         {% endif %}
     {% else %}
