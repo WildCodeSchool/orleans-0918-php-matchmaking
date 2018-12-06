@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\User1Type;
 use App\Form\UserType;
+use App\Service\EmailUnicity;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,25 +44,55 @@ class UserController extends AbstractController
      * @return Response
      * @Route("/manager/update", name="manager_update", methods="POST")
      */
-    public function updateManager(Request $request): Response
+    public function updateManager(Request $request, EmailUnicity $emailUnicity): Response
     {
         $form=$this->createForm(UserType::class);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && $request->request->has('add')) {
             $user = $form->getData();
+            if ($emailUnicity->verify($user->getEmail())==true) {
+                $user->setActivated(self::DEFAULT_ACTIVATION);
+                $user->setPassword(self::DEFAULT_PASSWORD);
+                $user->setRoles(self::NEW_MANAGER_ROLE);
 
-            $user->setActivated(self::DEFAULT_ACTIVATION);
-            $user->setPassword(self::DEFAULT_PASSWORD);
-            $user->setRoles(self::NEW_MANAGER_ROLE);
+                $this->getDoctrine()->getManager()->persist($user);
+                $this->getDoctrine()->getManager()->flush();
 
-            $this->getDoctrine()->getManager()->persist($user);
-            $this->getDoctrine()->getManager()->flush();
+                $this->addFlash(
+                    'success',
+                    'Votre utilisateur a été créé !'
+                );
+            } else {
+                $this->addFlash(
+                    'danger',
+                    'Cet e-mail est déjà utilisé !'
+                );
+            }
 
-            $this->addFlash(
-                'success',
-                'Votre utilisateur a été créé !'
-            );
+        } elseif ($form->isSubmitted() && $form->isValid() && $request->request->has('edit')) {
+            $editedUser = $form->getData();
+
+            $repository = $this->getDoctrine()->getRepository(User::class);
+            $user = $repository->findOneBy(['email' => $editedUser->getEmail()]);
+
+            if ($user!=null) {
+                $user->setFirstName($editedUser->getFirstName());
+                $user->setLastName($editedUser->getLastName());
+
+                $this->getDoctrine()->getManager()->persist($user);
+                $this->getDoctrine()->getManager()->flush();
+
+                $this->addFlash(
+                    'success',
+                    'Votre utilisateur a été modifié !'
+                );
+            } else {
+                $this->addFlash(
+                    'danger',
+                    "L'email que vous avez renseigné n'existe pas. Veuillez dabord créer un nouvel utilisateur."
+                );
+            }
         } else {
             $this->addFlash(
                 'danger',

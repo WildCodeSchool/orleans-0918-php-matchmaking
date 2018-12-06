@@ -21,8 +21,8 @@ userFormElt.style.display = "none";
     $('.listButton').click(function() {
         let td=this.parentNode.parentNode;
 
-        let firstName=td.children[0].innerText;
-        let lastName=td.children[1].innerText;
+        let firstName=td.children[1].innerText;
+        let lastName=td.children[0].innerText;
         let email=td.children[2].innerText;
 
         document.getElementById("user_firstName").value = firstName;
