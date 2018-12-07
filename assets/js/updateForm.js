@@ -11,11 +11,12 @@ userFormElt.style.display = "none";
         document.getElementById("user_lastName").value = "";
         document.getElementById("user_email").value = "";
 
-        if(addButton.style.display === "none")
-            editButton.style.display = "none";
-            addButton.style.display = "block";
-        if(userFormElt.style.display === "none")
-             userFormElt.style.display = "block";
+        addButton.style.display = "block";
+        editButton.style.display = "none";
+
+        if (userFormElt.style.display === "none") {
+            userFormElt.style.display = "block";
+        }
     });
 
     $('.listButton').click(function() {
@@ -29,8 +30,10 @@ userFormElt.style.display = "none";
         document.getElementById("user_lastName").value = lastName;
         document.getElementById("user_email").value = email;
 
-            addButton.style.display = "none";
-            editButton.style.display = "block";
-        if(userFormElt.style.display === "none")
+        addButton.style.display = "none";
+        editButton.style.display = "block";
+
+        if (userFormElt.style.display === "none") {
             userFormElt.style.display = "block";
+        }
     });
