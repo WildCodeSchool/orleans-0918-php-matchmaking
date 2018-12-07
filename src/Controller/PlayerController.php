@@ -33,7 +33,7 @@ class PlayerController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'Les Timers ont été mis à jour.'
+                'Votre participant à été ajouté.'
             );
 
             return $this->redirectToRoute('player');

@@ -49,7 +49,6 @@ class Player
      * @Assert\NotBlank
      * @Assert\Email(
      * message = "L'e-mail que vous avez fourni n'est pas une adresse valide.",
-     * checkMX = true
      * )
      */
     private $mail;
