@@ -37,7 +37,7 @@ class EventController extends AbstractController
             ->findOneBy([], ['id' => 'desc'], 1, 0);
 
         $todayDate = new \DateTime();
-        $logoPath = new File($this->getParameter('kernel.project_dir').'/public/images/logos/defaultLogo.png');
+        $logoPath = new File($this->getParameter('kernel.project_dir').'/public/images/OrleansTech.png');
 
         $event->setRoundMinutes($timer->getRoundMinutes());
         $event->setRoundSeconds($timer->getRoundSeconds());
@@ -86,6 +86,11 @@ class EventController extends AbstractController
                 'success',
                 'Votre événement a bien été modifié !'
             );
+
+            if (!file_exists($this->getParameter('kernel.project_dir').'/public/images/logos/defaultLogo.png')) {
+                copy($this->getParameter('kernel.project_dir').'/public/images/OrleansTech.png',
+                    $this->getParameter('kernel.project_dir').'/public/images/logos/defaultLogo.png');
+            }
 
             return $this->redirectToRoute('event_index');
         }
