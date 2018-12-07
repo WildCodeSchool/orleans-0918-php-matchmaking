@@ -34,7 +34,7 @@ class UserController extends AbstractController
         ]);
         return $this->render('user/manager.html.twig', [
             'form' => $form->createView(),
-            'users' => $userRepository->findAll()
+            'users' => $userRepository->findBy([], ['lastName' => 'ASC', 'firstName' => 'ASC'])
         ]);
     }
 
