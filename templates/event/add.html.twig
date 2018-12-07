@@ -20,9 +20,9 @@
         <div class="col-md-3 col-ms-6">{{ form_row(formEvent.pauseMinutes, {'label': 'Temps de pause (minutes)'}) }}</div>
         <div class="col-md-3 col-ms-6">{{ form_row(formEvent.pauseSeconds, {'label': 'Temps de pause (secondes)'}) }}</div>
     </div>
+    {% include 'event/_gestionary.html.twig' %}
     <button class="btn btn btn-primary btn-lg btn-block">{{ button_label|default('Valider') }}</button>
     {{ form_end(formEvent) }}
 </div>
 
-{% include 'event/_gestionary.html.twig' %}
 {% endblock %}

@@ -2,13 +2,9 @@
      {{ encore_entry_link_tags('event_gestionary') }}
 {% endblock %}
 
-
 <div id="event_gestionary" class="event_gestionary container text-center">
-    <hr />
-    <h1 class="text-center">Attribuer des gestionnaires</h1>
-    <div id="badge_list" class="my-3">
-    </div>
-    <div class="form-group">
+    <div id="badge_list" class="my-3"></div>
+    <div id="managers" class="form-group" method="post" action="">
         <label class="col-form-label col-form-label-lg" for="gestionaryInput" hidden>Entrez un nom</label>
         <input class="form-control form-control-lg text-center" type="text" placeholder="Entrez l'email pour rechercher un gestionnaire" id="gestionaryInput">
         <div class="gestionary_list list-group">
@@ -21,10 +17,10 @@
                 
             {% endfor %}
         </div>
-        <button class="btn btn btn-primary btn-lg btn-block my-3">{{ button_label|default('Valider') }}</button>
+        {# <button type="submit" id="validateButton" class="btn btn btn-primary btn-lg btn-block my-3">{{ button_label|default('Valider') }}</button> #}
     </div>
 
-    </div>
+   
 </div>
 
 {% block javascripts %}

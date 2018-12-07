@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\EventRepository;
 use App\Entity\Timer;
 use App\Entity\User;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class EventController extends AbstractController
 {
@@ -70,25 +71,33 @@ class EventController extends AbstractController
      /**
      * @Route("/manager/event/edit/{id}", name="event_edit", methods="GET|POST")
      */
-    public function edit(Request $request, Event $event): Response
+    public function edit(Request $request, Event $event, Session $session): Response
     {
+        //$session->start();
+        //$session->set("event_managers", $event->getManagers());
+        //var_dump( $session->get("event_managers"));
+
         $form = $this->createForm(EventType::class, $event);
         $form->handleRequest($request);
-
+        
+        var_dump($_SESSION);
         if ($form->isSubmitted() && $form->isValid()) {
+            foreach($session->get("event_managers") as $manager) {
+                $event->addManager($manager);
+            }
             $this->getDoctrine()->getManager()->flush();
-
+            
             $this->addFlash(
                 'success',
                 'Votre événement à bien été modifié !'
             );
-
             return $this->redirectToRoute('event_list');
         }
 
         return $this->render('event/edit.html.twig', [
             'event' => $event,
             'formEdit' => $form->createView(),
+            'managers' => $this->getDoctrine()->getRepository(User::class)->findAll()
         ]);
     }
 }
