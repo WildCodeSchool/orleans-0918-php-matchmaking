@@ -104,9 +104,6 @@
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
-    "league/csv": {
-        "version": "9.1.4"
-    }
     "jms/metadata": {
         "version": "1.7.0"
     },
@@ -115,6 +112,9 @@
     },
     "knplabs/knp-paginator-bundle": {
         "version": "v2.8.0"
+    },
+    "league/csv": {
+        "version": "9.1.4"
     },
     "monolog/monolog": {
         "version": "1.24.0"

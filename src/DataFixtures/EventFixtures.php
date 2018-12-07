@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Event;
+use App\Entity\FormatEvent;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -31,8 +32,9 @@ class EventFixtures extends Fixture implements DependentFixtureInterface
             $event->setRoundSeconds(rand(0, 59));
             $event->setUpdatedAt($date);
             $event->setLogo('defaultLogo.png');
+            $lastFormatEvent = $manager->getRepository(FormatEvent::class)->findAll();
+            $event->setFormatEvent($lastFormatEvent[0]);
             $manager->persist($event);
-            $event->setFormatEvent($this->getReference('formatEvent_' . rand(0, 3)));
         }
         $manager->flush();
     }
