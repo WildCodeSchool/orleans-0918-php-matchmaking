@@ -24,9 +24,10 @@ yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
 .idea
-###> squizlabs/php_codesniffer ###
 /.phpcs-cache
 /phpcs.xml
 ###< squizlabs/php_codesniffer ###
 
 deploy.php
+/public/images/logos/*
+!/public/images/logos/defaultLogo.png
