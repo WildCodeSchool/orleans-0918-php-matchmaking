@@ -7,6 +7,8 @@ $colorTitleProjetIO:#FF9800;
 $colorBackgroundProjetIO:#343a40;
 $colorBtnProjetIO:#17a2b8;
 $borderColorH1: #000000;
+$browse: "Parcourir";
+$listButtonColor: #ffffff;
 
 @font-face {
     font-family: BrandonBold;
@@ -31,14 +33,8 @@ $borderColorH1: #000000;
     }
 }
 
-.userForm {
-    margin-top:8px;
-    button {
-        margin-top:32px;
-        &:hover {
-            margin-top:33px !important;
-        }
-    }
+.listButton {
+    background-color:$listButtonColor;
 }
 
 h1 {
@@ -47,4 +43,13 @@ h1 {
     margin: auto;
     margin-top: 1em;
     border: 1px solid $borderColorH1;
+}
+
+.custom-file-label::after {
+    content: $browse;
+}
+
+.updateButton
+{
+    margin-top : 31px !important;
 }
