@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\FormatEvent;
+use App\Entity\Timer;
 use App\Exception\CsvException;
 use App\Form\FormatEventType;
+use App\Form\TimerType;
 use App\Service\CsvFormatEvent;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,6 +28,22 @@ class SettingsController extends AbstractController
      */
     public function index(Request $request, CsvFormatEvent $csvFormatEvent): Response
     {
+        $timer = $this->getDoctrine()
+            ->getRepository(Timer::class)
+            ->findOneBy([], ['id' => 'desc'], 1, 0);
+
+        $form = $this->createForm(TimerType::class, $timer);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash(
+                'success',
+                'Les Timers ont été mis à jour.'
+            );
+        }
+
         // Add FormatEvent
         $formAddFormatEvent = $this->createForm(FormatEventType::class);
         $formAddFormatEvent->handleRequest($request);
@@ -53,7 +72,15 @@ class SettingsController extends AbstractController
             );
         }
 
+        // FormatEvents List
+        $formatEvents = $this->getDoctrine()
+            ->getRepository(FormatEvent::class)
+            ->findBy([], ['numberOfPlayers' => 'ASC']);
+
         return $this->render('settings/index.html.twig', [
+            'timer' => $timer,
+            'formTimer' => $form->createView(),
+            'formatEvents' => $formatEvents,
             'formAddFormatEvent' => $formAddFormatEvent->createView()
         ]);
     }

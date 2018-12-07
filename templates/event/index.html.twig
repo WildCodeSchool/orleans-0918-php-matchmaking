@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}List of events{% endblock %}
+
+
+
+{% block body %}
+<div class="event_list container">
+    <h1 class="text-center">Liste des événements</h1>
+
+    <a href="{{path('event_add')}}" class="btn btn-primary">Ajouter un événement</a>
+
+        {% for event in events %}
+            <div class="row d-flex align-items-center">
+                <div class="col-10 col-xs-12">
+                    <span class="badge badge-info">[{{ event.date|date('d/m/Y') }}]</span>
+                    <span class="offset-1">{{ event.title }}</span>
+                </div>
+                <div class="col-1">
+                    <a href="{{ path('event_edit', {'id': event.id }) }}" ><i class="fas fa-edit"></i></a>
+                </div>
+            </div>
+        {% endfor %}
+
+
+</div>
+<div class="row justify-content-center">
+    <div class="navigation">
+        {{ knp_pagination_render(events) }}
+    </div>
+</div>
+{% endblock %}

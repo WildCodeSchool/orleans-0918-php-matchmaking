@@ -1,0 +1,23 @@
+<div class="userForm mb-4" id="userForm">
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col-md-3">
+            {{ form_label(form.lastName, 'Nom') }}
+            {{ form_widget(form.lastName) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_label(form.firstName, 'Prénom') }}
+            {{ form_widget(form.firstName) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_label(form.email, 'E-mail') }}
+            {{ form_widget(form.email) }}
+        </div>
+        <div class="col-md-3 updateButton">
+            <button class="btn btn-lg btn-primary btn-block">
+                Envoyer
+            </button>
+        </div>
+    </div>
+    {{ form_end(form) }}
+</div>

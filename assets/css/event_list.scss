@@ -1,0 +1,26 @@
+.event_list {
+    h1 {
+        margin-bottom: 20px;
+    }
+    .btn {
+        margin-bottom: 20px;
+        margin-left: 20px;
+    }
+    .row{ 
+        border: 1px solid rgba(0,0,0,0.1);
+        border-radius: 2px;
+        padding: 10px;
+        box-shadow: 0px 2px 0px 0px rgba(0,0,0,.1);
+        margin-bottom: 20px;
+        a {
+            color: rgb(0, 140, 255);
+            font-size: 20pt;
+            :hover {
+                color: rgb(61, 168, 255);;
+            }
+        }
+        .btn {
+            margin: 0;
+        }
+    }
+}

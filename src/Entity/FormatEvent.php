@@ -35,9 +35,16 @@ class FormatEvent
      */
     private $roundEvents;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="formatEvent")
+     */
+    private $events;
+
+
     public function __construct()
     {
         $this->roundEvents = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -77,6 +84,18 @@ class FormatEvent
         return $this->roundEvents;
     }
 
+    /**
+     * @return Collection|Event[]
+    */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    /**
+     * @param RoundEvent $roundEvent
+     * @return FormatEvent
+     */
     public function addRoundEvent(RoundEvent $roundEvent): self
     {
         if (!$this->roundEvents->contains($roundEvent)) {
@@ -87,6 +106,10 @@ class FormatEvent
         return $this;
     }
 
+    /**
+     * @param RoundEvent $roundEvent
+     * @return FormatEvent
+     */
     public function removeRoundEvent(RoundEvent $roundEvent): self
     {
         if ($this->roundEvents->contains($roundEvent)) {
@@ -94,6 +117,37 @@ class FormatEvent
             // set the owning side to null (unless already changed)
             if ($roundEvent->getFormatEvent() === $this) {
                 $roundEvent->setFormatEvent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Event $event
+     * @return FormatEvent
+     */
+    public function addEvent(Event $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
+            $event->setFormatEvent($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Event $event
+     * @return FormatEvent
+     */
+    public function removeEvent(Event $event): self
+    {
+        if ($this->events->contains($event)) {
+            $this->events->removeElement($event);
+            // set the owning side to null (unless already changed)
+            if ($event->getFormatEvent() === $this) {
+                $event->setFormatEvent(null);
             }
         }
 
