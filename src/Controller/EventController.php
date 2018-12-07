@@ -88,8 +88,10 @@ class EventController extends AbstractController
             );
 
             if (!file_exists($this->getParameter('kernel.project_dir').'/public/images/logos/defaultLogo.png')) {
-                copy($this->getParameter('kernel.project_dir').'/public/images/OrleansTech.png',
-                    $this->getParameter('kernel.project_dir').'/public/images/logos/defaultLogo.png');
+                copy(
+                    $this->getParameter('kernel.project_dir').'/public/images/OrleansTech.png',
+                    $this->getParameter('kernel.project_dir').'/public/images/logos/defaultLogo.png'
+                );
             }
 
             return $this->redirectToRoute('event_index');
