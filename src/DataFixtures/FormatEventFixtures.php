@@ -1,24 +1,33 @@
 <?php
-
 namespace App\DataFixtures;
 
-use App\Entity\FormatEvent;
+use App\Service\CsvFormatEvent;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
 class FormatEventFixtures extends Fixture
 {
-    const NUMBER_OF_PLAYERS = [9, 16, 25, 49];
+    private $path;
+
+    public function __construct(string $projectDir)
+    {
+        $this->path = $projectDir;
+    }
 
     public function load(ObjectManager $manager)
     {
-        foreach (self::NUMBER_OF_PLAYERS as $key => $numberOfPlayers) {
-            $formatEvent = new FormatEvent();
-            $formatEvent->setName($numberOfPlayers . ' players');
-            $formatEvent->setNumberOfPlayers($numberOfPlayers);
-            $manager->persist($formatEvent);
-            $this->addReference('formatEvent_' . $key, $formatEvent);
-        }
-        $manager->flush();
+        $csvFormatEvent = new csvFormatEvent($manager);
+        $csvFormatEvent->setName('9 players');
+        $csvFormatEvent->setPath($this->getPath() . '/src/DataFixtures/data/9-players.csv');
+        $csvFormatEvent->validate();
+        $csvFormatEvent->import();
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath(): string
+    {
+        return $this->path;
     }
 }
