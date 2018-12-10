@@ -12,8 +12,8 @@
     {% for user in users %}
         {% if user.roles.0 == "ROLE_MANAGER" %}
             <tr>
-                <td>{{ user.firstName }}</td>
                 <td>{{ user.lastName }}</td>
+                <td>{{ user.firstName }}</td>
                 <td>{{ user.email }}</td>
                 <td><i class="fas fa-pencil-alt"></i></td>
                 <td>{% include 'user/_delete_form.html.twig' %}</td>
