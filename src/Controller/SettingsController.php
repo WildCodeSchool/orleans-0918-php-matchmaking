@@ -56,20 +56,18 @@ class SettingsController extends AbstractController
             try {
                 $csvFormatEvent->validate();
                 $csvFormatEvent->import();
+                $this->addFlash(
+                    'success',
+                    'Le nouveau format a été ajouté.'
+                );
             } catch (CsvException $csvException) {
                 $this->addFlash(
                     'danger',
                     $csvException->getMessage()
                 );
-                return $this->render('settings/index.html.twig', [
-                    'formAddFormatEvent' => $formAddFormatEvent->createView()
-                ]);
             }
 
-            $this->addFlash(
-                'success',
-                'Le nouveau format a été ajouté.'
-            );
+            return $this->redirectToRoute('settings');
         }
 
         // FormatEvents List
