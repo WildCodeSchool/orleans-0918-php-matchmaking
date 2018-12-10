@@ -8,8 +8,8 @@ class ManagerList {
 
     constructor() {
         this.managers = [];
-        if (sessionStorage.getItem('managers')) {
-            this.managers = sessionStorage.getItem('managers').split(",");
+        if (document.cookies) {
+            this.managers = document.cookies["manager"].split(",");
         }
     }
 
@@ -65,12 +65,13 @@ function drawBadges(managers) {
 
         badgeListElt.append(badgeElt);
     });
-    setSession();
+    setCookie();
 }
 
 //
-function setSession() {
-    sessionStorage.setItem('managers', managersList.getManagers());
+function setCookie() {
+    console.log( managersList.getManagers());
+    document.cookie = "managers="+[managersList.getManagers()];
 }
 
 let managersList = new ManagerList();
@@ -85,8 +86,7 @@ managerInputElt.addEventListener("input", () => {
 // Click sur un manager de la liste => ajout à la liste des managers attribués à l'event
 for (let i = 0; i < managerDivElt.length; i++) {
     managerDivElt[i].addEventListener("click", () => {
-        let targetName = managerDivElt[i].children[2].textContent +
-            ' ' + managerDivElt[i].children[1].textContent;
+        let targetName = managerDivElt[i].children[0].textContent + ' ';
         managersList.addManager(targetName);
     });
 }

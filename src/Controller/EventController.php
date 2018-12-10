@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\EventRepository;
 use App\Entity\Timer;
 use App\Entity\User;
-use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Cookie;
 
 class EventController extends AbstractController
 {
@@ -71,20 +71,24 @@ class EventController extends AbstractController
      /**
      * @Route("/manager/event/edit/{id}", name="event_edit", methods="GET|POST")
      */
-    public function edit(Request $request, Event $event, Session $session): Response
+    public function edit(Request $request, Event $event): Response
     {
-        //$session->start();
-        //$session->set("event_managers", $event->getManagers());
-        //var_dump( $session->get("event_managers"));
-
         $form = $this->createForm(EventType::class, $event);
         $form->handleRequest($request);
         
-        var_dump($_SESSION);
         if ($form->isSubmitted() && $form->isValid()) {
-            foreach($session->get("event_managers") as $manager) {
-                $event->addManager($manager);
+            $event->removeAllManagers();
+            $managers = explode(",", $_COOKIE["managers"]);
+            foreach($managers as $manager) {
+                $m = $this->getDoctrine()
+                ->getRepository(User::class)
+                ->findOneBy(["email" => $manager]);
+                //var_dump($event->getManagers());
+                var_dump($m);
+                //$event->addManager($m);
             }
+            //$event->setManagers($managers);
+            
             $this->getDoctrine()->getManager()->flush();
             
             $this->addFlash(
