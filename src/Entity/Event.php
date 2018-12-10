@@ -220,14 +220,6 @@ class Event
         return $this->managers;
     }
 
-    public function setManagers(array $managers): void
-    {
-        $this->managers = [];
-        foreach($managers as $manager) {
-            $this->managers[] = $manager;
-        }
-    }
-
     public function addManager(User $manager): self
     {
         if (!$this->managers->contains($manager)) {
@@ -243,12 +235,6 @@ class Event
             $this->managers->removeElement($manager);
         }
 
-        return $this;
-    }
-
-    public function removeAllManagers(): self
-    {
-        $this->managers = [];
         return $this;
     }
 

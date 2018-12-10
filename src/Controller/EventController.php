@@ -77,17 +77,20 @@ class EventController extends AbstractController
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
-            $event->removeAllManagers();
-            $managers = explode(",", $_COOKIE["managers"]);
-            foreach($managers as $manager) {
-                $m = $this->getDoctrine()
-                ->getRepository(User::class)
-                ->findOneBy(["email" => $manager]);
-                //var_dump($event->getManagers());
-                var_dump($m);
-                //$event->addManager($m);
+
+            foreach($event->getManagers() as $manager) {
+                $event->removeManager($manager);
             }
-            //$event->setManagers($managers);
+
+            $managersEmails = explode(",", $_COOKIE["managers"]);
+
+            foreach($managersEmails as $managerEmail) {
+                $manager = $this->getDoctrine()
+                ->getRepository(User::class)
+                ->findOneByEmail($managerEmail);
+
+                $event->addManager($manager);
+            }
             
             $this->getDoctrine()->getManager()->flush();
             
