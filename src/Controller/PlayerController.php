@@ -35,7 +35,7 @@ class PlayerController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'Votre participant à été ajouté.'
+                'Votre participant a été ajouté.'
             );
 
             return $this->redirectToRoute('player', ['id' => $event->getId()]);
@@ -44,6 +44,7 @@ class PlayerController extends AbstractController
         return $this->render('player/index.html.twig', [
             'player' => $player,
             'form' => $form->createView(),
+            'event' => $event
         ]);
     }
 }
