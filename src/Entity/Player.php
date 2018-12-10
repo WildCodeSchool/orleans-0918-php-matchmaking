@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -53,6 +55,16 @@ class Player
      */
     private $mail;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Event", inversedBy="players")
+     */
+    private $event;
+
+    public function __construct()
+    {
+        $this->event = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -102,6 +114,32 @@ class Player
     public function setMail(string $mail): self
     {
         $this->mail = $mail;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Event[]
+     */
+    public function getEvent(): Collection
+    {
+        return $this->event;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->event->contains($event)) {
+            $this->event[] = $event;
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->event->contains($event)) {
+            $this->event->removeElement($event);
+        }
 
         return $this;
     }
