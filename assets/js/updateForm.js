@@ -17,14 +17,16 @@ userFormElt.style.display = "none";
         if (userFormElt.style.display === "none") {
             userFormElt.style.display = "block";
         }
+        document.getElementById("userForm").children[0].action="/user/0/manager/update";
     });
 
     $('.listButton').click(function() {
         let td=this.parentNode.parentNode;
 
-        let firstName=td.children[1].innerText;
-        let lastName=td.children[0].innerText;
-        let email=td.children[2].innerText;
+        let userId=td.children[0].innerText;
+        let firstName=td.children[2].innerText;
+        let lastName=td.children[1].innerText;
+        let email=td.children[3].innerText;
 
         document.getElementById("user_firstName").value = firstName;
         document.getElementById("user_lastName").value = lastName;
@@ -36,4 +38,5 @@ userFormElt.style.display = "none";
         if (userFormElt.style.display === "none") {
             userFormElt.style.display = "block";
         }
+        document.getElementById("userForm").children[0].action="/user/"+userId+"/manager/update";
     });

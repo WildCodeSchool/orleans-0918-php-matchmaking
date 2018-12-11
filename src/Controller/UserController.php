@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\User1Type;
 use App\Form\UserType;
-use App\Service\EmailUnicity;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +16,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UserController extends AbstractController
 {
-    const NEW_MANAGER_ROLE=["ROLE_MANAGER"];
+    const MANAGER_ROLE=["ROLE_MANAGER"];
+    const ADMIN_ROLE=["ROLE_ADMIN"];
     const DEFAULT_ACTIVATION=false;
     const DEFAULT_PASSWORD="";
 
@@ -28,9 +28,8 @@ class UserController extends AbstractController
      */
     public function indexManager(UserRepository $userRepository): Response
     {
-
         $form=$this->createForm(UserType::class, null, [
-        'action' => $this->generateUrl('manager_update'),
+        'action' => $this->generateUrl("update", ["_role" =>"manager"]),
         'method' => 'POST',
         ]);
         return $this->render('user/manager.html.twig', [
@@ -41,65 +40,54 @@ class UserController extends AbstractController
 
     /**
      * @param Request $request
+     * @param UserRepository $userRepo
+     * @param string $_role
+     * @param int $userId
      * @return Response
-     * @Route("/manager/update", name="manager_update", methods="POST")
+     * @Route("/{userId}/{_role}/update", requirements={"_role": "manager|admin"}, name="update", methods="POST")
      */
-    public function updateManager(Request $request, EmailUnicity $emailUnicity): Response
+    public function update(Request $request, UserRepository $userRepo, string $_role, int $userId = 0): Response
     {
-        $form=$this->createForm(UserType::class);
+        $user = new User();
+        if ($userId > 0) {
+            $user = $userRepo->find($userId);
+        }
+        $form=$this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid() && $request->request->has('add')) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
-            if ($emailUnicity->verify($user->getEmail())==true) {
+
+            if ($userId == 0) {
                 $user->setActivated(self::DEFAULT_ACTIVATION);
                 $user->setPassword(self::DEFAULT_PASSWORD);
-                $user->setRoles(self::NEW_MANAGER_ROLE);
-
-                $this->getDoctrine()->getManager()->persist($user);
-                $this->getDoctrine()->getManager()->flush();
-
-                $this->addFlash(
-                    'success',
-                    'Votre utilisateur a été créé !'
-                );
-            } else {
-                $this->addFlash(
-                    'danger',
-                    'Cet e-mail est déjà utilisé !'
-                );
+                if ($_role == 'manager') {
+                    $user->setRoles(self::MANAGER_ROLE);
+                } else {
+                    $user->setRoles(self::ADMIN_ROLE);
+                }
             }
-        } elseif ($form->isSubmitted() && $form->isValid() && $request->request->has('edit')) {
-            $editedUser = $form->getData();
-
-            $repository = $this->getDoctrine()->getRepository(User::class);
-            $user = $repository->findOneBy(['email' => $editedUser->getEmail()]);
-
-            if ($user!=null) {
-                $user->setFirstName($editedUser->getFirstName());
-                $user->setLastName($editedUser->getLastName());
-
-                $this->getDoctrine()->getManager()->persist($user);
-                $this->getDoctrine()->getManager()->flush();
-
-                $this->addFlash(
-                    'success',
-                    'Votre utilisateur a été modifié !'
-                );
-            } else {
-                $this->addFlash(
-                    'danger',
-                    "L'email que vous avez renseigné n'existe pas. Veuillez dabord créer un nouvel utilisateur."
-                );
-            }
+            $this->getDoctrine()->getManager()->persist($user);
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash(
+                'success',
+                'Données sauvegardées !'
+            );
         } else {
+            $errors="";
+            foreach ($form->getErrors(true) as $error) {
+                $errors.=' '.$error->getMessage();
+            }
             $this->addFlash(
                 'danger',
-                'Les données que vous avez saisies ne sont pas valides.'
+                'Erreur. '.$errors
             );
         }
-
-        return $this->redirectToRoute('manager_index');
+        if ($_role=='admin') {
+            return $this->redirectToRoute('admin_index');
+        } else {
+            return $this->redirectToRoute('manager_index');
+        }
     }
 
     /**
