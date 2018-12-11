@@ -130,6 +130,12 @@ class Event
      */
     private $updatedAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\StatusEvent", inversedBy="events")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $statusEvent;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -264,6 +270,18 @@ class Event
     public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getStatusEvent(): ?StatusEvent
+    {
+        return $this->statusEvent;
+    }
+
+    public function setStatusEvent(?StatusEvent $statusEvent): self
+    {
+        $this->statusEvent = $statusEvent;
 
         return $this;
     }
