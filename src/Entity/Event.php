@@ -5,11 +5,14 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Validator\Constraints\IsFutureDate;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
+ * @Vich\Uploadable
  */
 class Event
 {
@@ -46,7 +49,10 @@ class Event
     private $description;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
+     * @Assert\NotBlank(
+     * message = "La valeur ne peut être nulle"
+     * )
      * @Assert\GreaterThanOrEqual(
      * value = 0,
      * message = "La valeur ne peut être inférieure à 0"
@@ -55,7 +61,10 @@ class Event
     private $roundMinutes;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
+     * @Assert\NotBlank(
+     * message = "La valeur ne peut être nulle"
+     * )
      * @Assert\LessThan(
      * value = 60,
      * message = "La valeur ne peut être supérieure à 59"
@@ -68,7 +77,10 @@ class Event
     private $roundSeconds;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
+     * @Assert\NotBlank(
+     * message = "La valeur ne peut être nulle"
+     * )
      * @Assert\GreaterThanOrEqual(
      * value = 0,
      * message = "La valeur ne peut être inférieure à 0"
@@ -77,7 +89,10 @@ class Event
     private $pauseMinutes;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
+     * @Assert\NotBlank(
+     * message = "La valeur ne peut être nulle"
+     * )
      * @Assert\LessThan(
      * value = 60,
      * message = "La valeur ne peut être supérieure à 59"
@@ -93,7 +108,35 @@ class Event
      * @ORM\ManyToMany(targetEntity="App\Entity\Player", mappedBy="event")
      */
     private $players;
+  
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\FormatEvent", inversedBy="events")
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank(
+     * message = "La valeur ne peut être nulle"
+     * )
+     */
+    private $formatEvent;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @var string
+     */
+    private $logo = 'defaultLogo.png';
+
+    /**
+     * @Vich\UploadableField(mapping="logos", fileNameProperty="logo")
+     * @var File
+     * @Assert\Image(maxSize="2M",maxSizeMessage="Cette image est trop volumineuse, 2Mo maximum")
+     */
+    private $logoFile;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @var \DateTime
+     */
+    private $updatedAt;
+  
     public function __construct()
     {
         $this->players = new ArrayCollection();
@@ -124,18 +167,6 @@ class Event
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
-
-        return $this;
-    }
-
-    public function getHour(): ?\DateTimeInterface
-    {
-        return $this->hour;
-    }
-
-    public function setHour(\DateTimeInterface $hour): self
-    {
-        $this->hour = $hour;
 
         return $this;
     }
@@ -214,6 +245,18 @@ class Event
             $this->players[] = $player;
             $player->addEvent($this);
         }
+      
+        return $this;
+    }
+
+    public function getFormatEvent(): ?FormatEvent
+    {
+        return $this->formatEvent;
+    }
+
+    public function setFormatEvent(?FormatEvent $formatEvent): self
+    {
+        $this->formatEvent = $formatEvent;
 
         return $this;
     }
@@ -224,6 +267,42 @@ class Event
             $this->players->removeElement($player);
             $player->removeEvent($this);
         }
+  
+        return $this;
+    }
+
+    public function setLogoFile(File $logo = null)
+    {
+        $this->logoFile = $logo;
+
+        if ($logo) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getLogoFile()
+    {
+        return $this->logoFile;
+    }
+
+    public function setLogo($logo)
+    {
+        $this->logo = $logo;
+    }
+
+    public function getLogo()
+    {
+        return $this->logo;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

@@ -5,22 +5,32 @@
 
 
 {% block body %}
-<div class="container">
-    <h1 class="text-center">Ajouter un événement</h1>
-   
-    {{ form_start(formEvent) }}
-    {{ form_row(formEvent.title, {'label': 'Titre'}) }}
-    {{ form_row(formEvent.description) }}
-    {{ form_row(formEvent.date, {'label': 'Date / Heure'}) }}
-    <hr />
-    <h4>Gestion des timers</h4>
-    <div class="row">
-        <div class="col-md-3 col-ms-6">{{ form_row(formEvent.roundMinutes, {'label': 'Temps de tour (minutes)'}) }}</div>
-        <div class="col-md-3 col-ms-6">{{ form_row(formEvent.roundSeconds, {'label': 'Temps de tour (secondes)'}) }}</div>
-        <div class="col-md-3 col-ms-6">{{ form_row(formEvent.pauseMinutes, {'label': 'Temps de pause (minutes)'}) }}</div>
-        <div class="col-md-3 col-ms-6">{{ form_row(formEvent.pauseSeconds, {'label': 'Temps de pause (secondes)'}) }}</div>
+    <div class="container">
+        <h1 class="text-center">Ajouter un événement</h1>
+
+        {{ form_start(formEvent) }}
+        {{ form_row(formEvent.title, {'label': 'Titre'}) }}
+        {{ form_row(formEvent.description) }}
+        <hr/>
+        <div class="row">
+            <div class="col-lg-6">
+                {{ form_row(formEvent.formatEvent, {'label': 'Format de l\'événement'}) }}
+            </div>
+            <div class="col-lg-6">
+                {{ form_row(formEvent.logoFile, {'label': 'Ajout du logo'}) }}
+            </div>
+        </div>
+        <hr/>
+        {{ form_row(formEvent.date, {'label': 'Date / Heure'}) }}
+        <hr/>
+        <h4>Gestion des timers</h4>
+        <div class="row">
+            <div class="col-md-3 col-ms-6">{{ form_row(formEvent.roundMinutes, {'label': 'Temps de tour (minutes)'}) }}</div>
+            <div class="col-md-3 col-ms-6">{{ form_row(formEvent.roundSeconds, {'label': 'Temps de tour (secondes)'}) }}</div>
+            <div class="col-md-3 col-ms-6">{{ form_row(formEvent.pauseMinutes, {'label': 'Temps de pause (minutes)'}) }}</div>
+            <div class="col-md-3 col-ms-6">{{ form_row(formEvent.pauseSeconds, {'label': 'Temps de pause (secondes)'}) }}</div>
+        </div>
+        <button class="btn btn btn-primary btn-lg btn-block">{{ button_label|default('Valider') }}</button>
+        {{ form_end(formEvent) }}
     </div>
-    <button class="btn btn btn-primary btn-lg btn-block">{{ button_label|default('Valider') }}</button>
-    {{ form_end(formEvent) }}
-</div>
 {% endblock %}

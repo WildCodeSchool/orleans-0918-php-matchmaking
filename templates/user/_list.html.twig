@@ -1,0 +1,28 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Email</th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for user in users %}
+        {% if user.roles.0 == "ROLE_MANAGER" %}
+            <tr>
+                <td>{{ user.lastName }}</td>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.email }}</td>
+                <td><i class="fas fa-pencil-alt"></i></td>
+                <td>{% include 'user/_delete_form.html.twig' %}</td>
+            </tr>
+        {% endif %}
+    {% else %}
+        <tr>
+            <td colspan="8">Aucun utilisateur enregistré.</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
