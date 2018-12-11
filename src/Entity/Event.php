@@ -105,7 +105,7 @@ class Event
     private $pauseSeconds;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Player", mappedBy="event")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Player", mappedBy="events")
      */
     private $players;
   
