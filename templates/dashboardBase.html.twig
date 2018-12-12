@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}MatchMaking - Dashboard{% endblock %}</title>
+
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('dashboard') }}
+    {% endblock %}
+</head>
+<body>
+
+<div class="container-fluid">
+    {% block body %}{% endblock %}
+
+</div>
+{% block javascripts %}
+    {{ encore_entry_script_tags('dashboard') }}
+{% endblock %}
+</body>
+</html>
