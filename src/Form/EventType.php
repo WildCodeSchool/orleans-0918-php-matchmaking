@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Event;
 use App\Entity\FormatEvent;
+use App\Entity\User;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -38,7 +39,26 @@ class EventType extends AbstractType
             ->add('roundMinutes', IntegerType::class)
             ->add('roundSeconds', IntegerType::class)
             ->add('pauseMinutes', IntegerType::class)
-            ->add('pauseSeconds', IntegerType::class);
+            ->add('pauseSeconds', IntegerType::class)
+
+            ->add('users', EntityType::class, [
+                'class' => User::class,
+                'choice_label' => function($user) {
+                    $labelName = $user->getLastName()
+                        . ' '
+                        . $user->getFirstName()
+                        . ' Email : '
+                        . $user->getEmail();
+                    return $labelName;
+                },
+                'by_reference' => false,
+                'expanded' => true,
+                'multiple' => true,
+                'label' => false,
+                'label_attr' => [
+                    'class' => 'list-group-item list-group-item-action'
+                ],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
