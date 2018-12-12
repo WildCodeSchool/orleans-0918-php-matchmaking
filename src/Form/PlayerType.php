@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
 class PlayerType extends AbstractType
 {
@@ -16,8 +17,8 @@ class PlayerType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('firstname', TextType::class)
-            ->add('phoneNumber', TextType::class, ['attr' => ['maxlength' => 10]])
-            ->add('mail')
+            ->add('phoneNumber', TelType::class, ['attr' => ['maxlength' => 10]])
+            ->add('mail', EmailType::class)
         ;
     }
 
