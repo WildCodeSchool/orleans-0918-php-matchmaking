@@ -40,10 +40,9 @@ class EventType extends AbstractType
             ->add('roundSeconds', IntegerType::class)
             ->add('pauseMinutes', IntegerType::class)
             ->add('pauseSeconds', IntegerType::class)
-
             ->add('users', EntityType::class, [
                 'class' => User::class,
-                'choice_label' => function($user) {
+                'choice_label' => function ($user) {
                     $labelName = $user->getLastName()
                         . ' '
                         . $user->getFirstName()
