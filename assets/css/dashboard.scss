@@ -5,8 +5,10 @@
 $font:BrandonBold,
 Arial,
 sans-serif;
-$sidesHeight: 95vh;
+$sidesHeight: 98vh;
 $titlesHeight: 20vh;
+$bgColor: rgb(56, 165, 255);
+$cardBackColor : rgba(255, 255, 255, .2);
 
 @font-face {
   font-family: BrandonBold;
@@ -14,13 +16,18 @@ $titlesHeight: 20vh;
 }
 
 body {
-  background: linear-gradient(45deg, orange, darkorange);
+  background: linear-gradient(50deg, $bgColor, darken(saturate($bgColor, 40%), 10%));
+}
+
+.bgCard {
+  background-color: $cardBackColor;
+  border: 1px solid rgba(255, 255, 255, .3);
+  border-radius: 5px;
 }
 
 .runDashboard {
   height: 100vh;
   font-family: $font;
-  text-transform: uppercase;
   padding: 10px;
 
   .title,
@@ -37,9 +44,9 @@ body {
   }
 
   .left-side {
-    background-color: rgba(0,0,0,.1);
     height: $sidesHeight;
     padding-top: 8vh;
+
     .round {
       height: 20vh;
       font-size: 5vh;
@@ -62,21 +69,24 @@ body {
 .pauseDashboard {
   height: 100vh;
   font-family: $font;
-  text-transform: uppercase;
   padding: 10px;
 
   .titleBar {
-    height: 10vh; 
+    height: 10vh;
+
     p {
       font-size: 4vh;
     }
   }
+
   .tables {
-    height: 78vh;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 77vh;
   }
+
   .statusBar {
     height: 10vh;
     font-size: 3vh;
-    border : 1px solid black;
   }
 }
