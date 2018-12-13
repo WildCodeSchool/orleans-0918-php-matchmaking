@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Event;
 use App\Entity\FormatEvent;
+use App\Entity\User;
 use App\Entity\StatusEvent;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -56,7 +57,22 @@ class EventType extends AbstractType
             ->add('roundMinutes', IntegerType::class)
             ->add('roundSeconds', IntegerType::class)
             ->add('pauseMinutes', IntegerType::class)
-            ->add('pauseSeconds', IntegerType::class);
+            ->add('pauseSeconds', IntegerType::class)
+            ->add('users', EntityType::class, [
+                'class' => User::class,
+                'choice_label' => 'userInfos',
+                'by_reference' => false,
+                'expanded' => true,
+                'multiple' => true,
+                'label' => false,
+                'label_attr' => [
+                    'class' => 'list-group-item list-group-item-action'
+                ],
+                'query_builder' => function (EntityRepository $entityRepository) {
+                    return $entityRepository->createQueryBuilder('user')
+                        ->orderBy('user.lastName', 'ASC');
+                }
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
