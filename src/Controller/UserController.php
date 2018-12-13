@@ -29,7 +29,7 @@ class UserController extends AbstractController
     public function indexManager(UserRepository $userRepository): Response
     {
         $form=$this->createForm(UserType::class, null, [
-        'action' => $this->generateUrl("update", ["_role" =>"manager"]),
+        'action' => $this->generateUrl("update", ["role" =>"manager"]),
         'method' => 'POST',
         ]);
         return $this->render('user/manager.html.twig', [
@@ -41,12 +41,12 @@ class UserController extends AbstractController
     /**
      * @param Request $request
      * @param UserRepository $userRepo
-     * @param string $_role
+     * @param string $role
      * @param int $userId
      * @return Response
-     * @Route("/{userId}/{_role}/update", requirements={"_role": "manager|admin"}, name="update", methods="POST")
+     * @Route("/{userId}/{role}/update", requirements={"role": "manager|admin"}, name="update", methods="POST")
      */
-    public function update(Request $request, UserRepository $userRepo, string $_role, int $userId = 0): Response
+    public function update(Request $request, UserRepository $userRepo, string $role, int $userId = 0): Response
     {
         $user = new User();
         if ($userId > 0) {
@@ -61,7 +61,7 @@ class UserController extends AbstractController
             if ($userId == 0) {
                 $user->setActivated(self::DEFAULT_ACTIVATION);
                 $user->setPassword(self::DEFAULT_PASSWORD);
-                if ($_role == 'manager') {
+                if ($role == 'manager') {
                     $user->setRoles(self::MANAGER_ROLE);
                 } else {
                     $user->setRoles(self::ADMIN_ROLE);
@@ -83,7 +83,7 @@ class UserController extends AbstractController
                 'Erreur. '.$errors
             );
         }
-        if ($_role=='admin') {
+        if ($role=='admin') {
             return $this->redirectToRoute('admin_index');
         } else {
             return $this->redirectToRoute('manager_index');
