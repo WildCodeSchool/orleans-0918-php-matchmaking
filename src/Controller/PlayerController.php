@@ -19,7 +19,7 @@ use App\Entity\Event;
 class PlayerController extends AbstractController
 {
     /**
-     * @Route("/manager/player/{id}", name="player", methods="GET|POST")
+     * @Route("/manager/player/{id}", name="player", requirements={"id"="\d+"}, methods="GET|POST")
      */
     public function addPlayer(Request $request, Event $event): Response
     {
