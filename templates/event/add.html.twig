@@ -10,6 +10,9 @@
 
         {{ form_start(formEvent) }}
         {{ form_row(formEvent.title, {'label': 'Titre'}) }}
+        <hr>
+        {{ form_row(formEvent.statusEvent, {'label': 'Statut de l\'événement'}) }}
+        <hr>
         {{ form_row(formEvent.description) }}
         <hr/>
         <div class="row">
