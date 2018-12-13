@@ -83,11 +83,7 @@ class UserController extends AbstractController
                 'Erreur. '.$errors
             );
         }
-        if ($role=='admin') {
-            return $this->redirectToRoute('admin_index');
-        } else {
-            return $this->redirectToRoute('manager_index');
-        }
+        return $this->redirectToRoute($role.'_index');
     }
 
     /**
