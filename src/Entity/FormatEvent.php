@@ -31,7 +31,7 @@ class FormatEvent
     private $numberOfPlayers;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\RoundEvent", mappedBy="formatEvent", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\RoundEvent", mappedBy="formatEvent", cascade={"persist", "remove"})
      */
     private $roundEvents;
 
