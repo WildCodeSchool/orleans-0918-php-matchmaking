@@ -8,7 +8,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20181212123812 extends AbstractMigration
+final class Version20181213134246 extends AbstractMigration
 {
     public function up(Schema $schema) : void
     {
@@ -18,7 +18,8 @@ final class Version20181212123812 extends AbstractMigration
         $this->addSql('CREATE TABLE user_event (user_id INT NOT NULL, event_id INT NOT NULL, INDEX IDX_D96CF1FFA76ED395 (user_id), INDEX IDX_D96CF1FF71F7E88B (event_id), PRIMARY KEY(user_id, event_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('ALTER TABLE user_event ADD CONSTRAINT FK_D96CF1FFA76ED395 FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE user_event ADD CONSTRAINT FK_D96CF1FF71F7E88B FOREIGN KEY (event_id) REFERENCES event (id) ON DELETE CASCADE');
-        $this->addSql('ALTER TABLE user DROP created_on');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_3752C7DF5E237E06 ON table_event (name)');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_24344DAA85C8C9E4 ON format_event (number_of_players)');
     }
 
     public function down(Schema $schema) : void
@@ -27,6 +28,7 @@ final class Version20181212123812 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('DROP TABLE user_event');
-        $this->addSql('ALTER TABLE user ADD created_on DATETIME DEFAULT NULL');
+        $this->addSql('DROP INDEX UNIQ_24344DAA85C8C9E4 ON format_event');
+        $this->addSql('DROP INDEX UNIQ_3752C7DF5E237E06 ON table_event');
     }
 }

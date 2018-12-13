@@ -45,7 +45,7 @@ class Event
      *  minMessage = "Le contenu doit contenit {{ limit }} caractères minimum"
      * )
      */
-   
+
     private $description;
 
     /**
@@ -133,6 +133,7 @@ class Event
     private $updatedAt;
 
     /**
+     * <<<<<<< HEAD
      * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="events")
      */
     private $users;
@@ -141,6 +142,11 @@ class Event
     {
         $this->users = new ArrayCollection();
     }
+
+    /** @ORM\ManyToOne(targetEntity = "App\Entity\StatusEvent", inversedBy = "events")
+     * @ORM\JoinColumn(nullable = false)
+     */
+    private $statusEvent;
 
     public function getId(): ?int
     {
@@ -304,6 +310,16 @@ class Event
             $this->users->removeElement($user);
             $user->removeEvent($this);
         }
+    }
+
+    public function getStatusEvent(): ?StatusEvent
+    {
+        return $this->statusEvent;
+    }
+
+    public function setStatusEvent(?StatusEvent $statusEvent): self
+    {
+        $this->statusEvent = $statusEvent;
 
         return $this;
     }
