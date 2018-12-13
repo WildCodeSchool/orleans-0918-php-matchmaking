@@ -68,8 +68,7 @@ class EventType extends AbstractType
                 'label_attr' => [
                     'class' => 'list-group-item list-group-item-action'
                 ],
-                'query_builder' => function(EntityRepository $entityRepository)
-                {
+                'query_builder' => function (EntityRepository $entityRepository) {
                     return $entityRepository->createQueryBuilder('user')
                         ->orderBy('user.lastName', 'ASC');
                 }
