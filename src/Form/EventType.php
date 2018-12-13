@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Event;
 use App\Entity\FormatEvent;
+use App\Entity\StatusEvent;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -22,6 +23,23 @@ class EventType extends AbstractType
 
         $builder
             ->add('title', TextType::class)
+            ->add('statusEvent', EntityType::class, [
+                'class' => StatusEvent::class,
+                'choice_label' => 'name',
+                'choice_attr' => function ($key) use ($options) {
+                    $disabled = true;
+
+                    if ($key->getState() == $options['status'] || ($options['status'] < 2 && $key->getState() < 2)) {
+                        $disabled = false;
+                    }
+
+                    return $disabled ? ['disabled' => 'disabled'] : [];
+                },
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('s')
+                        ->orderBy('s.state', 'ASC');
+                }
+            ])
             ->add('description', TextareaType::class)
             ->add('date', DateTimeType::class)
             ->add('formatEvent', EntityType::class, [
@@ -45,6 +63,7 @@ class EventType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Event::class,
+            'status' => 0,
         ]);
     }
 }

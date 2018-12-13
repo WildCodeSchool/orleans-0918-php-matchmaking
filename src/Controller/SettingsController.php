@@ -82,4 +82,26 @@ class SettingsController extends AbstractController
             'formAddFormatEvent' => $formAddFormatEvent->createView()
         ]);
     }
+
+    /**
+     * @Route("/settings/{id}", name="format_event_delete", methods="DELETE")
+     * @param Request $request
+     * @param FormatEvent $formatEvent
+     * @return Response
+     */
+    public function delete(Request $request, FormatEvent $formatEvent): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $formatEvent->getId(), $request->request->get('_token'))) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($formatEvent);
+            $em->flush();
+
+            $this->addFlash(
+                'success',
+                'Le format a été supprimé !'
+            );
+        }
+
+        return $this->redirectToRoute('settings');
+    }
 }
