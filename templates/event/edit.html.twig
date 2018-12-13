@@ -10,6 +10,24 @@
 
         {{ form_start(formEdit) }}
         {{ form_row(formEdit.title, {'label': 'Titre'}) }}
+        <hr>
+            {{ form_row(formEdit.statusEvent, {'label': 'Statut de l\'événement'}) }}
+            {% set sentence = '' %}
+            {% if event.statusEvent.state == 2 %}
+                {% set sentence = 'L\'événement est complet. Si vous souhaitez plus de participants, contactez l\'administrateur.' %}
+            {% elseif  event.statusEvent.state == 3 %}
+                {% set sentence = 'L\'événement est en cours, il ne peut être modifié.' %}
+            {% elseif  event.statusEvent.state == 4  %}
+                {% set sentence = 'L\'événement est terminé, il ne peut être modifié.' %}
+            {% endif %}
+
+            {% if sentence is not empty %}
+                <p>
+                    <span class="badge badge-{{ event.statusEvent.color }}">{{ event.statusEvent.name }}</span>
+                    <span class="text-danger">{{ sentence }}</span>
+                </p>
+            {% endif %}
+        <hr>
         {{ form_row(formEdit.description) }}
         <hr/>
         <div class="row">
