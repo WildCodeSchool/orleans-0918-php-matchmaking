@@ -33,6 +33,18 @@ $listButtonColor: #ffffff;
     }
 }
 
+.userForm {
+    margin-top:8px;
+    #addButton, #editButton {
+        display:none;
+        margin-top : 31px !important;
+    }
+}
+
+.hiddenField {
+    display:none;
+}
+
 .listButton {
     background-color:$listButtonColor;
 }
@@ -47,9 +59,4 @@ h1 {
 
 .custom-file-label::after {
     content: $browse;
-}
-
-.updateButton
-{
-    margin-top : 31px !important;
 }

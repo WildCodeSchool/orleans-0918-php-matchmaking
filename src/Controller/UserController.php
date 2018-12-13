@@ -16,7 +16,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UserController extends AbstractController
 {
-    const NEW_MANAGER_ROLE=["ROLE_MANAGER"];
+    const MANAGER_ROLE=["ROLE_MANAGER"];
+    const ADMIN_ROLE=["ROLE_ADMIN"];
     const DEFAULT_ACTIVATION=false;
     const DEFAULT_PASSWORD="";
 
@@ -27,9 +28,8 @@ class UserController extends AbstractController
      */
     public function indexManager(UserRepository $userRepository): Response
     {
-
         $form=$this->createForm(UserType::class, null, [
-        'action' => $this->generateUrl('manager_update'),
+        'action' => $this->generateUrl("update", ["role" =>"manager"]),
         'method' => 'POST',
         ]);
         return $this->render('user/manager.html.twig', [
@@ -40,36 +40,50 @@ class UserController extends AbstractController
 
     /**
      * @param Request $request
+     * @param UserRepository $userRepo
+     * @param string $role
+     * @param int $userId
      * @return Response
-     * @Route("/manager/update", name="manager_update", methods="POST")
+     * @Route("/{userId}/{role}/update", requirements={"role": "manager|admin"}, name="update", methods="POST")
      */
-    public function updateManager(Request $request): Response
+    public function update(Request $request, UserRepository $userRepo, string $role, int $userId = 0): Response
     {
-        $form=$this->createForm(UserType::class);
+        $user = new User();
+        if ($userId > 0) {
+            $user = $userRepo->find($userId);
+        }
+        $form=$this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
 
-            $user->setActivated(self::DEFAULT_ACTIVATION);
-            $user->setPassword(self::DEFAULT_PASSWORD);
-            $user->setRoles(self::NEW_MANAGER_ROLE);
-
+            if ($userId == 0) {
+                $user->setActivated(self::DEFAULT_ACTIVATION);
+                $user->setPassword(self::DEFAULT_PASSWORD);
+                if ($role == 'manager') {
+                    $user->setRoles(self::MANAGER_ROLE);
+                } else {
+                    $user->setRoles(self::ADMIN_ROLE);
+                }
+            }
             $this->getDoctrine()->getManager()->persist($user);
             $this->getDoctrine()->getManager()->flush();
-
             $this->addFlash(
                 'success',
-                'Votre utilisateur a été créé !'
+                'Données sauvegardées !'
             );
         } else {
+            $errors="";
+            foreach ($form->getErrors(true) as $error) {
+                $errors.=' '.$error->getMessage();
+            }
             $this->addFlash(
                 'danger',
-                'Les données que vous avez saisies ne sont pas valides.'
+                'Erreur. '.$errors
             );
         }
-
-        return $this->redirectToRoute('manager_index');
+        return $this->redirectToRoute($role.'_index');
     }
 
     /**

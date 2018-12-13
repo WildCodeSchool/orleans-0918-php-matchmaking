@@ -13,9 +13,12 @@
             {{ form_label(form.email, 'E-mail') }}
             {{ form_widget(form.email) }}
         </div>
-        <div class="col-md-3 updateButton">
-            <button class="btn btn-lg btn-primary btn-block">
-                Envoyer
+        <div class="col-md-3">
+            <button id="addButton" class="btn btn-lg btn-primary btn-block" name="add">
+                Créer
+            </button>
+            <button id="editButton" class="btn btn-lg btn-primary btn-block" name="edit">
+                Modifier
             </button>
         </div>
     </div>
