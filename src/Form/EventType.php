@@ -42,14 +42,7 @@ class EventType extends AbstractType
             ->add('pauseSeconds', IntegerType::class)
             ->add('users', EntityType::class, [
                 'class' => User::class,
-                'choice_label' => function ($user) {
-                    $labelName = $user->getLastName()
-                        . ' '
-                        . $user->getFirstName()
-                        . ' Email : '
-                        . $user->getEmail();
-                    return $labelName;
-                },
+                'choice_label' => 'userInfo',
                 'by_reference' => false,
                 'expanded' => true,
                 'multiple' => true,

@@ -241,4 +241,10 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function getUserInfo(): string
+    {
+        $info = $this->lastName. ' ' .$this->firstName. ' - Email : ' .$this->email;
+        return $info;
+    }
 }
