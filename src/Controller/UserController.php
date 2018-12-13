@@ -34,7 +34,7 @@ class UserController extends AbstractController
         ]);
         return $this->render('user/manager.html.twig', [
             'form' => $form->createView(),
-            'users' => $userRepository->findAll()
+            'users' => $userRepository->findBy([], ['lastName' => 'ASC', 'firstName' => 'ASC'])
         ]);
     }
 
@@ -116,15 +116,32 @@ class UserController extends AbstractController
 
     /**
      * @Route("/{id}", name="user_delete", methods="DELETE")
+     * @param Request $request
+     * @param User $user
+     * @return Response
      */
     public function delete(Request $request, User $user): Response
     {
+        $roles=$user->getRoles();
+
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($user);
             $em->flush();
+
+            $this->addFlash(
+                'success',
+                'Votre utilisateur a été supprimé !'
+            );
+        } else {
+            $this->addFlash(
+                'danger',
+                "Votre utilisateur n\'a pas pu été supprimé !"
+            );
         }
 
-        return $this->redirectToRoute('user_index');
+        if (in_array("ROLE_MANAGER", $roles)) {
+            return $this->redirectToRoute('manager_index');
+        }
     }
 }

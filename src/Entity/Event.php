@@ -3,11 +3,14 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Validator\Constraints\IsFutureDate;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
+ * @Vich\Uploadable
  */
 class Event
 {
@@ -108,6 +111,31 @@ class Event
      */
     private $formatEvent;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @var string
+     */
+    private $logo = 'defaultLogo.png';
+
+    /**
+     * @Vich\UploadableField(mapping="logos", fileNameProperty="logo")
+     * @var File
+     * @Assert\Image(maxSize="2M",maxSizeMessage="Cette image est trop volumineuse, 2Mo maximum")
+     */
+    private $logoFile;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @var \DateTime
+     */
+    private $updatedAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\StatusEvent", inversedBy="events")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $statusEvent;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -133,18 +161,6 @@ class Event
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
-
-        return $this;
-    }
-
-    public function getHour(): ?\DateTimeInterface
-    {
-        return $this->hour;
-    }
-
-    public function setHour(\DateTimeInterface $hour): self
-    {
-        $this->hour = $hour;
 
         return $this;
     }
@@ -217,6 +233,55 @@ class Event
     public function setFormatEvent(?FormatEvent $formatEvent): self
     {
         $this->formatEvent = $formatEvent;
+
+        return $this;
+    }
+
+
+    public function setLogoFile(File $logo = null)
+    {
+        $this->logoFile = $logo;
+
+        if ($logo) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getLogoFile()
+    {
+        return $this->logoFile;
+    }
+
+    public function setLogo($logo)
+    {
+        $this->logo = $logo;
+    }
+
+    public function getLogo()
+    {
+        return $this->logo;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getStatusEvent(): ?StatusEvent
+    {
+        return $this->statusEvent;
+    }
+
+    public function setStatusEvent(?StatusEvent $statusEvent): self
+    {
+        $this->statusEvent = $statusEvent;
 
         return $this;
     }

@@ -7,6 +7,7 @@ $colorTitleProjetIO:#FF9800;
 $colorBackgroundProjetIO:#343a40;
 $colorBtnProjetIO:#17a2b8;
 $borderColorH1: #000000;
+$browse: "Parcourir";
 $listButtonColor: #ffffff;
 
 @font-face {
@@ -36,10 +37,7 @@ $listButtonColor: #ffffff;
     margin-top:8px;
     #addButton, #editButton {
         display:none;
-        margin-top:32px;
-        &:hover {
-            margin-top:33px !important;
-        }
+        margin-top : 31px !important;
     }
 }
 
@@ -57,4 +55,8 @@ h1 {
     margin: auto;
     margin-top: 1em;
     border: 1px solid $borderColorH1;
+}
+
+.custom-file-label::after {
+    content: $browse;
 }
