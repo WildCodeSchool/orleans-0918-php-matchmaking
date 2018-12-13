@@ -42,7 +42,7 @@ class EventType extends AbstractType
             ->add('pauseSeconds', IntegerType::class)
             ->add('users', EntityType::class, [
                 'class' => User::class,
-                'choice_label' => 'userInfo',
+                'choice_label' => 'userInfos',
                 'by_reference' => false,
                 'expanded' => true,
                 'multiple' => true,
