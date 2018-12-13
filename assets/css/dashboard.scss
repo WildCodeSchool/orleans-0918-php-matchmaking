@@ -2,11 +2,81 @@
 @import "~bootswatch/dist/lumen/variables";
 @import "~bootswatch/dist/lumen/bootswatch";
 
-img {
-  width: 300px;
-  height: 150px;
+$font:BrandonBold,
+Arial,
+sans-serif;
+$sidesHeight: 95vh;
+$titlesHeight: 20vh;
+
+@font-face {
+  font-family: BrandonBold;
+  src: url(../../assets/fonts/BrandonText-Bold.otf);
 }
 
-.heightDashboard {
+body {
+  background: linear-gradient(45deg, orange, darkorange);
+}
+
+.runDashboard {
   height: 100vh;
+  font-family: $font;
+  text-transform: uppercase;
+  padding: 10px;
+
+  .title,
+  .speak {
+    height: $titlesHeight;
+
+    p {
+      font-size: 6vh;
+    }
+  }
+
+  .roundTimer {
+    height: $sidesHeight - 2*$titlesHeight;
+  }
+
+  .left-side {
+    background-color: rgba(0,0,0,.1);
+    height: $sidesHeight;
+    padding-top: 8vh;
+    .round {
+      height: 20vh;
+      font-size: 5vh;
+    }
+
+    .globalTimer {
+      height: 15vh;
+      font-size: 10vh;
+    }
+
+    .logo {
+      img {
+        padding-top: 10vh;
+        width: 25vw;
+      }
+    }
+  }
+}
+
+.pauseDashboard {
+  height: 100vh;
+  font-family: $font;
+  text-transform: uppercase;
+  padding: 10px;
+
+  .titleBar {
+    height: 10vh; 
+    p {
+      font-size: 4vh;
+    }
+  }
+  .tables {
+    height: 78vh;
+  }
+  .statusBar {
+    height: 10vh;
+    font-size: 3vh;
+    border : 1px solid black;
+  }
 }

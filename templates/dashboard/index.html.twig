@@ -2,37 +2,6 @@
 {% block title %}{% endblock %}
 
 {% block body %}
-    <div class="row heightDashboard">
-            <div class="col-4">
-                <div class="row">
-                    <div style="background-color: #1b1e21;" class="col-12 mt-5">
-                        <h2 class="text-center" style="color: white;">TOUR 1/4</h2>
-                    </div>
-                </div>
-                <div class="row">
-                    <div style="background-color: red;" class="col-12">
-                        <h2 class="text-center" style="font-size: 3.5em;"><strong>04:48</strong></h2>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 text-center">
-                        <img class="img-fluid" src="/images/logos/{{ event.logo }}" alt="logo" />
-                    </div>
-                </div>
-            </div>
-            <div class="col-8 pt-5" style="background-color: pink;" >
-                <div class="row">
-                    <div class="col-12">
-                        <h2 class="text-center">{{ event.title }}</h2>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <h2 class="text-center">timer</h2>
-                    </div>
-                </div>
-            </div>
-
-
-    </div>
+    {# {% include('dashboard/_pause.html.twig') %} #}
+    {% include('dashboard/_run.html.twig') %}
 {% endblock %}
