@@ -45,7 +45,6 @@ class Event
      *  minMessage = "Le contenu doit contenit {{ limit }} caractères minimum"
      * )
      */
-
     private $description;
 
     /**
