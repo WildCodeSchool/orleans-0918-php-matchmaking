@@ -132,7 +132,6 @@ class Event
     private $updatedAt;
 
     /**
-     * <<<<<<< HEAD
      * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="events")
      */
     private $users;
