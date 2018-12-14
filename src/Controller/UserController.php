@@ -34,7 +34,26 @@ class UserController extends AbstractController
         ]);
         return $this->render('user/manager.html.twig', [
             'form' => $form->createView(),
-            'users' => $userRepository->findAll()
+            'users' => $userRepository->findAll(),
+            'usersRole' => 'ROLE_MANAGER'
+        ]);
+    }
+
+    /**
+     * @param UserRepository $userRepository
+     * @return Response
+     * @Route("/admin", name="ADMIN_index", methods="GET|POST")
+     */
+    public function indexAdmin(UserRepository $userRepository): Response
+    {
+        $form=$this->createForm(UserType::class, null, [
+            'action' => $this->generateUrl("update", ["role" =>"admin"]),
+            'method' => 'POST',
+        ]);
+        return $this->render('user/admin.html.twig', [
+            'form' => $form->createView(),
+            'users' => $userRepository->findAll(),
+            'usersRole' => 'ROLE_ADMIN'
         ]);
     }
 
