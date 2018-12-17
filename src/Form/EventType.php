@@ -4,8 +4,10 @@ namespace App\Form;
 
 use App\Entity\Event;
 use App\Entity\FormatEvent;
+use App\Entity\Society;
 use App\Entity\User;
 use App\Entity\StatusEvent;
+use function Deployer\add;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -24,6 +26,13 @@ class EventType extends AbstractType
 
         $builder
             ->add('title', TextType::class)
+            ->add('society', EntityType::class, [
+                'class' => Society::class,
+                'choice_label' => 'name',
+                'by_reference' => false,
+                'expanded' => false,
+                'multiple' => false,
+            ])
             ->add('statusEvent', EntityType::class, [
                 'class' => StatusEvent::class,
                 'choice_label' => 'name',

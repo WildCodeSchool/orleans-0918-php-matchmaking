@@ -81,9 +81,10 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Event", inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Society", inversedBy="users")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $events;
+    private $society;
 
     public function __construct()
     {
@@ -246,5 +247,17 @@ class User implements UserInterface
     {
         $info = $this->lastName. ' ' .$this->firstName. ' - Email : ' .$this->email;
         return $info;
+    }
+
+    public function getSociety(): ?Society
+    {
+        return $this->society;
+    }
+
+    public function setSociety(?Society $society): self
+    {
+        $this->society = $society;
+
+        return $this;
     }
 }

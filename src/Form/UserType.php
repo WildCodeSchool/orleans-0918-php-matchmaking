@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Society;
 use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,7 +17,13 @@ class UserType extends AbstractType
             ->add('email')
             ->add('firstName')
             ->add('lastName')
-        ;
+            ->add('society', EntityType::class, [
+                'class' => Society::class,
+                'choice_label' => 'name',
+                'by_reference' => false,
+                'expanded' => false,
+                'multiple' => false,
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

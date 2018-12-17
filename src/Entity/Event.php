@@ -142,16 +142,17 @@ class Event
         $this->users = new ArrayCollection();
     }
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="events")
-     */
-    private $users;
-
 
     /** @ORM\ManyToOne(targetEntity = "App\Entity\StatusEvent", inversedBy = "events")
      * @ORM\JoinColumn(nullable = false)
      */
     private $statusEvent;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Society", inversedBy="events")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $society;
 
     public function getId(): ?int
     {
@@ -352,6 +353,18 @@ class Event
     public function setStatusEvent(?StatusEvent $statusEvent): self
     {
         $this->statusEvent = $statusEvent;
+
+        return $this;
+    }
+
+    public function getSociety(): ?Society
+    {
+        return $this->society;
+    }
+
+    public function setSociety(?Society $society): self
+    {
+        $this->society = $society;
 
         return $this;
     }
