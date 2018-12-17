@@ -45,8 +45,21 @@ $listButtonColor: #ffffff;
     display:none;
 }
 
+.userList {
+    td {
+        vertical-align: middle;
+    }
+}
+
 .listButton {
+    padding-top:0;
+    padding-bottom:0;
     background-color:$listButtonColor;
+    color: rgb(0, 140, 255);
+    font-size: 20pt;
+    :hover {
+        color: rgb(61, 168, 255);;
+    }
 }
 
 h1 {

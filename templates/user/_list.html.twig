@@ -12,12 +12,12 @@
     <tbody>
     {% for user in users %}
         {% if user.roles.0 == "ROLE_MANAGER" %}
-            <tr>
+            <tr class="userList">
                 <td class="hiddenField">{{ user.id }}</td>
                 <td>{{ user.lastName }}</td>
                 <td>{{ user.firstName }}</td>
                 <td>{{ user.email }}</td>
-                <td><button class="btn listButton"><i class="fas fa-pencil-alt"></i></button></td>
+                <td><button class="btn listButton"><i class="fas fa-edit"></i></button></td>
                 <td>{% include 'user/_delete_form.html.twig' %}</td>
             </tr>
         {% endif %}
