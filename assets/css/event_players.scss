@@ -1,8 +1,7 @@
 $borderShadowColor: rgba(0,0,0,0.1);
 $iconColor: rgb(0, 140, 255);
 
-
-.event_list {
+.event_players {
     h1 {
         margin-bottom: 20px;
     }
@@ -10,7 +9,7 @@ $iconColor: rgb(0, 140, 255);
         margin-bottom: 20px;
         margin-left: 20px;
     }
-    .row{ 
+    .players{ 
         border: 1px solid $borderShadowColor;
         border-radius: 2px;
         padding: 10px;
@@ -22,6 +21,11 @@ $iconColor: rgb(0, 140, 255);
             :hover {
                 color: darken($iconColor, 20%);
             }
+        }
+        .icn {
+            color: $iconColor;
+            font-size: 15pt;
+            padding-right: 5px;
         }
         .btn {
             margin: 0;

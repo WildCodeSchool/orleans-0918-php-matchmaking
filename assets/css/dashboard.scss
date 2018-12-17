@@ -7,6 +7,7 @@ $sidesHeight: 98vh;
 $titlesHeight: 20vh;
 $bgColor: rgb(56, 165, 255);
 $cardBackColor : rgba(255, 255, 255, .2);
+$borderBgCard : rgba(255, 255, 255, .3);
 
 @font-face {
   font-family: BrandonBold;
@@ -19,7 +20,7 @@ body {
 
 .bgCard {
   background-color: $cardBackColor;
-  border: 1px solid rgba(255, 255, 255, .3);
+  border: 1px solid $borderBgCard;
   border-radius: 5px;
 }
 
