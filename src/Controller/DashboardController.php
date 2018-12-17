@@ -6,15 +6,27 @@ use App\Entity\Event;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/dashboard")
+ */
 class DashboardController extends AbstractController
 {
     /**
-     * @Route("/dashboard/{id}", name="dashboard")
+     * @Route("/pause/{id}", name="dashboard_pause")
      */
-    public function index(Event $event)
+    public function pause(Event $event)
     {
-        //$event = $this->getDoctrine()->getmanager()->getRepository(Event::class);
-        return $this->render('dashboard/index.html.twig', [
+        return $this->render('dashboard/pause.html.twig', [
+            'event' => $event,
+        ]);
+    }
+
+    /**
+     * @Route("/run/{id}", name="dashboard_run")
+     */
+    public function run(Event $event)
+    {
+        return $this->render('dashboard/run.html.twig', [
             'event' => $event,
         ]);
     }
