@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    Gestion des participants
+{% endblock %}
+{% block body %}
+
+    <div class="container">
+        <h1 class="text-center">Gestion des participants</h1>
+        <h2 class="text-center pt-5 pb-3">{{ event.title }}</h2>
+        <p class="pt-5"><strong><u>Gestion participants</u></strong></p>
+        <p>
+            <a class="btn btn-primary" data-toggle="collapse" href="#collapsePlayerForm" role="button" aria-expanded="false" aria-controls="collapsePlayerForm  ">
+                <i class="fas fa-user-plus"></i> Ajouter un participant
+            </a>
+        </p>
+        <div class="collapse" id="collapsePlayerForm">
+            {{ include('player/_formPlayer.html.twig') }}
+            <hr/>
+        </div>
+    </div>
+{% endblock %}

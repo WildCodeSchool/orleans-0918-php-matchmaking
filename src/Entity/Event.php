@@ -104,6 +104,11 @@ class Event
     private $pauseSeconds;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Player", mappedBy="events")
+     */
+    private $players;
+  
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\FormatEvent", inversedBy="events")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank(
@@ -130,16 +135,18 @@ class Event
      * @var \DateTime
      */
     private $updatedAt;
+  
+    public function __construct()
+    {
+        $this->players = new ArrayCollection();
+        $this->users = new ArrayCollection();
+    }
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="events")
      */
     private $users;
 
-    public function __construct()
-    {
-        $this->users = new ArrayCollection();
-    }
 
     /** @ORM\ManyToOne(targetEntity = "App\Entity\StatusEvent", inversedBy = "events")
      * @ORM\JoinColumn(nullable = false)
@@ -235,6 +242,24 @@ class Event
         return $this;
     }
 
+    /**
+     * @return Collection|Player[]
+     */
+    public function getPlayers(): Collection
+    {
+        return $this->players;
+    }
+
+    public function addPlayer(Player $player): self
+    {
+        if (!$this->players->contains($player)) {
+            $this->players[] = $player;
+            $player->addEvent($this);
+        }
+      
+        return $this;
+    }
+
     public function getFormatEvent(): ?FormatEvent
     {
         return $this->formatEvent;
@@ -247,6 +272,15 @@ class Event
         return $this;
     }
 
+    public function removePlayer(Player $player): self
+    {
+        if ($this->players->contains($player)) {
+            $this->players->removeElement($player);
+            $player->removeEvent($this);
+        }
+  
+        return $this;
+    }
 
     public function setLogoFile(File $logo = null)
     {
