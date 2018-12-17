@@ -67,7 +67,6 @@ class UserController extends AbstractController
                     $user->setRoles(self::ADMIN_ROLE);
                 }
             }
-
             $this->getDoctrine()->getManager()->persist($user);
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash(

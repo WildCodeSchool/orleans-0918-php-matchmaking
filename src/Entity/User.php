@@ -81,7 +81,7 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Society", inversedBy="users", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Society", inversedBy="users")
      * @ORM\JoinColumn(nullable=false)
      */
     private $society;
@@ -215,32 +215,6 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
-    }
-
-    /**
-     * @return Collection|Event[]
-     */
-    public function getEvents(): Collection
-    {
-        return $this->events;
-    }
-
-    public function addEvent(Event $event): self
-    {
-        if (!$this->events->contains($event)) {
-            $this->events[] = $event;
-        }
-
-        return $this;
-    }
-
-    public function removeEvent(Event $event): self
-    {
-        if ($this->events->contains($event)) {
-            $this->events->removeElement($event);
-        }
-
-        return $this;
     }
 
     public function getUserInfos(): string
