@@ -18,6 +18,7 @@ use App\Entity\Event;
 
 class PlayerController extends AbstractController
 {
+
     /**
      * @Route("/manager/player/{id}", name="player", requirements={"id"="\d+"}, methods="GET|POST")
      */
@@ -42,7 +43,7 @@ class PlayerController extends AbstractController
         }
 
         return $this->render('player/index.html.twig', [
-            'player' => $player,
+            'players' => $event->getPlayers(),
             'form' => $form->createView(),
             'event' => $event
         ]);
