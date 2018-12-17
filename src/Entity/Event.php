@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -43,7 +45,6 @@ class Event
      *  minMessage = "Le contenu doit contenit {{ limit }} caractères minimum"
      * )
      */
-   
     private $description;
 
     /**
@@ -131,8 +132,17 @@ class Event
     private $updatedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\StatusEvent", inversedBy="events")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="events")
+     */
+    private $users;
+
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
+
+    /** @ORM\ManyToOne(targetEntity = "App\Entity\StatusEvent", inversedBy = "events")
+     * @ORM\JoinColumn(nullable = false)
      */
     private $statusEvent;
 
@@ -272,6 +282,32 @@ class Event
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->addEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
+            $user->removeEvent($this);
+        }
     }
 
     public function getStatusEvent(): ?StatusEvent

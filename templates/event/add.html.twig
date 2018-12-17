@@ -10,6 +10,9 @@
 
         {{ form_start(formEvent) }}
         {{ form_row(formEvent.title, {'label': 'Titre'}) }}
+        <hr>
+        {{ form_row(formEvent.statusEvent, {'label': 'Statut de l\'événement'}) }}
+        <hr>
         {{ form_row(formEvent.description) }}
         <hr/>
         <div class="row">
@@ -30,6 +33,9 @@
             <div class="col-md-3 col-ms-6">{{ form_row(formEvent.pauseMinutes, {'label': 'Temps de pause (minutes)'}) }}</div>
             <div class="col-md-3 col-ms-6">{{ form_row(formEvent.pauseSeconds, {'label': 'Temps de pause (secondes)'}) }}</div>
         </div>
+        <hr/>
+        <h4>Gestionnaires de l'évènement</h4>
+        {{ form_row(formEvent.users) }}
         <button class="btn btn btn-primary btn-lg btn-block">{{ button_label|default('Valider') }}</button>
         {{ form_end(formEvent) }}
     </div>

@@ -1,6 +1,7 @@
 <table class="table">
     <thead>
     <tr>
+        <th class="hiddenField">Id</th>
         <th>Nom</th>
         <th>Prénom</th>
         <th>Email</th>
@@ -12,10 +13,11 @@
     {% for user in users %}
         {% if user.roles.0 == "ROLE_MANAGER" %}
             <tr>
+                <td class="hiddenField">{{ user.id }}</td>
                 <td>{{ user.lastName }}</td>
                 <td>{{ user.firstName }}</td>
                 <td>{{ user.email }}</td>
-                <td><i class="fas fa-pencil-alt"></i></td>
+                <td><button class="btn listButton"><i class="fas fa-pencil-alt"></i></button></td>
                 <td>{% include 'user/_delete_form.html.twig' %}</td>
             </tr>
         {% endif %}
