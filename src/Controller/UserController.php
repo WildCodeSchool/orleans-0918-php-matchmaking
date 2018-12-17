@@ -34,7 +34,7 @@ class UserController extends AbstractController
         ]);
         return $this->render('user/manager.html.twig', [
             'form' => $form->createView(),
-            'users' => $userRepository->findAll(),
+            'users' => $userRepository->findBy([], ['lastName' => 'ASC', 'firstName' => 'ASC']),
             'usersRole' => 'ROLE_MANAGER'
         ]);
     }
@@ -52,7 +52,7 @@ class UserController extends AbstractController
         ]);
         return $this->render('user/admin.html.twig', [
             'form' => $form->createView(),
-            'users' => $userRepository->findAll(),
+            'users' => $userRepository->findBy([], ['lastName' => 'ASC', 'firstName' => 'ASC']),
             'usersRole' => 'ROLE_ADMIN'
         ]);
     }
