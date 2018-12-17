@@ -139,6 +139,7 @@ class Event
     public function __construct()
     {
         $this->players = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     /**
@@ -146,10 +147,6 @@ class Event
      */
     private $users;
 
-    public function __construct()
-    {
-        $this->users = new ArrayCollection();
-    }
 
     /** @ORM\ManyToOne(targetEntity = "App\Entity\StatusEvent", inversedBy = "events")
      * @ORM\JoinColumn(nullable = false)
