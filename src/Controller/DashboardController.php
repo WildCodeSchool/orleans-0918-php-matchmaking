@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class DashboardController extends AbstractController
 {
     /**
-     * @Route("/pause/{id}", name="dashboard_pause")
+     * @Route("/pause/{id}", name="dashboard_pause", requirements={"id"="\d+"})
      */
     public function pause(Event $event)
     {
@@ -22,7 +22,7 @@ class DashboardController extends AbstractController
     }
 
     /**
-     * @Route("/run/{id}", name="dashboard_run")
+     * @Route("/run/{id}", name="dashboard_run", requirements={"id"="\d+"})
      */
     public function run(Event $event)
     {
