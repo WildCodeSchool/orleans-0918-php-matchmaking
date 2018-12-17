@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Event;
+use App\Entity\Society;
 use App\Form\EventType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\File;
@@ -87,7 +88,7 @@ class EventController extends AbstractController
     public function edit(Request $request, Event $event): Response
     {
         $form = $this->createForm(EventType::class, $event, [
-            'status' => $event->getStatusEvent()->getState()
+            'status' => $event->getStatusEvent()->getState(),
         ]);
         $form->handleRequest($request);
 

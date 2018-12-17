@@ -24,12 +24,12 @@ class Society
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="society")
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="society", cascade={"persist"})
      */
     private $users;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="society")
+     * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="society", cascade={"persist"})
      */
     private $events;
 

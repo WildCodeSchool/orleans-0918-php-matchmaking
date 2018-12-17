@@ -81,7 +81,7 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Society", inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Society", inversedBy="users", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $society;

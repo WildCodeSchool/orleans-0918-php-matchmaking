@@ -5,6 +5,7 @@
         <th>Nom</th>
         <th>Prénom</th>
         <th>Email</th>
+        <th>Société</th>
         <th></th>
         <th></th>
     </tr>
@@ -17,6 +18,7 @@
                 <td>{{ user.lastName }}</td>
                 <td>{{ user.firstName }}</td>
                 <td>{{ user.email }}</td>
+                <td>{{ user.society.name }}</td>
                 <td><button class="btn listButton"><i class="fas fa-pencil-alt"></i></button></td>
                 <td>{% include 'user/_delete_form.html.twig' %}</td>
             </tr>

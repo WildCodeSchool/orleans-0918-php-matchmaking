@@ -27,10 +27,19 @@ userFormElt.style.display = "none";
         let firstName=td.children[2].innerText;
         let lastName=td.children[1].innerText;
         let email=td.children[3].innerText;
+        let society=td.children[4].textContent;
 
         document.getElementById("user_firstName").value = firstName;
         document.getElementById("user_lastName").value = lastName;
         document.getElementById("user_email").value = email;
+        let optElts = document.getElementById("user_society");
+
+        optElts.childNodes.forEach( (option) => {
+            if(option.textContent == society) {
+                option.selected = "selected";
+                optElts.value = option.value;
+            }
+    });
 
         addButton.style.display = "none";
         editButton.style.display = "block";

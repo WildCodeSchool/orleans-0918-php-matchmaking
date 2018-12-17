@@ -135,7 +135,10 @@ class Event
      * @var \DateTime
      */
     private $updatedAt;
-  
+
+
+    private $users;
+
     public function __construct()
     {
         $this->players = new ArrayCollection();

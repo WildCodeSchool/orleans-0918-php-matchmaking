@@ -67,8 +67,10 @@ class UserController extends AbstractController
                     $user->setRoles(self::ADMIN_ROLE);
                 }
             }
-            $this->getDoctrine()->getManager()->persist($user);
-            $this->getDoctrine()->getManager()->flush();
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
             $this->addFlash(
                 'success',
                 'Données sauvegardées !'

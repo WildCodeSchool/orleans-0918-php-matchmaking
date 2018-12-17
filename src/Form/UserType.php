@@ -20,7 +20,6 @@ class UserType extends AbstractType
             ->add('society', EntityType::class, [
                 'class' => Society::class,
                 'choice_label' => 'name',
-                'by_reference' => false,
                 'expanded' => false,
                 'multiple' => false,
             ]);
