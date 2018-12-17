@@ -9,6 +9,7 @@
 require('../css/app.scss');
 require('../css/event_list.scss');
 require('../css/event_manager.scss');
+require('../css/event_players.scss');
 require('@fortawesome/fontawesome-free/js/all.js');
 
 
