@@ -1,3 +1,6 @@
+$borderShadowColor: rgba(0,0,0,0.1);
+$iconeColor: rgb(0, 140, 255);
+
 .event_players {
     h1 {
         margin-bottom: 20px;
@@ -7,20 +10,20 @@
         margin-left: 20px;
     }
     .players{ 
-        border: 1px solid rgba(0,0,0,0.1);
+        border: 1px solid $borderShadowColor;
         border-radius: 2px;
         padding: 10px;
-        box-shadow: 0px 2px 0px 0px rgba(0,0,0,.1);
+        box-shadow: 0px 2px 0px 0px $borderShadowColor;
         margin-bottom: 20px;
         a {
-            color: rgb(0, 140, 255);
+            color: $iconeColor;
             font-size: 20pt;
             :hover {
-                color: rgb(61, 168, 255);;
+                color: darken($iconeColor, 20%);
             }
         }
         .icn {
-            color: rgb(0, 140, 255);
+            color: $iconeColor;
             font-size: 15pt;
             padding-right: 5px;
         }
