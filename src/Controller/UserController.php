@@ -6,20 +6,23 @@ use App\Entity\User;
 use App\Form\User1Type;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use App\Service\PasswordGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/user")
  */
 class UserController extends AbstractController
 {
-    const MANAGER_ROLE=["ROLE_MANAGER"];
-    const ADMIN_ROLE=["ROLE_ADMIN"];
-    const DEFAULT_ACTIVATION=false;
-    const DEFAULT_PASSWORD="";
+    const MANAGER_ROLE = ["ROLE_MANAGER"];
+    const ADMIN_ROLE = ["ROLE_ADMIN"];
+    const DEFAULT_ACTIVATION = false;
+    const DEFAULT_PASSWORD = "";
+    const DEFAULT_LENGTH_PASSWORD = 8;
 
     /**
      * @param UserRepository $userRepository
@@ -28,9 +31,9 @@ class UserController extends AbstractController
      */
     public function indexManager(UserRepository $userRepository): Response
     {
-        $form=$this->createForm(UserType::class, null, [
-        'action' => $this->generateUrl("update", ["role" =>"manager"]),
-        'method' => 'POST',
+        $form = $this->createForm(UserType::class, null, [
+            'action' => $this->generateUrl("update", ["role" => "manager"]),
+            'method' => 'POST',
         ]);
         return $this->render('user/manager.html.twig', [
             'form' => $form->createView(),
@@ -39,20 +42,28 @@ class UserController extends AbstractController
     }
 
     /**
+     * @Route("/{userId}/{role}/update", requirements={"role": "manager|admin"}, name="update", methods="POST")
      * @param Request $request
      * @param UserRepository $userRepo
      * @param string $role
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param PasswordGenerator $passwordGenerator
      * @param int $userId
      * @return Response
-     * @Route("/{userId}/{role}/update", requirements={"role": "manager|admin"}, name="update", methods="POST")
      */
-    public function update(Request $request, UserRepository $userRepo, string $role, int $userId = 0): Response
-    {
+    public function update(
+        Request $request,
+        UserRepository $userRepo,
+        string $role,
+        UserPasswordEncoderInterface $passwordEncoder,
+        PasswordGenerator $passwordGenerator,
+        int $userId = 0
+    ): Response {
         $user = new User();
         if ($userId > 0) {
             $user = $userRepo->find($userId);
         }
-        $form=$this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -60,7 +71,9 @@ class UserController extends AbstractController
 
             if ($userId == 0) {
                 $user->setActivated(self::DEFAULT_ACTIVATION);
-                $user->setPassword(self::DEFAULT_PASSWORD);
+                $password = $passwordGenerator->generate(self::DEFAULT_LENGTH_PASSWORD);
+                $user->setPassword($passwordEncoder->encodePassword($user, $password));
+
                 if ($role == 'manager') {
                     $user->setRoles(self::MANAGER_ROLE);
                 } else {
@@ -74,16 +87,16 @@ class UserController extends AbstractController
                 'Données sauvegardées !'
             );
         } else {
-            $errors="";
+            $errors = "";
             foreach ($form->getErrors(true) as $error) {
-                $errors.=' '.$error->getMessage();
+                $errors .= ' ' . $error->getMessage();
             }
             $this->addFlash(
                 'danger',
-                'Erreur. '.$errors
+                'Erreur. ' . $errors
             );
         }
-        return $this->redirectToRoute($role.'_index');
+        return $this->redirectToRoute($role . '_index');
     }
 
     /**
@@ -122,9 +135,9 @@ class UserController extends AbstractController
      */
     public function delete(Request $request, User $user): Response
     {
-        $roles=$user->getRoles();
+        $roles = $user->getRoles();
 
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($user);
             $em->flush();
