@@ -39,5 +39,5 @@ userFormElt.style.display = "none";
         if (userFormElt.style.display === "none") {
             userFormElt.style.display = "block";
         }
-        document.getElementById("userForm").children[0].action="/user/"+userId+"/manager/update";
+        document.getElementById("userForm").children[0].action="/user/"+userId+"/"+currentPage+"/update";
     });
