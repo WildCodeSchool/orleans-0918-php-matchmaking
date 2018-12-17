@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\Event;
 use App\Entity\FormatEvent;
+use App\Entity\User;
+use App\Entity\StatusEvent;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -22,6 +24,23 @@ class EventType extends AbstractType
 
         $builder
             ->add('title', TextType::class)
+            ->add('statusEvent', EntityType::class, [
+                'class' => StatusEvent::class,
+                'choice_label' => 'name',
+                'choice_attr' => function ($key) use ($options) {
+                    $disabled = true;
+
+                    if ($key->getState() == $options['status'] || ($options['status'] < 2 && $key->getState() < 2)) {
+                        $disabled = false;
+                    }
+
+                    return $disabled ? ['disabled' => 'disabled'] : [];
+                },
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('s')
+                        ->orderBy('s.state', 'ASC');
+                }
+            ])
             ->add('description', TextareaType::class)
             ->add('date', DateTimeType::class)
             ->add('formatEvent', EntityType::class, [
@@ -38,13 +57,29 @@ class EventType extends AbstractType
             ->add('roundMinutes', IntegerType::class)
             ->add('roundSeconds', IntegerType::class)
             ->add('pauseMinutes', IntegerType::class)
-            ->add('pauseSeconds', IntegerType::class);
+            ->add('pauseSeconds', IntegerType::class)
+            ->add('users', EntityType::class, [
+                'class' => User::class,
+                'choice_label' => 'userInfos',
+                'by_reference' => false,
+                'expanded' => true,
+                'multiple' => true,
+                'label' => false,
+                'label_attr' => [
+                    'class' => 'list-group-item list-group-item-action'
+                ],
+                'query_builder' => function (EntityRepository $entityRepository) {
+                    return $entityRepository->createQueryBuilder('user')
+                        ->orderBy('user.lastName', 'ASC');
+                }
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => Event::class,
+            'status' => 0,
         ]);
     }
 }
