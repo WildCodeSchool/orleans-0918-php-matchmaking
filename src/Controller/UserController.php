@@ -68,9 +68,8 @@ class UserController extends AbstractController
                 }
             }
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
+            $this->getDoctrine()->getManager()->persist($user);
+            $this->getDoctrine()->getManager()->flush();
             $this->addFlash(
                 'success',
                 'Données sauvegardées !'
