@@ -31,3 +31,8 @@ yarn-error.log
 deploy.php
 /public/images/logos/*
 !/public/images/logos/defaultLogo.png
+
+###> squizlabs/php_codesniffer ###
+/.phpcs-cache
+/phpcs.xml
+###< squizlabs/php_codesniffer ###

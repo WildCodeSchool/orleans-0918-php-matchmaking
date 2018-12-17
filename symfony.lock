@@ -2,6 +2,12 @@
     "behat/transliterator": {
         "version": "v1.2.0"
     },
+    "deployer/deployer": {
+        "version": "v6.3.0"
+    },
+    "deployer/phar-update": {
+        "version": "v2.1.0"
+    },
     "doctrine/data-fixtures": {
         "version": "v1.3.1"
     },
@@ -28,6 +34,27 @@
     },
     "league/csv": {
         "version": "9.1.4"
+    },
+    "pimple/pimple": {
+        "version": "v3.2.3"
+    },
+    "squizlabs/php_codesniffer": {
+        "version": "3.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "0dc9cceda799fd3a08b96987e176a261028a3709"
+        }
+    },
+    "symfony/apache-pack": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "c82bead70f9a4f656354a193df7bf0ca2114efa0"
+        }
     },
     "symfony/templating": {
         "version": "v4.1.9"
