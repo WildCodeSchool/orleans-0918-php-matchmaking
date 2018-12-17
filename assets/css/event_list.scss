@@ -1,5 +1,5 @@
 $borderShadowColor: rgba(0,0,0,0.1);
-$iconeColor: rgb(0, 140, 255);
+$iconColor: rgb(0, 140, 255);
 
 
 .event_list {
@@ -20,7 +20,7 @@ $iconeColor: rgb(0, 140, 255);
             color: rgb(0, 140, 255);
             font-size: 20pt;
             :hover {
-                color: darken($iconeColor, 20%);
+                color: darken($iconColor, 20%);
             }
         }
         .btn {
