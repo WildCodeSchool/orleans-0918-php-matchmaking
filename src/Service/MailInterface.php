@@ -9,6 +9,5 @@ namespace App\Service;
 interface MailInterface
 {
     public function prepareEmail() : void;
-
     public function sendEmail() : void;
 }

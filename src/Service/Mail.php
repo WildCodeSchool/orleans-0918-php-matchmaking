@@ -7,17 +7,17 @@ class Mail
     /**
      * @var string
      */
-    private $recipientEmail;
-
-    /**
-     * @var
-     */
-    private $recipientName;
+    private $senderEmail;
 
     /**
      * @var string
      */
-    private $senderEmail;
+    private $senderName;
+
+    /**
+     * @var string
+     */
+    private $recipientEmail;
 
     /**
      * @var string
@@ -63,45 +63,9 @@ class Mail
         string $adminGlobalName
     ) {
         $this->mailer = $mailer;
-        $this->recipientEmail = $adminEmail;
-        $this->recipientName = $adminGlobalName;
+        $this->senderEmail = $adminEmail;
+        $this->senderName = $adminGlobalName;
         $this->templating = $templating;
-    }
-
-    /**
-     * @return string
-     */
-    public function getRecipientEmail(): string
-    {
-        return $this->recipientEmail;
-    }
-
-    /**
-     * @param string $recipientEmail
-     * @return Mail
-     */
-    public function setRecipientEmail(string $recipientEmail): Mail
-    {
-        $this->recipientEmail = $recipientEmail;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getRecipientName()
-    {
-        return $this->recipientName;
-    }
-
-    /**
-     * @param mixed $recipientName
-     * @return Mail
-     */
-    public function setRecipientName($recipientName)
-    {
-        $this->recipientName = $recipientName;
-        return $this;
     }
 
     /**
@@ -119,6 +83,42 @@ class Mail
     public function setSenderEmail(string $senderEmail): Mail
     {
         $this->senderEmail = $senderEmail;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSenderName() : string
+    {
+        return $this->senderName;
+    }
+
+    /**
+     * @param string $senderName
+     * @return Mail
+     */
+    public function setSenderName(string $senderName)
+    {
+        $this->senderName = $senderName;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRecipientEmail(): string
+    {
+        return $this->recipientEmail;
+    }
+
+    /**
+     * @param string $recipientEmail
+     * @return Mail
+     */
+    public function setRecipientEmail(string $recipientEmail): Mail
+    {
+        $this->recipientEmail = $recipientEmail;
         return $this;
     }
 

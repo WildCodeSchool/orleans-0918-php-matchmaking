@@ -11,15 +11,15 @@ class MailLogin extends Mail implements MailInterface
     public function prepareEmail() : void
     {
         $this->setSubjectEmail('Match Making : Vos identifiants.');
-        $this->setSenderEmail($this->getOptions()['email']);
+        $this->setRecipientEmail($this->getOptions()['email']);
         $this->setTemplateEmail('emails/registration.html.twig');
     }
 
     public function sendEmail() : void
     {
         $message = (new \Swift_Message($this->getSubjectEmail()))
-            ->setFrom([$this->getRecipientEmail() => $this->getRecipientName()])
-            ->setTo($this->getSenderEmail())
+            ->setFrom([$this->getSenderEmail() => $this->getSenderName()])
+            ->setTo($this->getRecipientEmail())
             ->setBody(
                 $this->getTemplating()->render(
                     $this->getTemplateEmail(),
