@@ -8,7 +8,9 @@ $colorBackgroundProjetIO:#343a40;
 $colorBtnProjetIO:#17a2b8;
 $borderColorH1: #000000;
 $browse: "Parcourir";
-$listButtonColor: #ffffff;
+$listButtonBgColor: #ffffff;
+$listButtonColor: rgb(0, 140, 255);
+$listButtonColorHover : rgb(61, 168, 255);
 
 @font-face {
     font-family: BrandonBold;
@@ -54,11 +56,11 @@ $listButtonColor: #ffffff;
 .listButton {
     padding-top:0;
     padding-bottom:0;
-    background-color:$listButtonColor;
-    color: rgb(0, 140, 255);
+    background-color:$listButtonBgColor;
+    color: $listButtonColor;
     font-size: 20pt;
     :hover {
-        color: rgb(61, 168, 255);;
+        color: $listButtonColorHover;
     }
 }
 
