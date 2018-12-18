@@ -47,8 +47,14 @@
                      <a href=""><i class="fas fa-edit"></i></a>
             </div>
              <div class="col-sm-1 col-xs-12">
-                    <a href=""><i class="fas fa-times"></i></a> 
-            </div>
+                 <form method="post" action="{{ path('player_delete', {'id': player.id}) }}"
+                       onsubmit="return confirm('Etes vous sûr de vouloir supprimer ce participant ?');">
+                     <input type="hidden" name="_method" value="DELETE">
+                     <input type="hidden" name="event_id" value="{{ event.id }}">
+                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ player.id) }}">
+                     <button class="listButton btn"><i class="fas fa-times"></i></button>
+                 </form>
+             </div>
         </div>
         {% endfor %}
         <div class="d-100">
