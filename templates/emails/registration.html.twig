@@ -1,13 +1,15 @@
 {# templates/emails/registration.html.twig #}
-<h3>Vos identifiants</h3>
 
-Bonjour {{ firstname ~ ' ' ~ lastname }},
+<p>Bonjour {{ firstname ~ ' ' ~ lastname }},</p>
 
-Vous trouverez, ci-dessous, vos identifiants, afin de gérer les prochains événements
-de votre entreprise.
+<p>Vous trouverez, ci-dessous, vos identifiants, afin de gérer les prochains événements
+    de votre entreprise.</p>
 
-Login : {{ email }}
-Mot de passe : {{ password }}
+<p><strong>Vos identifiants</strong></p>
+<p>Login : <strong>{{ email }}</strong></p>
+<p>Mot de passe : <strong>{{ password }}</strong></p>
 
-{# Makes an absolute URL to the /images/logo.png file #}
-<img src="{{ absolute_url(asset('images/defaultLogo.png')) }}">
+<p>Retrouvez-nous sur l'application <a href="{{ url('app_login') }}">Match Making</a></p>
+
+<p>Cordialement,</p>
+<p>L'équipe Match Making</p>

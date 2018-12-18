@@ -2,8 +2,6 @@
 
 namespace App\Service;
 
-use Symfony\Component\Templating\EngineInterface;
-
 class Mail
 {
     /**
@@ -42,7 +40,7 @@ class Mail
     private $options = [];
 
     /**
-     * @var EngineInterface
+     * @var \Twig_Environment
      */
     private $templating;
 
@@ -54,11 +52,16 @@ class Mail
     /**
      * Mail constructor.
      * @param \Swift_Mailer $mailer
+     * @param \Twig_Environment $templating
      * @param string $adminEmail
      * @param string $adminGlobalName
      */
-    public function __construct(\Swift_Mailer $mailer, EngineInterface $templating, string $adminEmail, string $adminGlobalName)
-    {
+    public function __construct(
+        \Swift_Mailer $mailer,
+        \Twig_Environment $templating,
+        string $adminEmail,
+        string $adminGlobalName
+    ) {
         $this->mailer = $mailer;
         $this->recipientEmail = $adminEmail;
         $this->recipientName = $adminGlobalName;
@@ -192,18 +195,18 @@ class Mail
     }
 
     /**
-     * @return EngineInterface
+     * @return \Twig_Environment
      */
-    public function getTemplating(): EngineInterface
+    public function getTemplating(): \Twig_Environment
     {
         return $this->templating;
     }
 
     /**
-     * @param EngineInterface $templating
+     * @param \Twig_Environment $templating
      * @return Mail
      */
-    public function setTemplating(EngineInterface $templating): Mail
+    public function setTemplating(\Twig_Environment $templating): Mail
     {
         $this->templating = $templating;
         return $this;

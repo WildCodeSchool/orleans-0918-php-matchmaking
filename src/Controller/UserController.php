@@ -77,16 +77,16 @@ class UserController extends AbstractController
                 $user->setActivated(self::DEFAULT_ACTIVATION);
                 $password = $passwordGenerator->generate(self::DEFAULT_LENGTH_PASSWORD);
                 $user->setPassword($passwordEncoder->encodePassword($user, $password));
-                // envoi email
+
                 $mailLogin->setOptions([
                    'lastname' => $user->getLastName(),
                    'firstname' => $user->getFirstName(),
                    'email' => $user->getEmail(),
-                    'password' => $password
+                   'password' => $password
                 ]);
                 $mailLogin->prepareEmail();
                 $mailLogin->sendEmail();
-                exit();
+
                 if ($role == 'manager') {
                     $user->setRoles(self::MANAGER_ROLE);
                 } else {
