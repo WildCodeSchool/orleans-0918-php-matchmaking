@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des administrateurs{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Gestion des administrateurs</h1>
+        <button class="createButton btn btn-lg btn-primary">Ajouter un administrateur</button>
+        {% include 'user/_form.html.twig' %}
+        <hr>
+        {% include 'user/_list.html.twig' %}
+    </div>
+{% endblock %}
