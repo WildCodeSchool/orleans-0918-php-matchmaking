@@ -47,7 +47,7 @@ class UserController extends AbstractController
     /**
      * @param UserRepository $userRepository
      * @return Response
-     * @Route("/admin", name="ADMIN_index", methods="GET|POST")
+     * @Route("/admin", name="admin_index", methods="GET|POST")
      */
     public function indexAdmin(UserRepository $userRepository): Response
     {
@@ -176,7 +176,9 @@ class UserController extends AbstractController
             );
         }
 
-        if (in_array("ROLE_MANAGER", $roles)) {
+        if (in_array("ROLE_ADMIN", $roles)) {
+            return $this->redirectToRoute('admin_index');
+        } else {
             return $this->redirectToRoute('manager_index');
         }
     }

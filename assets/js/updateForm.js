@@ -2,6 +2,7 @@
 let userFormElt = document.getElementById('userForm');
 let addButton = document.getElementById('addButton');
 let editButton = document.getElementById('editButton');
+let currentPage = location.href.split('/').pop();
 
 userFormElt.style.display = "none";
 
@@ -17,7 +18,7 @@ userFormElt.style.display = "none";
         if (userFormElt.style.display === "none") {
             userFormElt.style.display = "block";
         }
-        document.getElementById("userForm").children[0].action="/user/0/manager/update";
+        document.getElementById("userForm").children[0].action="/user/0/"+currentPage+"/update";
     });
 
     $('.listButton').click(function() {
@@ -38,5 +39,5 @@ userFormElt.style.display = "none";
         if (userFormElt.style.display === "none") {
             userFormElt.style.display = "block";
         }
-        document.getElementById("userForm").children[0].action="/user/"+userId+"/manager/update";
+        document.getElementById("userForm").children[0].action="/user/"+userId+"/"+currentPage+"/update";
     });

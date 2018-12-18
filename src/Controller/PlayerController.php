@@ -48,4 +48,26 @@ class PlayerController extends AbstractController
             'event' => $event
         ]);
     }
+
+    /**
+     * @Route("/manager/player/delete/{id}", name="player_delete", requirements={"id"="\d+"}, methods="DELETE")
+     */
+    public function delete(Request $request, Player $player): Response
+    {
+
+        if ($this->isCsrfTokenValid('delete' . $player->getId(), $request->request->get('_token'))) {
+            $event = $request->request->get('event_id');
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($player);
+            $em->flush();
+
+
+            $this->addFlash(
+                'success',
+                'Votre participant a été supprimé !'
+            );
+        }
+
+        return $this->redirectToRoute('player', ['id' => $event]);
+    }
 }
