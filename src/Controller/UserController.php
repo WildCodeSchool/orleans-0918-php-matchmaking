@@ -47,7 +47,7 @@ class UserController extends AbstractController
     /**
      * @param UserRepository $userRepository
      * @return Response
-     * @Route("/admin", name="ADMIN_index", methods="GET|POST")
+     * @Route("/admin", name="admin_index", methods="GET|POST")
      */
     public function indexAdmin(UserRepository $userRepository): Response
     {
