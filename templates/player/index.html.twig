@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    Gestion des participants
+{% endblock %}
+{% block body %}
+
+    <div class="event_players container">
+        <h1 class="text-center">Gestion des participants</h1>
+        <h2 class="text-center pt-1">{{ event.date|date('d M Y') }}
+        <hr />
+        {{ event.title }}</h2>
+        <p class="pt-2"><strong><u>Gestion participants</u></strong></p>
+        <p>
+            <div class="row">
+                <div class="col">
+                    <a class="btn btn-primary" data-toggle="collapse" href="#collapsePlayerForm" role="button" aria-expanded="false" aria-controls="collapsePlayerForm  ">
+                        <i class="fas fa-user-plus"></i> Ajouter un participant
+                    </a>
+                </div>
+                <div class="col justify-content-end text-right">
+                    <a class="btn btn-primary" data-toggle="collapse" href="" role="button" aria-expanded="false">
+                        <i class="fas fa-play"></i> Lancer l'événement
+                    </a>
+                </div>
+            </div>
+        </p>
+        <div class="collapse" id="collapsePlayerForm">
+            {{ include('player/_formPlayer.html.twig') }}
+            <hr/>
+        </div>
+
+        {% for player in players %}
+        <div class="row players align-items-center">
+            <div class="col-sm-1 col-xs-12">
+                <input type="checkbox" id="presence_{{ player.id }}" name="presence">
+            </div>
+            <div class="col-sm-4 col-xs-12">
+                    <span class="icn"><i class="fas fa-user"></i></span>{{ player.firstname }}  {{ player.name }}
+            </div>
+            <div class="col-sm-3 col-xs-12">
+                    <span class="icn"><i class="fas fa-envelope"></i></span>{{ player.mail }}
+            </div>
+            <div class="col-sm-2 col-xs-12">
+                    <span class="icn"><i class="fas fa-mobile-alt"></i></span>{{ player.phoneNumber }}
+            </div>
+             <div class="col-sm-1 col-xs-12">
+                     <a href=""><i class="fas fa-edit"></i></a>
+            </div>
+             <div class="col-sm-1 col-xs-12">
+                    <a href=""><i class="fas fa-times"></i></a> 
+            </div>
+        </div>
+        {% endfor %}
+        <div class="d-100">
+            <a class="btn btn btn-primary btn-lg btn-block" data-toggle="collapse" href="" role="button" aria-expanded="false">
+                <i class="fas fa-play"></i> Lancer l'événement
+            </a>
+        </div>
+    </div>
+{% endblock %}

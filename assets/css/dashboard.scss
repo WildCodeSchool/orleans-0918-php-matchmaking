@@ -1,0 +1,91 @@
+@import "~bootstrap/scss/bootstrap";
+@import "~bootswatch/dist/lumen/variables";
+@import "~bootswatch/dist/lumen/bootswatch";
+
+$font:BrandonBold,Arial,sans-serif;
+$sidesHeight: 98vh;
+$titlesHeight: 20vh;
+$bgColor: rgb(56, 165, 255);
+$cardBackColor : rgba(255, 255, 255, .2);
+$borderBgCard : rgba(255, 255, 255, .3);
+
+@font-face {
+  font-family: BrandonBold;
+  src: url(../../assets/fonts/BrandonText-Bold.otf);
+}
+
+body {
+  background: linear-gradient(50deg, $bgColor, darken(saturate($bgColor, 40%), 10%));
+}
+
+.bgCard {
+  background-color: $cardBackColor;
+  border: 1px solid $borderBgCard;
+  border-radius: 5px;
+}
+
+.runDashboard {
+  height: 100vh;
+  font-family: $font;
+  padding: 10px;
+
+  .title,
+  .speak {
+    height: $titlesHeight;
+
+    p {
+      font-size: 6vh;
+    }
+  }
+
+  .roundTimer {
+    height: $sidesHeight - 2*$titlesHeight;
+  }
+
+  .left-side {
+    height: $sidesHeight;
+    padding-top: 8vh;
+
+    .round {
+      height: 20vh;
+      font-size: 5vh;
+    }
+
+    .globalTimer {
+      height: 15vh;
+      font-size: 10vh;
+    }
+
+    .logo {
+      img {
+        padding-top: 10vh;
+        width: 25vw;
+      }
+    }
+  }
+}
+
+.pauseDashboard {
+  height: 100vh;
+  font-family: $font;
+  padding: 10px;
+
+  .titleBar {
+    height: 10vh;
+
+    p {
+      font-size: 4vh;
+    }
+  }
+
+  .tables {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 77vh;
+  }
+
+  .statusBar {
+    height: 10vh;
+    font-size: 3vh;
+  }
+}

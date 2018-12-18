@@ -7,7 +7,10 @@ $colorTitleProjetIO:#FF9800;
 $colorBackgroundProjetIO:#343a40;
 $colorBtnProjetIO:#17a2b8;
 $borderColorH1: #000000;
-$listButtonColor: #ffffff;
+$browse: "Parcourir";
+$listButtonBgColor: #ffffff;
+$listButtonColor: rgb(0, 140, 255);
+$listButtonColorHover : rgb(61, 168, 255);
 
 @font-face {
     font-family: BrandonBold;
@@ -36,10 +39,7 @@ $listButtonColor: #ffffff;
     margin-top:8px;
     #addButton, #editButton {
         display:none;
-        margin-top:32px;
-        &:hover {
-            margin-top:33px !important;
-        }
+        margin-top : 31px !important;
     }
 }
 
@@ -47,8 +47,21 @@ $listButtonColor: #ffffff;
     display:none;
 }
 
+.userList {
+    td {
+        vertical-align: middle;
+    }
+}
+
 .listButton {
-    background-color:$listButtonColor;
+    padding-top:0;
+    padding-bottom:0;
+    background-color:$listButtonBgColor;
+    color: $listButtonColor;
+    font-size: 20pt;
+    :hover {
+        color: $listButtonColorHover;
+    }
 }
 
 h1 {
@@ -57,4 +70,8 @@ h1 {
     margin: auto;
     margin-top: 1em;
     border: 1px solid $borderColorH1;
+}
+
+.custom-file-label::after {
+    content: $browse;
 }

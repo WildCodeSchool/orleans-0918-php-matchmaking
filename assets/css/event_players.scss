@@ -1,0 +1,37 @@
+$borderShadowColor: rgba(0,0,0,0.1);
+$iconColor: rgb(0, 140, 255);
+
+.event_players {
+    h1 {
+        margin-bottom: 20px;
+    }
+    .btn {
+        margin-bottom: 20px;
+        margin-left: 20px;
+    }
+    .players{ 
+        border: 1px solid $borderShadowColor;
+        border-radius: 2px;
+        padding: 10px;
+        box-shadow: 0px 2px 0px 0px $borderShadowColor;
+        margin-bottom: 20px;
+        a {
+            color: $iconColor;
+            font-size: 20pt;
+            :hover {
+                color: darken($iconColor, 20%);
+            }
+        }
+        .icn {
+            color: $iconColor;
+            font-size: 15pt;
+            padding-right: 5px;
+        }
+        .btn {
+            margin: 0;
+        }
+        .btn-link {
+            font-size: 30px;
+        }
+    }
+}
