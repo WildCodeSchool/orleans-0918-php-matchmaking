@@ -1,0 +1,13 @@
+{# templates/emails/registration.html.twig #}
+<h3>Vos identifiants</h3>
+
+Bonjour {{ firstname ~ ' ' ~ lastname }},
+
+Vous trouverez, ci-dessous, vos identifiants, afin de gérer les prochains événements
+de votre entreprise.
+
+Login : {{ email }}
+Mot de passe : {{ password }}
+
+{# Makes an absolute URL to the /images/logo.png file #}
+<img src="{{ absolute_url(asset('images/defaultLogo.png')) }}">

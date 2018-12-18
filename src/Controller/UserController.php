@@ -6,6 +6,8 @@ use App\Entity\User;
 use App\Form\User1Type;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use App\Service\Mail;
+use App\Service\MailLogin;
 use App\Service\PasswordGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,6 +50,7 @@ class UserController extends AbstractController
      * @param string $role
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param PasswordGenerator $passwordGenerator
+     * @param MailLogin $mailLogin
      * @param int $userId
      * @return Response
      */
@@ -57,6 +60,7 @@ class UserController extends AbstractController
         string $role,
         UserPasswordEncoderInterface $passwordEncoder,
         PasswordGenerator $passwordGenerator,
+        MailLogin $mailLogin,
         int $userId = 0
     ): Response {
         $user = new User();
@@ -73,7 +77,16 @@ class UserController extends AbstractController
                 $user->setActivated(self::DEFAULT_ACTIVATION);
                 $password = $passwordGenerator->generate(self::DEFAULT_LENGTH_PASSWORD);
                 $user->setPassword($passwordEncoder->encodePassword($user, $password));
-
+                // envoi email
+                $mailLogin->setOptions([
+                   'lastname' => $user->getLastName(),
+                   'firstname' => $user->getFirstName(),
+                   'email' => $user->getEmail(),
+                    'password' => $password
+                ]);
+                $mailLogin->prepareEmail();
+                $mailLogin->sendEmail();
+                exit();
                 if ($role == 'manager') {
                     $user->setRoles(self::MANAGER_ROLE);
                 } else {

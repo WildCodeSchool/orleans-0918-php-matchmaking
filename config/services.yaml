@@ -5,6 +5,8 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'fr'
+    admin_email: 'matchmaking.wcs@gmail.com'
+    admin_global_name: 'Match Making'
 
 services:
     # default configuration for services in *this* file
@@ -16,6 +18,8 @@ services:
                             # The best practice is to be explicit about your dependencies anyway.
         bind:
             $projectDir: '%kernel.project_dir%'
+            $adminEmail: '%admin_email%'
+            $adminGlobalName: '%admin_global_name%'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
