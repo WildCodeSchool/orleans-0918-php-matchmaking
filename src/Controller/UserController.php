@@ -6,8 +6,6 @@ use App\Entity\User;
 use App\Form\User1Type;
 use App\Form\UserType;
 use App\Repository\UserRepository;
-use App\Service\Mail;
-use App\Service\MailLogin;
 use App\Service\PasswordGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -50,7 +48,9 @@ class UserController extends AbstractController
      * @param string $role
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param PasswordGenerator $passwordGenerator
-     * @param MailLogin $mailLogin
+     * @param \Swift_Mailer $mailer
+     * @param string $adminEmail
+     * @param string $adminGlobalName
      * @param int $userId
      * @return Response
      */
@@ -60,7 +60,9 @@ class UserController extends AbstractController
         string $role,
         UserPasswordEncoderInterface $passwordEncoder,
         PasswordGenerator $passwordGenerator,
-        MailLogin $mailLogin,
+        \Swift_Mailer $mailer,
+        string $adminEmail,
+        string $adminGlobalName,
         int $userId = 0
     ): Response {
         $user = new User();
@@ -78,14 +80,22 @@ class UserController extends AbstractController
                 $password = $passwordGenerator->generate(self::DEFAULT_LENGTH_PASSWORD);
                 $user->setPassword($passwordEncoder->encodePassword($user, $password));
 
-                $mailLogin->setOptions([
-                   'lastname' => $user->getLastName(),
-                   'firstname' => $user->getFirstName(),
-                   'email' => $user->getEmail(),
-                   'password' => $password
-                ]);
-                $mailLogin->prepareEmail();
-                $mailLogin->sendEmail();
+                $message = (new \Swift_Message('Match Making : Vos identifiants.'))
+                    ->setFrom([$adminEmail => $adminGlobalName])
+                    ->setTo($user->getEmail())
+                    ->setBody(
+                        $this->renderView(
+                            'emails/registration.html.twig',
+                            [
+                                'lastname' => $user->getLastName(),
+                                'firstname' => $user->getFirstName(),
+                                'email' => $user->getEmail(),
+                                'password' => $password
+                            ]
+                        ),
+                        'text/html'
+                    );
+                $mailer->send($message);
 
                 if ($role == 'manager') {
                     $user->setRoles(self::MANAGER_ROLE);
