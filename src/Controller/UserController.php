@@ -176,7 +176,9 @@ class UserController extends AbstractController
             );
         }
 
-        if (in_array("ROLE_MANAGER", $roles)) {
+        if (in_array("ROLE_ADMIN", $roles)) {
+            return $this->redirectToRoute('admin_index');
+        } else {
             return $this->redirectToRoute('manager_index');
         }
     }
