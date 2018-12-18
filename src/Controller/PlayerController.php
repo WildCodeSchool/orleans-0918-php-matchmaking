@@ -50,11 +50,10 @@ class PlayerController extends AbstractController
     }
 
     /**
-     * @Route("/manager/player/delete/{id}", name="player_delete", methods="DELETE")
+     * @Route("/manager/player/delete/{id}", name="player_delete", requirements={"id"="\d+"}, methods="DELETE")
      */
     public function delete(Request $request, Player $player): Response
     {
-
 
         if ($this->isCsrfTokenValid('delete' . $player->getId(), $request->request->get('_token'))) {
             $event = $request->request->get('event_id');
@@ -65,7 +64,7 @@ class PlayerController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'Votre participant à été supprimé !'
+                'Votre participant a été supprimé !'
             );
         }
 
