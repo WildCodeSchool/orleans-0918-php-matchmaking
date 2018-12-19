@@ -18,8 +18,6 @@ services:
                             # The best practice is to be explicit about your dependencies anyway.
         bind:
             $projectDir: '%kernel.project_dir%'
-            $adminEmail: '%admin_email%'
-            $adminGlobalName: '%admin_global_name%'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -35,3 +33,7 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    App\Controller\UserController:
+        arguments:
+            $adminEmail: '%admin_email%'
+            $adminGlobalName: '%admin_global_name%'

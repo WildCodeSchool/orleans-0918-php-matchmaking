@@ -25,6 +25,22 @@ class UserController extends AbstractController
     const DEFAULT_LENGTH_PASSWORD = 8;
 
     /**
+     * @var string
+     */
+    private $adminEmail;
+
+    /**
+     * @var string
+     */
+    private $adminGlobalName;
+
+    public function __construct(string $adminEmail, string $adminGlobalName)
+    {
+        $this->adminEmail = $adminEmail;
+        $this->adminGlobalName = $adminGlobalName;
+    }
+
+    /**
      * @param UserRepository $userRepository
      * @return Response
      * @Route("/manager", name="manager_index", methods="GET|POST")
@@ -49,8 +65,6 @@ class UserController extends AbstractController
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param PasswordGenerator $passwordGenerator
      * @param \Swift_Mailer $mailer
-     * @param string $adminEmail
-     * @param string $adminGlobalName
      * @param int $userId
      * @return Response
      */
@@ -61,8 +75,6 @@ class UserController extends AbstractController
         UserPasswordEncoderInterface $passwordEncoder,
         PasswordGenerator $passwordGenerator,
         \Swift_Mailer $mailer,
-        string $adminEmail,
-        string $adminGlobalName,
         int $userId = 0
     ): Response {
         $user = new User();
@@ -81,7 +93,7 @@ class UserController extends AbstractController
                 $user->setPassword($passwordEncoder->encodePassword($user, $password));
 
                 $message = (new \Swift_Message('Match Making : Vos identifiants.'))
-                    ->setFrom([$adminEmail => $adminGlobalName])
+                    ->setFrom([$this->adminEmail => $this->adminGlobalName])
                     ->setTo($user->getEmail())
                     ->setBody(
                         $this->renderView(
