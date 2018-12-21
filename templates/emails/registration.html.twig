@@ -1,0 +1,15 @@
+{# templates/emails/registration.html.twig #}
+
+<p>Bonjour {{ firstname ~ ' ' ~ lastname }},</p>
+
+<p>Vous trouverez, ci-dessous, vos identifiants, afin de gérer les prochains événements
+    de votre entreprise.</p>
+
+<p><strong>Vos identifiants</strong></p>
+<p>Login : <strong>{{ email }}</strong></p>
+<p>Mot de passe : <strong>{{ password }}</strong></p>
+
+<p>Retrouvez-nous sur l'application <a href="{{ url('app_login') }}">Match Making</a></p>
+
+<p>Cordialement,</p>
+<p>L'équipe Match Making</p>

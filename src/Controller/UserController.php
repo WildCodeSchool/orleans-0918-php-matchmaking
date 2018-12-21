@@ -25,6 +25,22 @@ class UserController extends AbstractController
     const DEFAULT_LENGTH_PASSWORD = 8;
 
     /**
+     * @var string
+     */
+    private $adminEmail;
+
+    /**
+     * @var string
+     */
+    private $adminGlobalName;
+
+    public function __construct(string $adminEmail, string $adminGlobalName)
+    {
+        $this->adminEmail = $adminEmail;
+        $this->adminGlobalName = $adminGlobalName;
+    }
+
+    /**
      * @param UserRepository $userRepository
      * @return Response
      * @Route("/manager", name="manager_index", methods="GET|POST")
@@ -71,6 +87,7 @@ class UserController extends AbstractController
      * @param string $role
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param PasswordGenerator $passwordGenerator
+     * @param \Swift_Mailer $mailer
      * @param int $userId
      * @return Response
      */
@@ -80,6 +97,7 @@ class UserController extends AbstractController
         string $role,
         UserPasswordEncoderInterface $passwordEncoder,
         PasswordGenerator $passwordGenerator,
+        \Swift_Mailer $mailer,
         int $userId = 0
     ): Response {
         $user = new User();
@@ -96,6 +114,23 @@ class UserController extends AbstractController
                 $user->setActivated(self::DEFAULT_ACTIVATION);
                 $password = $passwordGenerator->generate(self::DEFAULT_LENGTH_PASSWORD);
                 $user->setPassword($passwordEncoder->encodePassword($user, $password));
+
+                $message = (new \Swift_Message('Match Making : Vos identifiants.'))
+                    ->setFrom([$this->adminEmail => $this->adminGlobalName])
+                    ->setTo($user->getEmail())
+                    ->setBody(
+                        $this->renderView(
+                            'emails/registration.html.twig',
+                            [
+                                'lastname' => $user->getLastName(),
+                                'firstname' => $user->getFirstName(),
+                                'email' => $user->getEmail(),
+                                'password' => $password
+                            ]
+                        ),
+                        'text/html'
+                    );
+                $mailer->send($message);
 
                 if ($role == 'manager') {
                     $user->setRoles(self::MANAGER_ROLE);
