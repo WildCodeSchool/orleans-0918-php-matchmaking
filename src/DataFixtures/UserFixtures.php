@@ -29,7 +29,9 @@ class UserFixtures extends Fixture
         $faker = Faker\Factory::create('fr_FR');
         for ($i = 0; $i < 10; $i++) {
             $firstName = $faker->firstName();
+            $firstName =  str_replace("'", "", iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $firstName));
             $lastName = $faker->lastName();
+            $lastName =  str_replace("'", "", iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $lastName));
             $email = strtolower($firstName . '.' . $lastName . '@' .$faker->safeEmailDomain());
             $email = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $email);
 
