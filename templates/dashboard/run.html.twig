@@ -28,9 +28,8 @@
                             <p class="text-center">{{ event.title }}</p>
                         </div>
                     </div>
-                    <div class="roundTimer row">
-                        <div class="col-12 align-middle my-auto">
-                            {# TIMER #}
+                    <div id="roundTimer" class="roundTimer row" data-round-minutes="{{ event.roundMinutes }}" data-round-seconds="{{ event.roundSeconds }}">
+                        <div class="col-12  text-center align-middle my-auto">
                         </div>
                     </div>
                     <div class="speak row">
