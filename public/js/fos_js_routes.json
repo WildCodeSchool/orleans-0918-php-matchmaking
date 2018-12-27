@@ -1,0 +1,1 @@
+{"base_url":"","routes":{"dashboard_pause":{"tokens":[["variable","\/","[^\/]++","id"],["text","\/dashboard\/pause"]],"defaults":[],"requirements":{"_method":"POST"},"hosttokens":[],"methods":[],"schemes":[]}},"prefix":"","host":"localhost","port":"","scheme":"http"}

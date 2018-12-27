@@ -1,3 +1,10 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+dashboard_pause:
+    path: /dashboard/pause/{id}
+    controller: App\Controller\DashboardController::pause
+    requirements:
+     _method:  POST
+    options:
+        expose: true

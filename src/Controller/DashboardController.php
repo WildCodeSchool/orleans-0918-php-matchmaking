@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class DashboardController extends AbstractController
 {
     /**
-     * @Route("/pause/{id}", name="dashboard_pause", requirements={"id"="\d+"})
+     * @Route("/pause/{id}", name="dashboard_pause", options={"expose"=true}, requirements={"id"="\d+"})
      */
     public function pause(Event $event)
     {
