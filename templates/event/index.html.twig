@@ -18,7 +18,9 @@
                     <span class="badge badge-{{ event.statusEvent.color }}">{{ event.statusEvent.name }}</span>
                 </div>
                 <div class="col-md-1 col-2 text-md-right">
-                    <a href="{{ path('player', {'id': event.id}) }}"><i class="fas fa-user"></i></a>
+                    {% if event.statusEvent.state != event.statusEvent.inPreparationState %}
+                        <a href="{{ path('player', {'id': event.id}) }}"><i class="fas fa-user"></i></a>
+                    {% endif %}
                 </div>
 
                 <div class="col-md-1 col-2 text-md-right">
