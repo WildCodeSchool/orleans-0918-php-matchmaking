@@ -13,11 +13,11 @@
         <hr>
             {{ form_row(formEdit.statusEvent, {'label': 'Statut de l\'événement'}) }}
             {% set sentence = '' %}
-            {% if event.statusEvent.state == 2 %}
+            {% if event.statusEvent.state == event.statusEvent.fullState %}
                 {% set sentence = 'L\'événement est complet. Si vous souhaitez plus de participants, contactez l\'administrateur.' %}
-            {% elseif  event.statusEvent.state == 3 %}
+            {% elseif  event.statusEvent.state == event.statusEvent.inProgressState %}
                 {% set sentence = 'L\'événement est en cours, il ne peut être modifié.' %}
-            {% elseif  event.statusEvent.state == 4  %}
+            {% elseif  event.statusEvent.state == event.statusEvent.finishState  %}
                 {% set sentence = 'L\'événement est terminé, il ne peut être modifié.' %}
             {% endif %}
 

@@ -22,13 +22,13 @@
                 </div>
 
                 <div class="col-md-1 col-2 text-md-right">
-                    {% if event.statusEvent.state < 3 %}
+                    {% if event.statusEvent.state < event.statusEvent.inProgressState %}
                         <a href="{{ path('event_edit', {'id': event.id }) }}"><i class="fas fa-edit"></i></a>
                     {% endif %}
                 </div>
 
                 <div class="col-md-1 col-2">
-                    {% if event.statusEvent.state != 3 %}
+                    {% if event.statusEvent.state != event.statusEvent.inProgressState %}
                         <form method="post" action="{{ path('event_delete', {'id': event.id}) }}"
                               onsubmit="return confirm('Voulez-vous vraiment supprimer cet événement ?');">
                             <input type="hidden" name="_method" value="DELETE">

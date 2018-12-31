@@ -30,7 +30,8 @@ class EventType extends AbstractType
                 'choice_attr' => function ($key) use ($options) {
                     $disabled = true;
 
-                    if ($key->getState() == $options['status'] || ($options['status'] < 2 && $key->getState() < 2)) {
+                    if ($key->getState() == $options['status'] || ($options['status'] < $options['statusFullState']
+                            && $key->getState() < $options['statusFullState'])) {
                         $disabled = false;
                     }
 
@@ -79,7 +80,8 @@ class EventType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Event::class,
-            'status' => 0,
+            'status' => null,
+            'statusFullState' => null,
         ]);
     }
 }
