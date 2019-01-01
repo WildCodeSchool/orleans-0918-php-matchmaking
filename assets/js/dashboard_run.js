@@ -1,6 +1,6 @@
 require('../css/dashboard.scss');
 var $ = require('jquery');
-/* require('jquery-circle-progress');
+require('jquery-circle-progress');
 
 const routes = require('../../public/js/fos_js_routes.json');
 import Routing from '../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.min.js';
@@ -57,4 +57,4 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 1000);
 
 
-}); */
+});

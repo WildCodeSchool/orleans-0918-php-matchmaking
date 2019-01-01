@@ -1,6 +1,5 @@
 {% extends 'dashboardBase.html.twig' %}
 
-
 {% block body %}
     <div class="row runDashboard">
             <div class="left-side bgCard col-4 align-middle my-auto">
@@ -22,15 +21,14 @@
             </div>
             <div class="right-side col-8">
                 <div class="bgCard">
-
                     <div class="title row">
                         <div class="col-12 align-middle my-auto">
                             <p class="text-center">{{ event.title }}</p>
                         </div>
                     </div>
-                    <div class="roundTimer row">
-                        <div id="roundTimer" class="col-12 text-center align-middle my-auto"
-                        data-round-minutes="{{ event.roundMinutes }}" data-round-seconds="{{ event.roundSeconds }}" data-event-id="{{event.id}}">
+                    <div class="roundTimer row" data-round-seconds="{{ event.roundMinutes *60+ event.roundSeconds }}" data-event-id="{{event.id}}">
+                        <div class="container circle col-12 text-center align-middle my-auto">
+                            <div class="timerText"></div>
                         </div>
                     </div>
                     <div class="speak row">
@@ -41,4 +39,8 @@
                 </div>
             </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('dashboard_run') }}
 {% endblock %}
