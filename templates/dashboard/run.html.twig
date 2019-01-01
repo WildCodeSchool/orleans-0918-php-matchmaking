@@ -9,9 +9,9 @@
                         <p class="text-center">TOUR X/X</p>
                     </div>
                 </div>
-                <div class="globalTimer row">
+                <div class="globalTimer row" data-global-seconds="{{ event.roundMinutes *60+ event.roundSeconds }}" data-event-id="{{event.id}}">
                     <div class="col-12 align-middle my-auto">
-                        <p class="text-center"><strong>HH:MM</strong></p>
+                        <p class="text-center"><strong></strong></p>
                     </div>
                 </div>
                 <div class="logo row">
@@ -41,4 +41,8 @@
                 </div>
             </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('dashboard_run') }}
 {% endblock %}
