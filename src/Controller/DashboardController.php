@@ -12,22 +12,26 @@ use Symfony\Component\Routing\Annotation\Route;
 class DashboardController extends AbstractController
 {
     /**
-     * @Route("/pause/{id}", name="dashboard_pause", requirements={"id"="\d+"})
+     * @Route("/pause/{id}/{lap}", name="dashboard_pause",  requirements={"id"="\d+","lap"="\d+"})
      */
-    public function pause(Event $event)
+    public function pause(Event $event, int $lap)
     {
         return $this->render('dashboard/pause.html.twig', [
             'event' => $event,
+            'lap' => $lap,
+            /* TODO : recup le nmbr de tours */
         ]);
     }
 
     /**
-     * @Route("/run/{id}", name="dashboard_run", requirements={"id"="\d+"})
+     * @Route("/run/{id}/{lap}", name="dashboard_run", requirements={"id"="\d+","lap"="\d+"})
      */
-    public function run(Event $event)
+    public function run(Event $event, int $lap)
     {
         return $this->render('dashboard/run.html.twig', [
             'event' => $event,
+            'lap' => $lap,
+            /* TODO : recup le nmbr de tours */
         ]);
     }
 }
