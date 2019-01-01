@@ -22,7 +22,7 @@ class DashboardController extends AbstractController
     }
 
     /**
-     * @Route("/run/{id}", name="dashboard_run", requirements={"id"="\d+"})
+     * @Route("/run/{id}", name="dashboard_run", options={"expose"=true}, requirements={"id"="\d+"})
      */
     public function run(Event $event)
     {
