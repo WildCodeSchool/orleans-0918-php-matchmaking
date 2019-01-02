@@ -100,6 +100,7 @@ class EventController extends AbstractController
         $form = $this->createForm(EventType::class, $event, [
             'status' => $event->getStatusEvent()->getState(),
             'statusFullState' => $event->getStatusEvent()->getFullState(),
+            'nbPlayers' => count($event->getPlayers())
         ]);
         $form->handleRequest($request);
 

@@ -31,7 +31,7 @@ class EventType extends AbstractType
                     $disabled = true;
 
                     if ($key->getState() == $options['status'] || ($options['status'] < $options['statusFullState']
-                            && $key->getState() < $options['statusFullState'])) {
+                            && $key->getState() < $options['statusFullState'] && $options['nbPlayers'] == 0)) {
                         $disabled = false;
                     }
 
@@ -82,6 +82,7 @@ class EventType extends AbstractType
             'data_class' => Event::class,
             'status' => null,
             'statusFullState' => null,
+            'nbPlayers' => 0
         ]);
     }
 }
