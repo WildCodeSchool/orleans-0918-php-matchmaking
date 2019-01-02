@@ -36,6 +36,9 @@
         <div class="row">
             <div class="col-lg-6">
                 {{ form_row(formEdit.formatEvent, {'label': 'Format de l\'événement'}) }}
+                <p class="mb-0 text-secondary">
+                    <i>Nombre d'inscrits : {{ event.players|length ~ ' / '~ event.formatEvent.numberOfPlayers }}</i>
+                </p>
             </div>
             <div class="col-lg-6">
                 {{ form_row(formEdit.logoFile, {'label': 'Modification du logo'}) }}

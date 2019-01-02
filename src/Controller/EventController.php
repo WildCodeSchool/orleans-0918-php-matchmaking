@@ -105,6 +105,27 @@ class EventController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /* check if the format has been modified,
+               check if the number of registered players does not exceed
+               the number of players of the new format
+            */
+            if (count($event->getPlayers()) < $event->getFormatEvent()->getNumberOfPlayers()
+                && $event->getStatusEvent()->getState() == $event->getStatusEvent()->getFullState()) {
+                // change event's status to registration status
+                $statutEvent = $this->getDoctrine()->getManager()->getRepository(StatusEvent::class)
+                    ->findOneBy(['state' => $event->getStatusEvent()->getRegistrationState()], []);
+
+                $event->setStatusEvent($statutEvent);
+            }
+
+            if (count($event->getPlayers()) == $event->getFormatEvent()->getNumberOfPlayers()) {
+                // change event's status to full status
+                $statutEvent = $this->getDoctrine()->getManager()->getRepository(StatusEvent::class)
+                    ->findOneBy(['state' => $event->getStatusEvent()->getFullState()], []);
+
+                $event->setStatusEvent($statutEvent);
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash(

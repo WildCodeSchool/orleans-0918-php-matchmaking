@@ -47,6 +47,15 @@ class EventType extends AbstractType
             ->add('formatEvent', EntityType::class, [
                 'class' => FormatEvent::class,
                 'choice_label' => 'name',
+                'choice_attr' => function ($key) use ($options) {
+                    $disabled = true;
+
+                    if ($key->getNumberOfPlayers() >= $options['nbPlayers']) {
+                        $disabled = false;
+                    }
+
+                    return $disabled ? ['disabled' => 'disabled'] : [];
+                },
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('f')
                         ->orderBy('f.numberOfPlayers', 'ASC');
