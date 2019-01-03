@@ -141,4 +141,12 @@ class Player
 
         return $this;
     }
+
+    /**
+     * @return Collection|Event[]
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
 }

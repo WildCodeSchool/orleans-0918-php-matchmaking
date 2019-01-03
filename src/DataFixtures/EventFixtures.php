@@ -13,7 +13,7 @@ class EventFixtures extends Fixture implements DependentFixtureInterface
 {
     public function getDependencies()
     {
-        return [FormatEventFixtures::class, StatusEventFixtures::class];
+        return [FormatEventFixtures::class, StatusEventFixtures::class, SocietyFixtures::class];
     }
 
     public function load(ObjectManager $manager)
@@ -31,9 +31,10 @@ class EventFixtures extends Fixture implements DependentFixtureInterface
             $event->setRoundSeconds(rand(0, 59));
             $event->setUpdatedAt($date);
             $event->setLogo('defaultLogo.png');
-            $event->setStatusEvent($this->getReference('status_' . rand(0, 4)));
+            $event->setStatusEvent($this->getReference('status_' . rand(0, 1)));
             $lastFormatEvent = $manager->getRepository(FormatEvent::class)->findAll();
             $event->setFormatEvent($lastFormatEvent[0]);
+            $event->setSociety($this->getReference('society_' . rand(0, 2)));
             $manager->persist($event);
         }
         $manager->flush();
