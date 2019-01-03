@@ -9,9 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let minutes = globalTimerElt.dataset.globalMinutes;
     let seconds = ("0" + globalTimerElt.dataset.globalSeconds).slice(-2);
     let eventId = globalTimerElt.dataset.eventId;
-
     globalTextElt.textContent = minutes + " : " + ("0" +seconds).slice(-2);
-
     let maxLaps = globalTimerElt.dataset.maxLaps;
     let currentLap = globalTimerElt.dataset.currentLap;
 
@@ -32,18 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         seconds = --seconds <= -1 ? 59 : seconds;
-
         globalTextElt.textContent = minutes + " : " + ("0" +seconds).slice(-2);
     }, 1000);
-
-   /*  Timer(globalTextElt, time, 1000, () => {
-        if (currentLap < laps) {
-            currentLap++;
-            let url = Routing.generate('dashboard_pause', { id: eventId, lap: currentLap });
-            window.location.replace(url);
-        } else {
-           
-        }
-    }); */
 
 }); 
