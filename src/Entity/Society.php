@@ -24,13 +24,19 @@ class Society
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="Society")
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="society")
      */
     private $users;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="society")
+     */
+    private $events;
 
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -75,6 +81,37 @@ class Society
             // set the owning side to null (unless already changed)
             if ($user->getSociety() === $this) {
                 $user->setSociety(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Event[]
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
+            $event->setSociety($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->events->contains($event)) {
+            $this->events->removeElement($event);
+            // set the owning side to null (unless already changed)
+            if ($event->getSociety() === $this) {
+                $event->setSociety(null);
             }
         }
 

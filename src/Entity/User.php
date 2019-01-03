@@ -81,11 +81,6 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Event", inversedBy="users")
-     */
-    private $events;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Society", inversedBy="users")
      */
     private $society;
