@@ -7,6 +7,7 @@ use App\Form\User1Type;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use App\Service\PasswordGenerator;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -62,6 +63,7 @@ class UserController extends AbstractController
 
     /**
      * @param UserRepository $userRepository
+     * @IsGranted("ROLE_ADMIN")
      * @return Response
      * @Route("/admin", name="admin_index", methods="GET|POST")
      */
