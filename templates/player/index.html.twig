@@ -24,9 +24,9 @@
                 {% endif %}
             </div>
             <div class="col-6 align-self-end text-right">
-                <a class="btn btn-primary" data-toggle="collapse" href="" role="button" aria-expanded="false">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#playGame">
                     <i class="fas fa-play"></i> Lancer l'événement
-                </a>
+                </button>
             </div>
         </div>
 
@@ -63,9 +63,11 @@
         </div>
         {% endfor %}
         <div class="d-100">
-            <a class="btn btn btn-primary btn-lg btn-block" data-toggle="collapse" href="" role="button" aria-expanded="false">
+            <button type="button" class="btn btn-primary btn-block btn-lg" data-toggle="modal" data-target="#playGame">
                 <i class="fas fa-play"></i> Lancer l'événement
-            </a>
+            </button>
         </div>
     </div>
+
+    {% include 'player/_modalStartGame.html.twig' %}
 {% endblock %}
