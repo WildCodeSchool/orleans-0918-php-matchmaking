@@ -24,3 +24,4 @@ $(document).on('change', '.custom-file-input', function () {
 });
 
 import('./updateForm');
+import('./presence');

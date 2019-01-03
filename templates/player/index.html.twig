@@ -32,7 +32,7 @@
         {% for player in players %}
         <div class="row players align-items-center">
             <div class="col-sm-1 col-xs-12">
-                <input type="checkbox" id="presence_{{ player.id }}" name="presence">
+                <input type="checkbox" class="presence" id="presence_{{ player.id }}" name="presence"  value="{{ player.id }}"{% if player.isPresence == 1 %} checked {% endif %}>
             </div>
             <div class="col-sm-4 col-xs-12">
                     <span class="icn"><i class="fas fa-user"></i></span>{{ player.firstname }}  {{ player.name }}

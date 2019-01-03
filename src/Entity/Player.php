@@ -58,6 +58,11 @@ class Player
      */
     private $events;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isPresence;
+
     public function __construct()
     {
         $this->events = new ArrayCollection();
@@ -138,6 +143,18 @@ class Player
         if ($this->events->contains($event)) {
             $this->events->removeElement($event);
         }
+
+        return $this;
+    }
+
+    public function getIsPresence(): ?bool
+    {
+        return $this->isPresence;
+    }
+
+    public function setIsPresence(?bool $isPresence): self
+    {
+        $this->isPresence = $isPresence;
 
         return $this;
     }
