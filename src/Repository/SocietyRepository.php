@@ -18,5 +18,4 @@ class SocietyRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Society::class);
     }
-
 }
