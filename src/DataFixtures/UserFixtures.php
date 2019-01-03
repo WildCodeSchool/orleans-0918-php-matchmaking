@@ -59,6 +59,4 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         }
         $manager->flush();
     }
-
-
 }
