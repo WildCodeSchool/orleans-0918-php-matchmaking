@@ -28,4 +28,4 @@ import('./updateForm');
 import('./presence');
 import toastr from 'toastr';
 window.toastr = toastr;
-import './../../node_modules/toastr/build/toastr.css';
+import 'toastr/build/toastr.css';
