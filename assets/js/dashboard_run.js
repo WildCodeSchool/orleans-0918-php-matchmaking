@@ -1,7 +1,3 @@
-const routes = require('../../public/js/fos_js_routes.json');
-import Routing from '../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.min.js';
-Routing.setRoutingData(routes);
-
 document.addEventListener('DOMContentLoaded', function () {
 
     let globalTimerElt = document.querySelector(".globalTimer");
@@ -18,8 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (minutes == 0) {
                 if (currentLap < maxLaps) {
                     currentLap++;
-                    let url = Routing.generate('dashboard_pause', { id: eventId, currentLap: currentLap });
-                    window.location.replace(url);
+                    window.location.replace("/dashboard/pause/" + eventId + "/" + currentLap );
                 }
             } else {
                 minutes--;
