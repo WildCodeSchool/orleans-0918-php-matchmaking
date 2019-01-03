@@ -88,7 +88,7 @@ class User implements UserInterface
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Society", inversedBy="users")
      */
-    private $Society;
+    private $society;
 
     public function __construct()
     {
@@ -255,12 +255,12 @@ class User implements UserInterface
 
     public function getSociety(): ?Society
     {
-        return $this->Society;
+        return $this->society;
     }
 
-    public function setSociety(?Society $Society): self
+    public function setSociety(?Society $society): self
     {
-        $this->Society = $Society;
+        $this->society = $society;
 
         return $this;
     }
