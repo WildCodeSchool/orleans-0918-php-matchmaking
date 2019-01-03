@@ -167,7 +167,7 @@ class EventController extends AbstractController
 
     /**
      * Return number of players present for event
-     * @Route("/manager/event/{id}/present", requirements={"id"="\d+"}, methods="POST")
+     * @Route("/manager/event/{id}/present", requirements={"id"="\d+"}, methods={"POST"})
      * @param EventRepository $eventRepository
      * @param Event $event
      * @return Response
@@ -181,5 +181,33 @@ class EventController extends AbstractController
         }
 
         return $this->json($numberPresentPlayers);
+    }
+
+    /**
+     * @Route("/manager/event/{id}/start", name="event_start", requirements={"id"="\d+"}, methods={"GET"})
+     * @param EventRepository $eventRepository
+     * @param Event $event
+     * @return Response
+     */
+    public function start(EventRepository $eventRepository, Event $event) : Response
+    {
+        // assignment random speaker number to players
+        $presentPlayers = $eventRepository->findPresentPlayer($event);
+        $speakerNumbers = range(1, $event->getFormatEvent()->getNumberOfPlayers());
+
+        foreach ($presentPlayers[0]->getPlayers() as $player) {
+            $speakerNumber = array_rand($speakerNumbers);
+            $player->setSpeakerNumber($speakerNumbers[$speakerNumber]);
+            unset($speakerNumbers[$speakerNumber]);
+        }
+
+        // Modified event's status to In Progress
+        $em = $this->getDoctrine()->getmanager()->getRepository(StatusEvent::class);
+        $statusEvent = $em->findOneBy(['state' => $event->getStatusEvent()->getInProgressState()], []);
+        $statusEvent->addEvent($event);
+
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->redirectToRoute('dashboard_pause', ['id' => $event->getId(), 'currentLap' => 1]);
     }
 }
