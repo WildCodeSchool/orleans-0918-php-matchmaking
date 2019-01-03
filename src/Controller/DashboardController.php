@@ -13,7 +13,7 @@ use App\Entity\FormatEvent;
 class DashboardController extends AbstractController
 {
     /**
-     * @Route("/pause/{id}/{currentLap}", name="dashboard_pause",  requirements={"id"="\d+","lap"="\d+"})
+     * @Route("/pause/{id}/{currentLap}", name="dashboard_pause", options={"expose"=true}, requirements={"id"="\d+","currentLap"="\d+"})
      */
     public function pause(Event $event, int $currentLap)
     {
@@ -27,7 +27,7 @@ class DashboardController extends AbstractController
     }
 
     /**
-     * @Route("/run/{id}/{currentLap}", name="dashboard_run", requirements={"id"="\d+","lap"="\d+"})
+     * @Route("/run/{id}/{currentLap}", name="dashboard_run", options={"expose"=true}, requirements={"id"="\d+","currentLap"="\d+"})
      */
     public function run(Event $event, int $currentLap)
     {
