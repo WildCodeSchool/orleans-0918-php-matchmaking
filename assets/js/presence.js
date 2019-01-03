@@ -1,4 +1,6 @@
 let checkboxes=document.getElementsByClassName('presence');
+let requestHeaders = new Headers();
+requestHeaders.append("X-Requested-With", "XMLHttpRequest");
 
 toastr.options = {
     "closeButton": false,
@@ -23,14 +25,14 @@ for (let i = 0; i < checkboxes.length; i++){
         if (checkboxes[i].checked){
             let id=this.value;
             let presence = 1;
-            fetch("/manager/player/"+id+"/"+presence)
+            fetch("/manager/player/"+id+"/"+presence, { method: "POST", headers: requestHeaders })
                 .then((resp) => resp.json())
                 .then((data)=>setSuccess(data))
         }
         else {
             let id=this.value;
             let presence = 0;
-            fetch("/manager/player/"+id+"/"+presence)
+            fetch("/manager/player/"+id+"/"+presence, { method: "POST", headers: requestHeaders })
                 .then((resp) => resp.json())
                 .then((data)=>setSuccess(data))
         }

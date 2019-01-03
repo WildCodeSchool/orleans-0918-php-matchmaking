@@ -12,6 +12,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Player
 {
+    const DEFAULT_PRESENCE=false;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -59,9 +61,9 @@ class Player
     private $events;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="boolean", nullable=false)
      */
-    private $isPresence;
+    private $isPresence=self::DEFAULT_PRESENCE;
 
     public function __construct()
     {
