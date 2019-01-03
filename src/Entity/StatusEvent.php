@@ -12,6 +12,17 @@ use Doctrine\ORM\Mapping as ORM;
 class StatusEvent
 {
     /**
+     * List of event's status
+     */
+    const EVENT_STATUS = [
+        [0, 'En préparation', 'secondary'],
+        [1, 'Inscription', 'info'],
+        [2, 'Complet', 'danger'],
+        [3, 'En cours', 'success'],
+        [4, 'Terminé', 'light']
+    ];
+
+    /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -82,6 +93,31 @@ class StatusEvent
         $this->color = $color;
 
         return $this;
+    }
+
+    public function getInPreparationState() : int
+    {
+        return self::EVENT_STATUS[0][0];
+    }
+
+    public function getRegistrationState() : int
+    {
+        return self::EVENT_STATUS[1][0];
+    }
+
+    public function getFullState() : int
+    {
+        return self::EVENT_STATUS[2][0];
+    }
+
+    public function getInProgressState() : int
+    {
+        return self::EVENT_STATUS[3][0];
+    }
+
+    public function getFinishState() : int
+    {
+        return self::EVENT_STATUS[4][0];
     }
 
     /**

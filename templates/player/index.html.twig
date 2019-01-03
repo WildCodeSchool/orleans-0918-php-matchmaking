@@ -6,24 +6,30 @@
 
     <div class="event_players container">
         <h1 class="text-center">Gestion des participants</h1>
-        <h2 class="text-center pt-1">{{ event.date|date('d M Y') }}
+        <h2 class="text-center pt-1">{{ event.title }}</h2>
         <hr />
-        {{ event.title }}</h2>
-        <p class="pt-2"><strong><u>Gestion participants</u></strong></p>
-        <p>
-            <div class="row">
-                <div class="col">
-                    <a class="btn btn-primary" data-toggle="collapse" href="#collapsePlayerForm" role="button" aria-expanded="false" aria-controls="collapsePlayerForm  ">
+        <h2 class="text-center pt-1">{{ event.date|date('d M Y') }}</h2>
+        <div class="row">
+            <div class="col-6">
+                <p class="pt-2">
+                    <strong><u>Participants</u></strong>
+                    - Nombre d'inscrits {{ event.players|length ~ ' / '~ event.formatEvent.numberOfPlayers }}
+                    - <span class="badge badge-{{ event.statusEvent.color }}">{{ event.statusEvent.name }}</span>
+                </p>
+                {% if (event.statusEvent.state < event.statusEvent.fullState) %}
+                    <a class="btn btn-primary align-self-end" data-toggle="collapse" href="#collapsePlayerForm"
+                       role="button" aria-expanded="false" aria-controls="collapsePlayerForm  ">
                         <i class="fas fa-user-plus"></i> Ajouter un participant
                     </a>
-                </div>
-                <div class="col justify-content-end text-right">
-                    <a class="btn btn-primary" data-toggle="collapse" href="" role="button" aria-expanded="false">
-                        <i class="fas fa-play"></i> Lancer l'événement
-                    </a>
-                </div>
+                {% endif %}
             </div>
-        </p>
+            <div class="col-6 align-self-end text-right">
+                <a class="btn btn-primary" data-toggle="collapse" href="" role="button" aria-expanded="false">
+                    <i class="fas fa-play"></i> Lancer l'événement
+                </a>
+            </div>
+        </div>
+
         <div class="collapse" id="collapsePlayerForm">
             {{ include('player/_formPlayer.html.twig') }}
             <hr/>
@@ -47,10 +53,9 @@
                      <a href=""><i class="fas fa-edit"></i></a>
             </div>
              <div class="col-sm-1 col-xs-12">
-                 <form method="post" action="{{ path('player_delete', {'id': player.id}) }}"
+                 <form method="post" action="{{ path('player_delete', {'id': event.id, 'player': player.id}) }}"
                        onsubmit="return confirm('Etes vous sûr de vouloir supprimer ce participant ?');">
                      <input type="hidden" name="_method" value="DELETE">
-                     <input type="hidden" name="event_id" value="{{ event.id }}">
                      <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ player.id) }}">
                      <button class="listButton btn"><i class="fas fa-times"></i></button>
                  </form>
