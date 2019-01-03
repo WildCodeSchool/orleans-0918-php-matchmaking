@@ -19,7 +19,7 @@ Encore
      */
     .addEntry('app', './assets/js/app.js')
     .addEntry('dashboard' , './assets/js/dashboard.js')
-    //.addEntry('page1', './assets/js/page1.js')
+    .addEntry('players', './assets/js/players.js')
     //.addEntry('page2', './assets/js/page2.js')
 
     // will require an extra script tag for runtime.js

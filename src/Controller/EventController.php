@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Event;
 use App\Entity\StatusEvent;
 use App\Form\EventType;
+use App\Repository\EventRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
@@ -162,5 +163,23 @@ class EventController extends AbstractController
         }
 
         return $this->redirectToRoute('event_index');
+    }
+
+    /**
+     * Return number of players present for event
+     * @Route("/manager/event/{id}/present", requirements={"id"="\d+"}, methods="POST")
+     * @param EventRepository $eventRepository
+     * @param Event $event
+     * @return Response
+     */
+    public function getNumberPresentPlayers(EventRepository $eventRepository, Event $event) : Response
+    {
+        $presentPlayers = $eventRepository->findPresentPlayer($event);
+        $numberPresentPlayers = 0;
+        if (count($presentPlayers) > 0) {
+            $numberPresentPlayers = count($presentPlayers[0]->getPlayers());
+        }
+
+        return $this->json($numberPresentPlayers);
     }
 }
