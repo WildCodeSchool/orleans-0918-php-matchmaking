@@ -16,13 +16,11 @@ document.addEventListener('DOMContentLoaded', function () {
     setInterval(function () {
         if (seconds == 0) {
             if (minutes == 0) {
-                clearInterval(0);
                 if (currentLap < maxLaps) {
                     currentLap++;
                     let url = Routing.generate('dashboard_pause', { id: eventId, currentLap: currentLap });
                     window.location.replace(url);
                 } else {
-                    /* Page Fin evenement */
                 }
             } else {
                 minutes--;
