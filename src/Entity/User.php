@@ -85,6 +85,11 @@ class User implements UserInterface
      */
     private $events;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Society", inversedBy="users")
+     */
+    private $society;
+
     public function __construct()
     {
         $this->events = new ArrayCollection();
@@ -246,5 +251,17 @@ class User implements UserInterface
     {
         $info = $this->lastName. ' ' .$this->firstName. ' - Email : ' .$this->email;
         return $info;
+    }
+
+    public function getSociety(): ?Society
+    {
+        return $this->society;
+    }
+
+    public function setSociety(?Society $society): self
+    {
+        $this->society = $society;
+
+        return $this;
     }
 }
