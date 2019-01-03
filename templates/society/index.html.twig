@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Society index{% endblock %}
+
+{% block body %}
+    <section class="container event_list">
+        <h1>Liste des sociétés</h1>
+        
+        <a href="{{ path('society_new') }}" class="btn btn-primary">Création d'une nouvelle société</a>
+
+        {% for society in societies %}
+            <div class="row d-flex align-items-center">
+                <div class="col-md-7 col-12">
+                    <span class="offset-1">{{ society.name }}</span>
+                </div>
+                <div class="col-md-2 col-6 text-md-right">
+                    <span class="badge badge-{{ society.name }}"></span>
+                </div>
+                <div class="col-md-1 col-2 text-md-right">
+                    <a href=""><i class="fas fa-user"></i></a>
+                </div>
+
+                <div class="col-md-1 col-2 text-md-right">
+                        <a href="{{ path('society_edit', {'id': society.id }) }}"><i class="fas fa-edit"></i></a>
+                </div>
+
+                <div class="col-md-1 col-2">
+                        <form method="post" action="{{ path('society_delete', {'id': society.id}) }}"
+                              onsubmit="return confirm('Voulez-vous vraiment supprimer cette société ?');">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ society.id) }}">
+                            <button class="btn btn-link"><i class="fas fa-times"></i></button>
+                        </form>
+                </div>
+            </div>
+        {% endfor %}
+    </section>
+
+{% endblock %}
