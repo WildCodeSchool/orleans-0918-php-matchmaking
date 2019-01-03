@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Event;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\FormatEvent;
 
 /**
  * @Route("/dashboard")
@@ -12,22 +13,30 @@ use Symfony\Component\Routing\Annotation\Route;
 class DashboardController extends AbstractController
 {
     /**
-     * @Route("/pause/{id}", name="dashboard_pause", requirements={"id"="\d+"})
+     * @Route("/pause/{id}/{currentLap}", name="dashboard_pause",  requirements={"id"="\d+","lap"="\d+"})
      */
-    public function pause(Event $event)
+    public function pause(Event $event, int $currentLap)
     {
+        $maxLaps = sqrt($event->getFormatEvent()->getNumberOfPlayers())+1;
+
         return $this->render('dashboard/pause.html.twig', [
             'event' => $event,
+            'currentLap' => $currentLap,
+            'maxLaps' => $maxLaps,
         ]);
     }
 
     /**
-     * @Route("/run/{id}", name="dashboard_run", requirements={"id"="\d+"})
+     * @Route("/run/{id}/{currentLap}", name="dashboard_run", requirements={"id"="\d+","lap"="\d+"})
      */
-    public function run(Event $event)
+    public function run(Event $event, int $currentLap)
     {
+        $maxLaps = sqrt($event->getFormatEvent()->getNumberOfPlayers())+1;
+
         return $this->render('dashboard/run.html.twig', [
             'event' => $event,
+            'currentLap' => $currentLap,
+            'maxLaps' => $maxLaps,
         ]);
     }
 }
