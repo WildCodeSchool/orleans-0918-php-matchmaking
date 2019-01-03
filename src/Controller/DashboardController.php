@@ -17,7 +17,7 @@ class DashboardController extends AbstractController
      */
     public function pause(Event $event, int $currentLap)
     {
-        $maxLaps = (int)sqrt($event->getFormatEvent()->getNumberOfPlayers());
+        $maxLaps = sqrt($event->getFormatEvent()->getNumberOfPlayers())+1;
 
         return $this->render('dashboard/pause.html.twig', [
             'event' => $event,
@@ -31,7 +31,7 @@ class DashboardController extends AbstractController
      */
     public function run(Event $event, int $currentLap)
     {
-        $maxLaps = (int)sqrt($event->getFormatEvent()->getNumberOfPlayers());
+        $maxLaps = sqrt($event->getFormatEvent()->getNumberOfPlayers())+1;
 
         return $this->render('dashboard/run.html.twig', [
             'event' => $event,
