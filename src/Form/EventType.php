@@ -30,7 +30,8 @@ class EventType extends AbstractType
                 'choice_attr' => function ($key) use ($options) {
                     $disabled = true;
 
-                    if ($key->getState() == $options['status'] || ($options['status'] < 2 && $key->getState() < 2)) {
+                    if ($key->getState() == $options['status'] || ($options['status'] < $options['statusFullState']
+                            && $key->getState() < $options['statusFullState'] && $options['nbPlayers'] == 0)) {
                         $disabled = false;
                     }
 
@@ -46,6 +47,15 @@ class EventType extends AbstractType
             ->add('formatEvent', EntityType::class, [
                 'class' => FormatEvent::class,
                 'choice_label' => 'name',
+                'choice_attr' => function ($key) use ($options) {
+                    $disabled = true;
+
+                    if ($key->getNumberOfPlayers() >= $options['nbPlayers']) {
+                        $disabled = false;
+                    }
+
+                    return $disabled ? ['disabled' => 'disabled'] : [];
+                },
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('f')
                         ->orderBy('f.numberOfPlayers', 'ASC');
@@ -79,7 +89,9 @@ class EventType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Event::class,
-            'status' => 0,
+            'status' => null,
+            'statusFullState' => null,
+            'nbPlayers' => 0
         ]);
     }
 }
