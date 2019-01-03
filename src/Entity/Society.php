@@ -24,7 +24,7 @@ class Society
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="Society")
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="society")
      */
     private $users;
 
