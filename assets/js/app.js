@@ -17,6 +17,7 @@ require('@fortawesome/fontawesome-free/js/all.js');
 var $ = require('jquery');
 require('bootstrap');
 
+
 // Resolve bug custom-file-input, not able to see which file are selected in a input file type
 $(document).on('change', '.custom-file-input', function () {
     let fileName = $(this).val().replace(/\\/g, '/').replace(/.*\//, '');
@@ -24,3 +25,7 @@ $(document).on('change', '.custom-file-input', function () {
 });
 
 import('./updateForm');
+import('./presence');
+import toastr from 'toastr';
+window.toastr = toastr;
+import 'toastr/build/toastr.css';
