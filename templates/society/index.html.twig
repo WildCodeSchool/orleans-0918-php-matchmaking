@@ -21,20 +21,16 @@
                 </div>
 
                 <div class="col-md-1 col-2 text-md-right">
-                    {% if society.name < 3 %}
                         <a href="{{ path('society_edit', {'id': society.id }) }}"><i class="fas fa-edit"></i></a>
-                    {% endif %}
                 </div>
 
                 <div class="col-md-1 col-2">
-                    {% if society.name != 3 %}
                         <form method="post" action="{{ path('society_delete', {'id': society.id}) }}"
-                              onsubmit="return confirm('Voulez-vous vraiment supprimer cet société ?');">
+                              onsubmit="return confirm('Voulez-vous vraiment supprimer cette société ?');">
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ society.id) }}">
                             <button class="btn btn-link"><i class="fas fa-times"></i></button>
                         </form>
-                    {% endif %}
                 </div>
             </div>
         {% endfor %}
