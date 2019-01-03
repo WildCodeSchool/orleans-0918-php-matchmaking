@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     currentLap++;
                     let url = Routing.generate('dashboard_pause', { id: eventId, currentLap: currentLap });
                     window.location.replace(url);
-                } else {
                 }
             } else {
                 minutes--;
