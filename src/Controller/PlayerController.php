@@ -64,6 +64,36 @@ class PlayerController extends AbstractController
     }
 
     /**
+     * @param int $id
+     * @param $presence
+     * @param Request $request
+     * @Route("/manager/player/{id}/{presence}", name="player_presence", requirements={"id"="\d+"}, methods="POST")
+     * @return Response
+     */
+    public function updatePresence(int $id, $presence, Request $request): Response
+    {
+        if ($request->isXmlHttpRequest()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $player = $entityManager->getRepository(Player::class)->find($id);
+            if (!$player) {
+                throw $this->createNotFoundException(
+                    'Aucun participant n\'a été trouvé pour cet identifiant'
+                );
+            }
+            $player->setIsPresence($presence);
+            $entityManager->flush();
+            if ($presence == 0) {
+                $message = "Ce participant n'est pas présent!";
+            } else {
+                $message = "Ce participant est bien présent!";
+            }
+            return $this->json($message);
+        } else {
+            return $this->json("Erreur");
+        }
+    }
+
+    /**
      * @Route("/manager/player/{id}/delete/{player}", name="player_delete",
      *     requirements={"id"="\d+", "player_id"="\d+"}, methods="DELETE")
      * @param Request $request

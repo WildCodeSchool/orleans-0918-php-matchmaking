@@ -12,6 +12,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Player
 {
+    const DEFAULT_PRESENCE=false;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -57,6 +59,11 @@ class Player
      * @ORM\ManyToMany(targetEntity="App\Entity\Event", inversedBy="players")
      */
     private $events;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    private $isPresence=self::DEFAULT_PRESENCE;
 
     public function __construct()
     {
@@ -138,6 +145,18 @@ class Player
         if ($this->events->contains($event)) {
             $this->events->removeElement($event);
         }
+
+        return $this;
+    }
+
+    public function getIsPresence(): ?bool
+    {
+        return $this->isPresence;
+    }
+
+    public function setIsPresence(?bool $isPresence): self
+    {
+        $this->isPresence = $isPresence;
 
         return $this;
     }
