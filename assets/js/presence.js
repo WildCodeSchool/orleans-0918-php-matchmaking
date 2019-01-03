@@ -1,4 +1,23 @@
 let checkboxes=document.getElementsByClassName('presence');
+
+toastr.options = {
+    "closeButton": false,
+    "debug": false,
+    "newestOnTop": false,
+    "progressBar": false,
+    "positionClass": "toast-top-center",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+}
+
 for (let i = 0; i < checkboxes.length; i++){
     checkboxes[i].onclick = function () {
         if (checkboxes[i].checked){
@@ -18,5 +37,5 @@ for (let i = 0; i < checkboxes.length; i++){
     }
 }
 function setSuccess(message){
-    alert(message);
+    toastr.info(message);
 }
