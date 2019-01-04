@@ -24,7 +24,8 @@ body {
   border-radius: 5px;
 }
 
-.runDashboard {
+.runDashboard,
+.startDashboard {
   height: 100vh;
   font-family: $font;
   padding: 10px;
@@ -86,6 +87,11 @@ body {
 
   .statusBar {
     height: 10vh;
+    font-size: 3vh;
+
+  }
+  
+  a {
     font-size: 3vh;
   }
 }
