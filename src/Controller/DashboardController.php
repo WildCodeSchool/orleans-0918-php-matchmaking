@@ -39,6 +39,7 @@ class DashboardController extends AbstractController
             'event' => $event,
             'currentLap' => $currentLap,
             'maxLaps' => $maxLaps,
+            'numberOfPlayers' => sqrt($event->getFormatEvent()->getNumberOfPlayers()),
         ]);
     }
 }

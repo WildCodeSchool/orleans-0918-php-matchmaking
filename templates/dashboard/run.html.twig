@@ -33,15 +33,19 @@
                             <p class="text-center">{{ event.title }}</p>
                         </div>
                     </div>
-                    <div class="roundTimer row">
-                        <div class="col-12 align-middle my-auto">
-                            {# TIMER #}
+                    <div class="roundTimer row"
+                    data-round-seconds="{{ event.roundMinutes *60+ event.roundSeconds }}"
+                    data-event-id="{{event.id}}"
+                    data-number-of-players="{{ numberOfPlayers }}">
+                        <div class="container circle col-12 text-center align-middle my-auto">
+                            <div class="timerText"></div>
                         </div>
                     </div>
                     <div class="speak row">
-                        <div class="col-12 align-middle my-auto">
-                            {# PRISE PAROLE #}
-                        </div>
+                    <div class="col-12 align-middle my-auto">
+                        prise de parole
+                        <div class="speakerRound ">
+                        </div></div>
                     </div>
                 </div>
             </div>
