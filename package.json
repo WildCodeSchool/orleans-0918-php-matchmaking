@@ -19,6 +19,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "jquery-circle-progress": "^1.2.2",
         "toastr": "^2.1.4"
     }
 }
