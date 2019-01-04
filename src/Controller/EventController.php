@@ -170,10 +170,15 @@ class EventController extends AbstractController
      * @Route("/manager/event/{id}/present", requirements={"id"="\d+"}, methods={"POST"})
      * @param EventRepository $eventRepository
      * @param Event $event
+     * @param Request $request
      * @return Response
+     * @throws \Exception
      */
-    public function getNumberPresentPlayers(EventRepository $eventRepository, Event $event) : Response
+    public function getNumberPresentPlayers(EventRepository $eventRepository, Event $event, Request $request) : Response
     {
+        if (!$request->isXmlHttpRequest()) {
+            throw new \Exception("This method can only be used with Ajax !");
+        }
         $presentPlayers = $eventRepository->findPresentPlayer($event);
         $numberPresentPlayers = 0;
         if (count($presentPlayers) > 0) {
