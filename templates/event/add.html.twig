@@ -24,8 +24,16 @@
             </div>
         </div>
         <hr/>
-        {{ form_row(formEvent.date, {'label': 'Date / Heure'}) }}
-        <hr/>
+        <h4>Date / Heure</h4>
+        <div class="row ml-1">
+            {{ form_row(formEdit.date.date.day, {'label': 'Jours'}) }}
+            {{ form_row(formEdit.date.date.month, {'label': 'Mois'}) }}
+            {{ form_row(formEdit.date.date.year, {'label': 'Année'}) }}
+            <div class="offset-1">
+                {{ form_row(formEdit.date.time.hour, {'label': 'Heure'}) }}
+            </div>
+            {{ form_row(formEdit.date.time.minute, {'label': 'Minute'}) }}
+        </div>        <hr/>
         <h4>Gestion des timers</h4>
         <div class="row">
             <div class="col-md-3 col-ms-6">{{ form_row(formEvent.roundMinutes, {'label': 'Temps de tour (minutes)'}) }}</div>
