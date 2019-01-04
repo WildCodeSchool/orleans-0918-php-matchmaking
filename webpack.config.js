@@ -20,6 +20,7 @@ Encore
     .addEntry('app', './assets/js/app.js')
     .addEntry('dashboard' , './assets/js/dashboard.js')
     .addEntry('dashboard_pause' , './assets/js/dashboard_pause.js')
+    .addEntry('dashboard_run' , './assets/js/dashboard_run.js')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 
