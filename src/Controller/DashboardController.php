@@ -42,4 +42,18 @@ class DashboardController extends AbstractController
             'numberOfPlayers' => sqrt($event->getFormatEvent()->getNumberOfPlayers()),
         ]);
     }
+
+    /**
+     * @Route("/start/{id}", name="dashboard_start",
+     * requirements={"id"="\d+"})
+     */
+    public function start(Event $event)
+    {
+        $numberOfPlayers = $event->getFormatEvent()->getNumberOfPlayers();
+
+        return $this->render('dashboard/start.html.twig', [
+            'event' => $event,
+            'numberOfPlayers' => $numberOfPlayers,
+        ]);
+    }
 }
