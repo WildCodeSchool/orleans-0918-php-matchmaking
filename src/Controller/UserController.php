@@ -7,7 +7,6 @@ use App\Form\User1Type;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use App\Service\PasswordGenerator;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
