@@ -17,7 +17,7 @@
                     - <span class="badge badge-{{ event.statusEvent.color }}">{{ event.statusEvent.name }}</span>
                 </p>
                 {% if event.statusEvent.state < event.statusEvent.fullState
-                    and "now"|date('d-m-Y') >= event.date|date('m-d-Y') %}
+                    and date() <= date(event.date) %}
                     <a class="btn btn-primary align-self-end" data-toggle="collapse" href="#collapsePlayerForm"
                        role="button" aria-expanded="false" aria-controls="collapsePlayerForm  ">
                         <i class="fas fa-user-plus"></i> Ajouter un participant
