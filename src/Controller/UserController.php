@@ -63,7 +63,6 @@ class UserController extends AbstractController
 
     /**
      * @param UserRepository $userRepository
-     * @IsGranted("ROLE_ADMIN")
      * @return Response
      * @Route("/admin", name="admin_index", methods="GET|POST")
      */
