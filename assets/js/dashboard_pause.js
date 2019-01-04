@@ -30,7 +30,7 @@ $(document).ready(function () {
                 currentCircle.addClass("active-circle");
 
                 slideDisplayTables();
-            }, 8000);
+            }, 6000);
         }
 
         slideDisplayTables();

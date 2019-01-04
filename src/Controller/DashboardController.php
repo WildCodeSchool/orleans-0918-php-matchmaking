@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Event;
+use App\Entity\RoundEvent;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\FormatEvent;
@@ -18,6 +19,12 @@ class DashboardController extends AbstractController
     public function pause(Event $event, int $currentLap)
     {
         $maxLaps = sqrt($event->getFormatEvent()->getNumberOfPlayers())+1;
+
+        $rounds = $this->getDoctrine()->getManager()->getRepository(RoundEvent::class)
+            ->findBy(['formatEvent' => $event->getFormatEvent(), 'speechTurn' => $currentLap]);
+
+        dump($rounds);
+        exit();
 
         return $this->render('dashboard/pause.html.twig', [
             'event' => $event,
