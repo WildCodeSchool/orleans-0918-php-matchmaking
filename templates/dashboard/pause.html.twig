@@ -18,9 +18,18 @@
                     <img class="img-fluid" src="/images/logos/{{ event.logo }}" alt="logo" />  
                 </div>
                 <div class="col-3 text-center align-middle my-auto">Tour {{ currentLap }}/{{ maxLaps }}</div>
-                <div class="col-4 text-center align-middle my-auto">XX:XX</div>
+                <div class="pauseTimer col-4 text-center align-middle my-auto"
+                data-pause-seconds="{{ event.pauseSeconds }}" 
+                data-pause-minutes="{{ event.pauseMinutes }}" 
+                data-event-id="{{ event.id }}"
+                data-current-lap="{{ currentLap }}"
+                data-max-laps="{{ maxLaps }}"></div>
                 <div class="col-4 text-center align-middle my-auto">{{ event.title }}</div>
             </div>
         </div>
     </div>  
 {% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('dashboard_pause') }}
+{% endblock %} 
