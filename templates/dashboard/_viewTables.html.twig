@@ -1,0 +1,32 @@
+<ul class="w-100">
+    {% for j in 0..2 %}
+    <li>
+        <div class="row my-2 display-table">
+            {% for i in 0..2 %}
+                <div class="col-4">
+                    <table class="table table-striped bg-light w-75 mx-auto">
+                        <thead>
+                        <tr class="bg-dark text-white text-center">
+                            <td colspan="2">TABLE A {{ j }}</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for y in 0..11 %}
+                            <tr>
+                                <td class="text-center">{{ y }}.</td>
+                                <td>Amandine T.</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endfor %}
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+<div class="d-inline-flex">
+    <p class="circle"></p>
+    <p class="circle"></p>
+    <p class="circle"></p>
+</div>

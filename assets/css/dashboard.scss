@@ -8,6 +8,9 @@ $titlesHeight: 20vh;
 $bgColor: rgb(56, 165, 255);
 $cardBackColor : rgba(255, 255, 255, .2);
 $borderBgCard : rgba(255, 255, 255, .3);
+$circleColor : #FFF;
+$circleBorderColor : #000;
+$circleActiveColor : #000;
 
 @font-face {
   font-family: BrandonBold;
@@ -87,5 +90,30 @@ body {
   .statusBar {
     height: 10vh;
     font-size: 3vh;
+  }
+
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+
+    .table {
+      th, td {
+        padding: 0.75vh 0.75rem 0.75vh 0.75rem;
+        font-size: calc(2vh + 20%);
+      }
+    }
+  }
+
+  .circle {
+    background-color: $circleColor;
+    border:2px solid $circleBorderColor;
+    border-radius:50%;
+    width:2vh;
+    height:2vh;
+    margin:1vh;
+  }
+
+  .active-circle {
+    background-color: $circleActiveColor;
   }
 }
