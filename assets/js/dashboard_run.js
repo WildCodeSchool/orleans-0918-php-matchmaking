@@ -9,16 +9,18 @@ document.addEventListener('DOMContentLoaded', function () {
     globalTextElt.textContent = minutes + " : " + ("0" +seconds).slice(-2);
     let maxLaps = globalTimerElt.dataset.maxLaps;
     let currentLap = globalTimerElt.dataset.currentLap;
-
     setInterval(function () {
         seconds = --seconds <= -1 ? 59 : seconds;
         if (seconds == 0) {
             if (minutes == 0) {
+                let url = "";
                 if (currentLap < maxLaps) {
                     currentLap++;
-                    let url = route + eventId + "/" + currentLap;
-                    window.location.replace(url);
+                    url = route + eventId + "/" + currentLap;
+                } else {
+                    url = "/dashboard/end/" + eventId;
                 }
+                window.location.replace(url);
             } else {
                 minutes--;
             }

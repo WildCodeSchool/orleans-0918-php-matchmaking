@@ -30,7 +30,8 @@ body {
   padding: 10px;
 
   .title,
-  .speak {
+  .speak,
+  .backLink {
     height: $titlesHeight;
 
     p {
@@ -38,8 +39,15 @@ body {
     }
   }
 
-  .roundTimer {
+  .roundTimer,
+  .endMessage {
     height: $sidesHeight - 2*$titlesHeight;
+  }
+
+  .endMessage {
+    p {
+      font-size: 3vw;
+    }
   }
 
   .left-side {

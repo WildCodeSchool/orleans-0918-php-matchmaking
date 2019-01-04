@@ -41,4 +41,19 @@ class DashboardController extends AbstractController
             'maxLaps' => $maxLaps,
         ]);
     }
+
+    /**
+     * @Route("/end/{id}", name="dashboard_end",
+     * requirements={"id"="\d+"})
+     */
+    public function end(Event $event)
+    {
+        $numberOfPlayers = $event->getFormatEvent()->getNumberOfPlayers();
+
+        return $this->render('dashboard/end.html.twig', [
+            'event' => $event,
+            'numberOfPlayers' => $numberOfPlayers,
+            'society' => $event->getSociety(),
+        ]);
+    }
 }
