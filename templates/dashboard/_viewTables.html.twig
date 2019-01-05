@@ -2,7 +2,6 @@
 {% set numberScreen = (maxLaps-1) % 3 %}
 {% set sliceStart = 0 %}
 {% set sliceEnd = (maxLaps-1)*3 %}
-
 <ul class="w-100">
     {% for i in 0..numberScreen %}
     <li>
@@ -20,9 +19,13 @@
                         </thead>
                         <tbody>
                 {% endif %}
-
                 <tr>
                     <td>{{ round.speaker }}</td>
+                    {% if players[round.speaker] is defined %}
+                        <td>{{ players[round.speaker][0] }} <b>{{ players[round.speaker][1] }}</b></td>
+                    {% else %}
+                        <td> - </td>
+                    {% endif %}
                 </tr>
 
                 {% if loop.last %} </tbody></table></div> {% endif %}
