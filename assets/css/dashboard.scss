@@ -104,7 +104,7 @@ body {
     }
   }
 
-  .circle {
+  .circle-display-screen {
     background-color: $circleColor;
     border:2px solid $circleBorderColor;
     border-radius:50%;
@@ -113,7 +113,7 @@ body {
     margin:1vh;
   }
 
-  .active-circle {
+  .active-circle-display-screen {
     background-color: $circleActiveColor;
   }
 }

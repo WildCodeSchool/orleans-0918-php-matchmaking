@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     if ($('.pauseDashboard').length) {
         let displayTables = $('.slider .display-table');
-        let circle = $('.slider .circle');
+        let circle = $('.slider .circle-display-screen');
         let indexDisplayTables = displayTables.length - 1;
         let i = 0;
         let currentDisplayTables = displayTables.eq(i);
@@ -11,7 +11,7 @@ $(document).ready(function () {
 
         displayTables.css('display', 'none');
         currentDisplayTables.css('display', 'flex');
-        currentCircle.addClass("active-circle");
+        currentCircle.addClass("active-circle-display-screen");
 
         function slideDisplayTables()
         {
@@ -24,10 +24,10 @@ $(document).ready(function () {
 
                 displayTables.hide();
                 currentDisplayTables = displayTables.eq(i);
-                currentDisplayTables.show();
-                circle.removeClass("active-circle");
+                currentDisplayTables.fadeIn(1000);
+                circle.removeClass("active-circle-display-screen");
                 currentCircle = circle.eq(i);
-                currentCircle.addClass("active-circle");
+                currentCircle.addClass("active-circle-display-screen");
 
                 slideDisplayTables();
             }, 6000);
