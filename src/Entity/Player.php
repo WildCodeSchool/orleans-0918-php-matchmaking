@@ -65,6 +65,11 @@ class Player
      */
     private $isPresence=self::DEFAULT_PRESENCE;
 
+    /**
+     * @ORM\Column(type="integer", options={"default" : 0})
+     */
+    private $speakerNumber = 0;
+
     public function __construct()
     {
         $this->events = new ArrayCollection();
@@ -157,6 +162,18 @@ class Player
     public function setIsPresence(?bool $isPresence): self
     {
         $this->isPresence = $isPresence;
+
+        return $this;
+    }
+
+    public function getSpeakerNumber(): ?int
+    {
+        return $this->speakerNumber;
+    }
+
+    public function setSpeakerNumber(int $speakerNumber): self
+    {
+        $this->speakerNumber = $speakerNumber;
 
         return $this;
     }

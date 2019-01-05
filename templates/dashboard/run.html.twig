@@ -9,9 +9,14 @@
                         <p class="text-center">TOUR {{ currentLap }}/{{ maxLaps }}</p>
                     </div>
                 </div>
-                <div class="globalTimer row">
+                <div class="globalTimer row" 
+                data-global-seconds="{{ event.roundSeconds }}" 
+                data-global-minutes="{{ event.roundMinutes }}" 
+                data-event-id="{{ event.id }}"
+                data-current-lap="{{ currentLap }}"
+                data-max-laps="{{ maxLaps }}">
                     <div class="col-12 align-middle my-auto">
-                        <p class="text-center"><strong>HH:MM</strong></p>
+                        <p class="text-center"><strong></strong></p>
                     </div>
                 </div>
                 <div class="logo row">
@@ -28,17 +33,25 @@
                             <p class="text-center">{{ event.title }}</p>
                         </div>
                     </div>
-                    <div class="roundTimer row">
-                        <div class="col-12 align-middle my-auto">
-                            {# TIMER #}
+                    <div class="roundTimer row"
+                    data-round-seconds="{{ event.roundMinutes *60+ event.roundSeconds }}"
+                    data-event-id="{{event.id}}"
+                    data-number-of-players="{{ numberOfPlayers }}">
+                        <div class="container circle col-12 text-center align-middle my-auto">
+                            <div class="timerText"></div>
                         </div>
                     </div>
                     <div class="speak row">
-                        <div class="col-12 align-middle my-auto">
-                            {# PRISE PAROLE #}
-                        </div>
+                    <div class="col-12 align-middle my-auto">
+                        prise de parole
+                        <div class="speakerRound ">
+                        </div></div>
                     </div>
                 </div>
             </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('dashboard_run') }}
 {% endblock %}
