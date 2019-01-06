@@ -11,18 +11,27 @@
     </thead>
     <tbody>
     {% for user in users %}
-         <tr class="userList">
+        {% if is_granted('ROLE_ADMIN') %}
+        <tr class="userList">
              <td class="hiddenField">{{ user.id }}</td>
              <td>{{ user.lastName }}</td>
              <td>{{ user.firstName }}</td>
              <td>{{ user.email }}</td>
+             <td>{{ user.society.name }}</td>
              <td><button class="btn listButton"><i class="fas fa-edit"></i></button></td>
              <td>{% include 'user/_delete_form.html.twig' %}</td>
          </tr>
-    {% else %}
-        <tr>
-            <td colspan="8">Aucun utilisateur enregistré.</td>
-        </tr>
+            {% elseif user.society.id == societyId %}
+            <tr class="userList">
+                <td class="hiddenField">{{ user.id }}</td>
+                <td>{{ user.lastName }}</td>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.society.name }}</td>
+                <td><button class="btn listButton"><i class="fas fa-edit"></i></button></td>
+                <td>{% include 'user/_delete_form.html.twig' %}</td>
+            </tr>
+        {% endif %}
     {% endfor %}
     </tbody>
 </table>
