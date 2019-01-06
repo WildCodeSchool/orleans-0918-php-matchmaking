@@ -11,6 +11,7 @@ namespace App\Controller;
 use App\Entity\Player;
 use App\Entity\StatusEvent;
 use App\Form\PlayerType;
+use App\Repository\PlayerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -56,11 +57,77 @@ class PlayerController extends AbstractController
             return $this->redirectToRoute('player', ['id' => $event->getId()]);
         }
 
+        $formEdit = $this->createForm(PlayerType::class, null, [
+            'action' => $this->generateUrl("edit_player", ['id' => $event->getId(), 'playerid' => 0]),
+            'method' => 'POST',
+        ]);
+
         return $this->render('player/index.html.twig', [
             'players' => $event->getPlayers(),
             'form' => $form->createView(),
+            'formEdit' => $formEdit->createView(),
             'event' => $event
         ]);
+    }
+
+    /**
+     * @Route("/manager/player/{id}/edit/{playerid}", name="edit_player",
+     *     requirements={"id"="\d+", "playerid"="\d+"}, methods="GET|POST")
+     * @param Request $request
+     * @param Event $event
+     * @param Int $playerid
+     * @param PlayerRepository $playerRepository
+     * @return Response
+     */
+    public function editPlayer(
+        Request $request,
+        Event $event,
+        PlayerRepository $playerRepository,
+        int $playerid
+    ): Response {
+        $player = $playerRepository->find($playerid);
+        $form = $this->createForm(PlayerType::class, $player);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($player);
+            $em->flush();
+            $this->addFlash(
+                'success',
+                'Votre participant a été édité.'
+            );
+        }
+
+        return $this->redirectToRoute('player', ['id' => $event->getId()]);
+    }
+
+    /**
+     * @param int $id
+     * @param Request $request
+     * @Route("/manager/player/data/{id}", name="player_edit", requirements={"id"="\d+"}, methods="POST")
+     * @return Response
+     */
+    public function getEditData(Request $request, int $id): Response
+    {
+        if (!$request->isXmlHttpRequest()) {
+            $response = new Response();
+            $response->setStatusCode(500);
+            return $response;
+        }
+        $entityManager = $this->getDoctrine()->getManager();
+        $player = $entityManager->getRepository(Player::class)->find($id);
+        if (!$player) {
+            throw $this->createNotFoundException(
+                'Aucun participant n\'a été trouvé pour cet identifiant'
+            );
+        }
+        $data=[];
+        $data[]=$player->getName();
+        $data[]=$player->getFirstname();
+        $data[]=$player->getPhoneNumber();
+        $data[]=$player->getMail();
+        return $this->json($data);
     }
 
     /**
