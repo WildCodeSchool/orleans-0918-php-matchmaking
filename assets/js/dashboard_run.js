@@ -30,14 +30,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // interval Timer Round
     setInterval(function () {
+        let url = "";
         globalSeconds = --globalSeconds <= -1 ? 59 : globalSeconds;
         if (globalSeconds == 0) {
             if (globalMinutes == 0) {
                 if (currentLap < maxLaps) {
                     currentLap++;
-                    let url = route + eventId + "/" + currentLap;
-                    window.location.replace(url);
+                    url = route + eventId + "/" + currentLap;
+                } else {
+                    url = "/dashboard/end/" + eventId;
                 }
+                window.location.replace(url);
             } else {
                 globalMinutes--;
             }

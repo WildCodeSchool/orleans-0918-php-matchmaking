@@ -1,14 +1,13 @@
-
 {{ form_start(form) }}
 <div class="row">
-<div class="col-5"> {{ form_row(form.name, {'label': 'Nom'}) }} </div>
-<div class="offset-2"></div>
-<div class="col-5"> {{ form_row(form.phoneNumber, {'label': 'Numéro de portable'}) }} </div>
+    <div class="col-5"> {{ form_row(form.name, {'label': 'Nom'}) }} </div>
+    <div class="offset-2"></div>
+    <div class="col-5"> {{ form_row(form.phoneNumber, {'label': 'Numéro de portable'}) }} </div>
 </div>
 <div class="row">
-<div class="col-5"> {{ form_row(form.firstname, {'label': 'Prénom'}) }} </div>
-<div class="offset-2"></div>
-<div class="col-5"> {{ form_row(form.mail, {'label': 'Email'}) }} </div>
+    <div class="col-5"> {{ form_row(form.firstname, {'label': 'Prénom'}) }} </div>
+    <div class="offset-2"></div>
+    <div class="col-5"> {{ form_row(form.mail, {'label': 'Email'}) }} </div>
 </div>
 <button class="btn btn btn-primary btn-lg btn-block">{{ button_label|default('Valider') }}</button>
 {{ form_end(form) }}

@@ -60,13 +60,13 @@
                             <div class="col-6 align-self-center">
                                 <i class="fas fa-bullhorn fa-2x"></i>
                                 <span class="pl-2 display-4"><small>
-                                        {{ (event.RoundMinutes ~ ':' ~ event.RoundSeconds)|date('h:s') }}
+                                        {{ (event.RoundMinutes ~ ':' ~ event.RoundSeconds)|date('H:i') }}
                                         </small></span>
                             </div>
                             <div class="col-6 border-left">
                                 <i class="fas fa-pause fa-2x"></i>
                                 <span class="pl-2 display-4"><small>
-                                    {{ (event.PauseMinutes ~ ':' ~ event.PauseSeconds)|date('h:s') }}
+                                    {{ (event.PauseMinutes ~ ':' ~ event.PauseSeconds)|date('H:i') }}
                                         </small></span>
                             </div>
                         </div>

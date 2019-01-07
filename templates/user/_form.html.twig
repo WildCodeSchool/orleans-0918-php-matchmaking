@@ -13,10 +13,17 @@
             {{ form_label(form.email, 'E-mail') }}
             {{ form_widget(form.email) }}
         </div>
+        {% if is_granted('ROLE_ADMIN') %}
         <div class="col-md-3">
             {{ form_label(form.society, 'Entreprise') }}
             {{ form_widget(form.society) }}
         </div>
+        {% else %}
+        <div class="hiddenField">
+            {{ form_label(form.society, 'Entreprise') }}
+            {{ form_widget(form.society, {"value" : societyId }) }}
+        </div>
+        {% endif %}
         <div class="col-md-12">
             <button id="addButton" class="btn btn-lg btn-primary btn-block" name="add">
                 Créer

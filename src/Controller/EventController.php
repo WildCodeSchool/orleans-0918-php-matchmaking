@@ -26,8 +26,11 @@ class EventController extends AbstractController
     public function index(Request $request, PaginatorInterface $paginator): Response
     {
         $em = $this->getDoctrine()->getmanager()->getRepository(Event::class);
-        $events = $em->findBy([], ['date' => 'DESC']);
-
+        if (in_array("ROLE_ADMIN", $this->getUser()->getRoles())) {
+            $events = $em->findBy([], ['date' => 'DESC']);
+        } elseif (in_array("ROLE_MANAGER", $this->getUser()->getRoles())) {
+            $events = $em->findBy(['society' => $this->getUser()->getSociety()->getId()], ['date' => 'DESC']);
+        }
         $result = $paginator->paginate(
             $events,
             $request->query->getInt('page', 1),
@@ -56,7 +59,7 @@ class EventController extends AbstractController
             ->findOneBy([], [], 1, 0);
 
         $todayDate = new \DateTime();
-        $logoPath = new File($this->getParameter('kernel.project_dir').'/public/images/logos/defaultLogo.png');
+        $logoPath = new File($this->getParameter('kernel.project_dir') . '/public/images/logos/defaultLogo.png');
 
         $event->setRoundMinutes($timer->getRoundMinutes());
         $event->setRoundSeconds($timer->getRoundSeconds());
@@ -82,7 +85,7 @@ class EventController extends AbstractController
                 'Votre événement a été ajouté !'
             );
 
-             return $this->redirectToRoute('event_index');
+            return $this->redirectToRoute('event_index');
         }
 
         return $this->render('event/add.html.twig', [
@@ -174,7 +177,7 @@ class EventController extends AbstractController
      * @return Response
      * @throws \Exception
      */
-    public function getNumberPresentPlayers(EventRepository $eventRepository, Event $event, Request $request) : Response
+    public function getNumberPresentPlayers(EventRepository $eventRepository, Event $event, Request $request): Response
     {
         if (!$request->isXmlHttpRequest()) {
             throw new \Exception("This method can only be used with Ajax !");
@@ -194,7 +197,7 @@ class EventController extends AbstractController
      * @param Event $event
      * @return Response
      */
-    public function start(EventRepository $eventRepository, Event $event) : Response
+    public function start(EventRepository $eventRepository, Event $event): Response
     {
         // assignment random speaker number to players
         $presentPlayers = $eventRepository->findPresentPlayer($event);
