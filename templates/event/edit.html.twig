@@ -35,7 +35,17 @@
         <hr/>
         <div class="row">
             <div class="col-lg-6">
+                {% if is_granted('ROLE_ADMIN') %}
                 {{ form_row(formEdit.formatEvent, {'label': 'Format de l\'événement'}) }}
+                {% else %}
+                    <p>
+                    Format de l'événement :
+                    {{ event.formatEvent.name }}
+                    </p>
+                    <div class="hiddenField">
+                        {{ form_row(formEdit.formatEvent) }}
+                    </div>
+                {% endif %}
                 <p class="mb-0 text-secondary">
                     <i>Nombre d'inscrits : {{ event.players|length ~ ' / '~ event.formatEvent.numberOfPlayers }}</i>
                 </p>
@@ -58,14 +68,17 @@
             </div>
         {% else %}
             <h4>Date / Heure</h4>
-            <div class="row ml-1">
-                {{ form_row(formEdit.date.date.day, {'label': 'Jours', 'attr': {'disabled': true}}) }}
-                {{ form_row(formEdit.date.date.month, {'label': 'Mois', 'attr': {'disabled': true}}) }}
-                {{ form_row(formEdit.date.date.year, {'label': 'Année', 'attr': {'disabled': true}}) }}
+            <p>
+               Le {{ event.date.date|date('d/m/Y') }} à {{ event.date.date|date('H') }} heure {{ event.date.date|date('i') }} minutes
+            </p>
+            <div class="hiddenField">
+                {{ form_row(formEdit.date.date.day, {'label': 'Jours'}) }}
+                {{ form_row(formEdit.date.date.month, {'label': 'Mois'}) }}
+                {{ form_row(formEdit.date.date.year, {'label': 'Année'}) }}
                 <div class="offset-1">
-                    {{ form_row(formEdit.date.time.hour, {'label': 'Heure', 'attr': {'disabled': true}}) }}
+                    {{ form_row(formEdit.date.time.hour, {'label': 'Heure'}) }}
                 </div>
-                {{ form_row(formEdit.date.time.minute, {'label': 'Minute', 'attr': {'disabled': true}}) }}
+                {{ form_row(formEdit.date.time.minute, {'label': 'Minute'}) }}
             </div>
         {% endif %}
         <hr/>
@@ -81,7 +94,12 @@
         {% if is_granted('ROLE_ADMIN') %}
             {{ form_row(formEdit.society) }}
         {% else %}
-            {{ form_row(formEdit.society, { 'attr': {'disabled': true}}) }}
+            <div>
+            {{ app.user.society.name }}
+            </div>
+            <div class="hiddenField">
+            {{ form_row(formEdit.society) }}
+            </div>
         {% endif %}
         <button class="btn btn btn-primary btn-lg btn-block">{{ button_label|default('Valider') }}</button>
         {{ form_end(formEdit) }}
