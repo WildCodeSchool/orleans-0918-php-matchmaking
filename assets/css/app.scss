@@ -17,7 +17,6 @@ $browse: "Parcourir";
 $listButtonBgColor: #ffffff;
 $listButtonColor: rgb(0, 140, 255);
 $listButtonColorHover : rgb(61, 168, 255);
-$borderFormColor: #999;
 
 @font-face {
     font-family: BrandonBold;
@@ -125,7 +124,6 @@ h2::after, h3::after {
 }
 
 fieldset {
-    border: 1px groove $borderFormColor;
     padding: 0 1.4em 1.4em 1.4em;
     margin: 0 0 1.5em 0;
 }
