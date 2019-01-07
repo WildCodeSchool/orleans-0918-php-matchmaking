@@ -92,7 +92,7 @@
         <hr/>
         <h4>Gestionnaires de l'évènement</h4>
         {% if is_granted('ROLE_ADMIN') %}
-            {{ form_row(formEdit.society) }}
+            {{ form_row(formEdit.society, {'label': "Société :"}) }}
         {% else %}
             <div>
             {{ app.user.society.name }}
