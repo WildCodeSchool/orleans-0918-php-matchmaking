@@ -26,9 +26,9 @@ class EventController extends AbstractController
     public function index(Request $request, PaginatorInterface $paginator): Response
     {
         $em = $this->getDoctrine()->getmanager()->getRepository(Event::class);
-        if ($this->getUser()->getRoles()[0] == "ROLE_ADMIN") {
+        if (in_array("ROLE_ADMIN", $this->getUser()->getRoles())) {
             $events = $em->findBy([], ['date' => 'DESC']);
-        } elseif ($this->getUser()->getRoles()[0] == "ROLE_MANAGER") {
+        } elseif (in_array("ROLE_MANAGER", $this->getUser()->getRoles())) {
             $events = $em->findBy(['society' => $this->getUser()->getSociety()->getId()], ['date' => 'DESC']);
         }
         $result = $paginator->paginate(
