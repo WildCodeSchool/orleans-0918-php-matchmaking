@@ -1,50 +1,129 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajouter un événement{% endblock %}
+{% block title %}Ajouter un événement - {{ parent() }}{% endblock %}
 
+{% block pageTitle %}Ajouter un événement{% endblock %}
 
 
 {% block body %}
-    <div class="container">
-        <h1 class="text-center">Ajouter un événement</h1>
-
-        {{ form_start(formEvent) }}
-        {{ form_row(formEvent.title, {'label': 'Titre'}) }}
+    <h2>Informations générales</h2>
+    {{ form_start(formEvent) }}
+    <fieldset class="border py-3">
+        <div class="row">
+            <div class="col-12">
+                {{ form_row(formEvent.title, {'label': 'Titre'}) }}
+            </div>
+        </div>
         <hr>
-        {{ form_row(formEvent.statusEvent, {'label': 'Statut de l\'événement'}) }}
+        <div class="row">
+            <div class="col-lg-3 align-self-center">
+                <label class="required" for="event_statusEvent">Statut de l'événement</label>
+            </div>
+            <div class="col-lg-9">
+                {{ form_widget(formEvent.statusEvent) }}
+            </div>
+        </div>
         <hr>
         {{ form_row(formEvent.description) }}
-        <hr/>
+    </fieldset>
+    <fieldset class="border py-3">
         <div class="row">
             <div class="col-lg-6">
-                {{ form_row(formEvent.formatEvent, {'label': 'Format de l\'événement'}) }}
+                <label class="required d-flex align-items-center" for="event_formatEvent">
+                    <i class="fas fa-users fa-2x color-icons-decoration mr-2"></i> Format de l'événement
+                </label>
+                {{ form_widget(formEvent.formatEvent) }}
             </div>
             <div class="col-lg-6">
-                {{ form_row(formEvent.logoFile, {'label': 'Ajout du logo'}) }}
+                <label class="required d-flex align-items-center" for="event_logoFile">
+                    <i class="fas fa-image fa-2x color-icons-decoration mr-2"></i> Ajout d'un logo
+                </label>
+                {{ form_widget(formEvent.logoFile) }}
             </div>
         </div>
-        <hr/>
-        <h4>Date / Heure</h4>
-        <div class="row ml-1">
-            {{ form_row(formEvent.date.date.day, {'label': 'Jours'}) }}
-            {{ form_row(formEvent.date.date.month, {'label': 'Mois'}) }}
-            {{ form_row(formEvent.date.date.year, {'label': 'Année'}) }}
-            <div class="offset-1">
-                {{ form_row(formEvent.date.time.hour, {'label': 'Heure'}) }}
-            </div>
-            {{ form_row(formEvent.date.time.minute, {'label': 'Minute'}) }}
-        </div>        <hr/>
-        <h4>Gestion des timers</h4>
+    </fieldset>
+
+    <h3>Date / Heure</h3>
+    <fieldset class="border py-3">
         <div class="row">
-            <div class="col-md-3 col-ms-6">{{ form_row(formEvent.roundMinutes, {'label': 'Temps de tour (minutes)'}) }}</div>
-            <div class="col-md-3 col-ms-6">{{ form_row(formEvent.roundSeconds, {'label': 'Temps de tour (secondes)'}) }}</div>
-            <div class="col-md-3 col-ms-6">{{ form_row(formEvent.pauseMinutes, {'label': 'Temps de pause (minutes)'}) }}</div>
-            <div class="col-md-3 col-ms-6">{{ form_row(formEvent.pauseSeconds, {'label': 'Temps de pause (secondes)'}) }}</div>
+            <div class="col-lg-6">
+                <p><u>Date</u></p>
+                <div class="row">
+                    <div class="col-2 text-right">
+                        <i class="fas fa-calendar-alt fa-2x color-icons-decoration"></i>
+                    </div>
+                    <div class="col-10 d-flex align-items-center justify-content-between">
+                        {{ form_widget(formEvent.date.date.day) }}
+                        {{ form_widget(formEvent.date.date.month) }}
+                        {{ form_widget(formEvent.date.date.year) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mt-lg-0 mt-4">
+                <p><u>Heure</u></p>
+                <div class="row border-left border-left border-dark timer-settings">
+                    <div class="col-2 text-right">
+                        <i class="far fa-clock fa-2x color-icons-decoration"></i>
+                    </div>
+                    <div class="col-5 d-flex align-items-center justify-content-between">
+                        {{ form_widget(formEvent.date.time.hour) }} <span class="ml-1">heure</span>
+                    </div>
+                    <div class="col-5 d-flex align-items-center justify-content-between">
+                        {{ form_widget(formEvent.date.time.minute) }} <span class="ml-1">min.</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <hr/>
-        <h4>Gestionnaires de l'évènement</h4>
-        {{ form_row(formEvent.society, {'label': 'Société :'}) }}
-        <button class="btn btn btn-primary btn-lg btn-block">{{ button_label|default('Valider') }}</button>
-        {{ form_end(formEvent) }}
-    </div>
+    </fieldset>
+
+    <h3>Gestion des timers</h3>
+    <fieldset class="border py-3">
+        <div class="row timer-settings">
+            <div class="col-lg-6">
+                <p><u>Temps de parole</u></p>
+                <div class="row">
+                    <div class="col-2 text-right">
+                        <i class="far fa-clock fa-2x color-icons-decoration"></i>
+                    </div>
+                    <div class="col-5 d-flex align-items-center justify-content-between">
+                        {{ form_widget(formEvent.roundMinutes) }} min.
+                    </div>
+                    <div class="col-5 d-flex align-items-center justify-content-between">
+                        {{ form_widget(formEvent.roundSeconds) }} sec.
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mt-lg-0 mt-4">
+                <p><u>Temps de pause</u></p>
+                <div class="row border-left border-left border-dark">
+                    <div class="col-2 text-right">
+                        <i class="far fa-clock fa-2x color-icons-decoration"></i>
+                    </div>
+                    <div class="col-5 d-flex align-items-center justify-content-between">
+                        {{ form_widget(formEvent.pauseMinutes) }} min.
+                    </div>
+                    <div class="col-5 d-flex align-items-center justify-content-between">
+                        {{ form_widget(formEvent.pauseSeconds) }} sec.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <h3>Gestionnaires de l'événement</h3>
+    <fieldset class="border py-3">
+        <div class="row">
+            <div class="col-lg-3 align-self-center">
+                <label class="required" for="event_society">
+                    <i class="fas fa-industry fa-2x color-icons-decoration mr-1"></i>
+                    Société</label>
+            </div>
+            <div class="col-lg-9">
+                {{ form_widget(formEvent.society) }}
+            </div>
+        </div>
+    </fieldset>
+
+    <button class="btn btn btn-primary btn-lg btn-block">{{ button_label|default('Valider') }}</button>
+    {{ form_end(formEvent) }}
 {% endblock %}
