@@ -58,7 +58,7 @@ class PlayerController extends AbstractController
         }
 
         $formEdit = $this->createForm(PlayerType::class, null, [
-            'action' => $this->generateUrl("edit_player", ['id' => $event->getId(), 'playerid' => 0]),
+            'action' => $this->generateUrl("edit_player", ['id' => $event->getId(), 'playerId' => 0]),
             'method' => 'POST',
         ]);
 
