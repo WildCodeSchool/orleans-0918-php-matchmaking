@@ -52,11 +52,13 @@ class UserController extends AbstractController
             'method' => 'POST',
         ]);
 
-        $users=$userRepository->findByRole(self::MANAGER_ROLE[0]);
+        $users=$userRepository->findBy(['society' => $this->getUser()->getSociety()->getId()]);
+        $societyId = (string)$this->getUser()->getSociety()->getId();
 
         return $this->render('user/manager.html.twig', [
             'form' => $form->createView(),
-            'users' => $users
+            'users' => $users,
+            'societyId' => $societyId
         ]);
     }
 
