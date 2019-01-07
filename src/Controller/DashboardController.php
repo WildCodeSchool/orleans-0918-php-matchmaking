@@ -51,7 +51,7 @@ class DashboardController extends AbstractController
      * @param int $currentLap
      * @return Response
      */
-    public function run(Event $event, int $currentLap)
+    public function run(Event $event, int $currentLap) : Response
     {
         $maxLaps = sqrt($event->getFormatEvent()->getNumberOfPlayers())+1;
 
@@ -69,7 +69,7 @@ class DashboardController extends AbstractController
      * @param Event $event
      * @return Response
      */
-    public function start(Event $event)
+    public function start(Event $event) : Response
     {
         $numberOfPlayers = $event->getFormatEvent()->getNumberOfPlayers();
         $maxLaps = sqrt($event->getFormatEvent()->getNumberOfPlayers())+1;
