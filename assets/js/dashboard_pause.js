@@ -25,4 +25,4 @@ document.addEventListener('DOMContentLoaded', function () {
         pauseTimerElt.textContent = minutes + " : " + ("0" +seconds).slice(-2);
     }, 1000);
 
-}); 
+});
