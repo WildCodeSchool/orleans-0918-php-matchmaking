@@ -71,11 +71,11 @@ class PlayerController extends AbstractController
     }
 
     /**
-     * @Route("/manager/player/{id}/edit/{playerid}", name="edit_player",
-     *     requirements={"id"="\d+", "playerid"="\d+"}, methods="GET|POST")
+     * @Route("/manager/player/{id}/edit/{playerId}", name="edit_player",
+     *     requirements={"id"="\d+", "playerId"="\d+"}, methods="GET|POST")
      * @param Request $request
      * @param Event $event
-     * @param Int $playerid
+     * @param Int $playerId
      * @param PlayerRepository $playerRepository
      * @return Response
      */
@@ -83,9 +83,9 @@ class PlayerController extends AbstractController
         Request $request,
         Event $event,
         PlayerRepository $playerRepository,
-        int $playerid
+        int $playerId
     ): Response {
-        $player = $playerRepository->find($playerid);
+        $player = $playerRepository->find($playerId);
         $form = $this->createForm(PlayerType::class, $player);
         $form->handleRequest($request);
 
