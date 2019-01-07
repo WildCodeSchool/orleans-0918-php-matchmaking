@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     pauseTimerElt.textContent = minutes + " : " + ("0" +seconds).slice(-2);
     let maxLaps = pauseTimerElt.dataset.maxLaps;
     let currentLap = pauseTimerElt.dataset.currentLap;
-
+    
     setInterval(function () {
         seconds = --seconds <= -1 ? 59 : seconds;
         if (seconds == 0) {
@@ -25,4 +25,4 @@ document.addEventListener('DOMContentLoaded', function () {
         pauseTimerElt.textContent = minutes + " : " + ("0" +seconds).slice(-2);
     }, 1000);
 
-});
+}); 

@@ -1,45 +1,47 @@
 {% set tableName = '' %}
-{% set numberScreen = (maxLaps-1) % 3 %}
+{% set numberPlayerPerTable = maxLaps-1 %}
+{% set numberScreen = ((maxLaps-1)/3)|round(0, 'ceil') %}
 {% set sliceStart = 0 %}
-{% set sliceEnd = (maxLaps-1)*3 %}
-<ul class="w-100">
-    {% for i in 0..numberScreen %}
-    <li>
-        <div class="row my-2 display-table">
-            {% for round in rounds|slice(sliceStart, sliceEnd) %}
-                {% if tableName != round.tableEvent.name %}
-                    {% set tableName = round.tableEvent.name %}
-                    {% if loop.index0 > 0 %} </tbody></table></div> {% endif %}
-                    <div class="col-4">
-                        <table class="table table-striped bg-light w-75 mx-auto">
-                        <thead>
-                            <tr class="bg-dark text-white text-center">
-                                <td colspan="2">TABLE {{ round.tableEvent.name }}</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                {% endif %}
-                <tr>
-                    <td>{{ round.speaker }}</td>
-                    {% if players[round.speaker] is defined %}
-                        <td>{{ players[round.speaker][0] }} <b>{{ players[round.speaker][1] }}</b></td>
-                    {% else %}
-                        <td> - </td>
-                    {% endif %}
-                </tr>
+{% set sliceLength = numberPlayerPerTable*3 %}
 
-                {% if loop.last %} </tbody></table></div> {% endif %}
-        {% endfor %}
-        </div>
-        {% set sliceStart = sliceEnd %}
-        {% set sliceEnd = sliceStart + sliceEnd %}
-    </li>
+<ul class="w-100">
+    {% for i in 1..numberScreen %}
+        <li>
+            <div class="row my-2 display-table">
+                {% for round in rounds|slice(sliceStart, sliceLength) %}
+                {% if tableName != round.tableEvent.name %}
+                {% set tableName = round.tableEvent.name %}
+                {% if loop.index0 > 0 %} </tbody></table></div> {% endif %}
+            <div class="col-4">
+                <table class="table table-striped bg-light w-75 mx-auto">
+                    <thead>
+                    <tr class="bg-dark text-white text-center">
+                        <td colspan="2">TABLE {{ round.tableEvent.name }}</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% endif %}
+                    <tr>
+                        <td>{{ round.speaker }}</td>
+                        {% if players[round.speaker] is defined %}
+                            <td>{{ players[round.speaker][0] }} <b>{{ players[round.speaker][1] }}</b></td>
+                        {% else %}
+                            <td> -</td>
+                        {% endif %}
+                    </tr>
+
+                    {% if loop.last %} </tbody>
+                </table>
+            </div> {% endif %}
+            {% endfor %}
+            {% set sliceStart = sliceStart + sliceLength %}
+            </div>
+        </li>
     {% endfor %}
 </ul>
-
-{% if numberScreen > 0 %}
+{% if numberScreen > 1 %}
     <div class="d-inline-flex">
-        {% for i in 0..numberScreen %}
+        {% for i in 1..numberScreen %}
         <p class="circle-display-screen"></p>
         {% endfor %}
     </div>
