@@ -2,6 +2,9 @@ security:
     encoders:
         App\Entity\User:
             algorithm: argon2i
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_MANAGER
+    access_denied_url: /
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
@@ -19,6 +22,8 @@ security:
             guard:
                 authenticators:
                     - App\Security\AppAuthenticator
+            logout:
+                path:   app_logout
 
             # activate different ways to authenticate
 
@@ -31,5 +36,5 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+         - { path: /admin, roles: ROLE_ADMIN }
+         - { path: /manager, roles: ROLE_MANAGER }

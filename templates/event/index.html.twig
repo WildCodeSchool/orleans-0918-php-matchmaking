@@ -5,8 +5,9 @@
 {% block body %}
     <div class="event_list container">
         <h1 class="text-center">Liste des événements</h1>
-
-        <a href="{{ path('event_add') }}" class="btn btn-primary">Ajouter un événement</a>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('event_add') }}" class="btn btn-primary">Ajouter un événement</a>
+        {% endif %}
 
         {% for event in events %}
             <div class="row d-flex align-items-center">
@@ -28,7 +29,7 @@
                         <a href="{{ path('event_edit', {'id': event.id }) }}"><i class="fas fa-edit"></i></a>
                     {% endif %}
                 </div>
-
+                {% if is_granted('ROLE_ADMIN') %}
                 <div class="col-md-1 col-2">
                     {% if event.statusEvent.state != event.statusEvent.inProgressState %}
                         <form method="post" action="{{ path('event_delete', {'id': event.id}) }}"
@@ -39,6 +40,7 @@
                         </form>
                     {% endif %}
                 </div>
+                {% endif %}
             </div>
         {% endfor %}
     </div>

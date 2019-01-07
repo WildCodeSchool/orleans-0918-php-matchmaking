@@ -24,7 +24,8 @@ body {
   border-radius: 5px;
 }
 
-.runDashboard {
+.runDashboard,
+.startDashboard {
   height: 100vh;
   font-family: $font;
   padding: 10px;
@@ -48,6 +49,28 @@ body {
     p {
       font-size: 3vw;
     }
+  .circle {
+    top:0;
+  }
+
+  .timerText {
+    position: absolute;
+    font-size: 7vw;
+    top:30%;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    text-align:center;
+    vertical-align: middle;
+  }
+
+  .speak {
+    font-size: 3vw;
+    top:0;
+    left: 0;
+    width: 100%;
+    text-align:center;
+    vertical-align: middle;
   }
 
   .left-side {
@@ -94,6 +117,11 @@ body {
 
   .statusBar {
     height: 10vh;
+    font-size: 3vh;
+
+  }
+  
+  a {
     font-size: 3vh;
   }
 }

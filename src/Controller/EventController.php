@@ -213,6 +213,6 @@ class EventController extends AbstractController
 
         $this->getDoctrine()->getManager()->flush();
 
-        return $this->redirectToRoute('dashboard_pause', ['id' => $event->getId(), 'currentLap' => 1]);
+        return $this->redirectToRoute('dashboard_start', ['id' => $event->getId()]);
     }
 }
