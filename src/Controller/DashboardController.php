@@ -68,9 +68,7 @@ class DashboardController extends AbstractController
 
         $status = $this->getDoctrine()->getmanager()
         ->getRepository(StatusEvent ::class)
-        ->findOneBy(
-            ['state' => $event->getStatusEvent()-> getFinishState()], []
-        );
+        ->findOneBy(['state' => $event->getStatusEvent()-> getFinishState()], []);
         $event->setStatusEvent($status);
 
         $this->getDoctrine()->getManager()->flush();
