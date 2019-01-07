@@ -16,11 +16,6 @@ class CsvFormatEvent extends Csv
     private $numberOfPlayers;
 
     /**
-     * @var array
-     */
-    private $formatEventInDB = [];
-
-    /**
      * @var EntityManagerInterface
      */
     private $em;
@@ -50,12 +45,6 @@ class CsvFormatEvent extends Csv
 
         $nbRound = count($headerCsv) - 2;
         $this->setNumberOfPlayers(($nbRound - 1) ** 2);
-
-        // Check if the format does not already exist
-        if ($this->checkFormatExist($this->getNumberOfPlayers())) {
-            throw new CsvException('Ce format est déjà enregistré.');
-        }
-
         if ($this->getNumberOfPlayers() !== ($nbLineInCsv - 1)) {
             throw new CsvException('Votre matrice n\'est pas valide.');
         }
@@ -93,6 +82,7 @@ class CsvFormatEvent extends Csv
             $this->getEm()->getConnection()->commit();
         } catch (\Exception $e) {
             $this->getEm()->getConnection()->rollBack();
+            throw new \Exception('Ce format existe déjà.');
         }
     }
 
@@ -117,15 +107,6 @@ class CsvFormatEvent extends Csv
         }
 
         return $formatEvent;
-    }
-
-    /**
-     * @param int $numberOfPlayers
-     * @return bool
-     */
-    private function checkFormatExist(int $numberOfPlayers): bool
-    {
-        return in_array($numberOfPlayers, $this->getFormatEventInDB());
     }
 
     /**
@@ -274,24 +255,6 @@ class CsvFormatEvent extends Csv
     public function setNumberOfPlayers(int $numberOfPlayers): CsvFormatEvent
     {
         $this->numberOfPlayers = $numberOfPlayers;
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getFormatEventInDB(): array
-    {
-        return $this->formatEventInDB;
-    }
-
-    /**
-     * @param array $formatEventInDB
-     * @return CsvFormatEvent
-     */
-    public function setFormatEventInDB(array $formatEventInDB): CsvFormatEvent
-    {
-        $this->formatEventInDB = $formatEventInDB;
         return $this;
     }
 

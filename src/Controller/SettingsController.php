@@ -53,13 +53,6 @@ class SettingsController extends AbstractController
             $csvFormatEvent->setName($dataset['name']);
             $csvFormatEvent->setPath($dataset['csvFile']->getPathName());
 
-            $formatEvents = $this->getDoctrine()->getManager()->getRepository(FormatEvent::class)->findAll();
-            $numberOfPlayersList = [];
-            foreach ($formatEvents as $formatEvent) {
-                $numberOfPlayersList[] = $formatEvent->getNumberOfPlayers();
-            }
-            $csvFormatEvent->setFormatEventInDB($numberOfPlayersList);
-
             try {
                 $csvFormatEvent->validate();
                 $csvFormatEvent->import();
@@ -67,7 +60,7 @@ class SettingsController extends AbstractController
                     'success',
                     'Le nouveau format a été ajouté.'
                 );
-            } catch (CsvException $csvException) {
+            } catch (CsvException | \Exception $csvException) {
                 $this->addFlash(
                     'danger',
                     $csvException->getMessage()
