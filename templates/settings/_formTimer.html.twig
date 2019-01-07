@@ -1,15 +1,41 @@
-<h1>Gestion des paramètres</h1>
 <div class="row">
     <div class="col">
-        <h2 class="mt-5">Gestion des Timers</h2>
+        <h2 class="mb-4">Gestion des Timers</h2>
     </div>
 </div>
+
 {{ form_start(formTimer) }}
-<div class="row mt-2">
-    <div class="col-md-3 col-ms-6">{{ form_row(formTimer.roundMinutes, {'label': 'Temps de tour (minutes)'}) }}</div>
-    <div class="col-md-3 col-ms-6">{{ form_row(formTimer.roundSeconds, {'label': 'Temps de tour (secondes)'}) }}</div>
-    <div class="col-md-3 col-ms-6">{{ form_row(formTimer.pauseMinutes, {'label': 'Temps de pause (minutes)'}) }}</div>
-    <div class="col-md-3 col-ms-6">{{ form_row(formTimer.pauseSeconds, {'label': 'Temps de pause (secondes)'}) }}</div>
+<div class="row p-3 border timer-settings">
+    <div class="col-lg-5">
+        <p><u>Temps de parole</u></p>
+        <div class="row">
+            <div class="col-2 text-right">
+                <i class="far fa-clock fa-2x color-icons-decoration"></i>
+            </div>
+            <div class="col-5 d-flex align-items-center justify-content-between">
+                {{ form_widget(formTimer.roundMinutes) }} min.
+            </div>
+            <div class="col-5 d-flex align-items-center justify-content-between">
+                {{ form_widget(formTimer.roundSeconds) }} sec.
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-5 mt-lg-0 mt-4">
+        <p><u>Temps de pause</u></p>
+        <div class="row border-left border-left border-dark">
+            <div class="col-2 text-right">
+                <i class="far fa-clock fa-2x color-icons-decoration"></i>
+            </div>
+            <div class="col-5 d-flex align-items-center justify-content-between">
+                {{ form_widget(formTimer.pauseMinutes) }} min.
+            </div>
+            <div class="col-5 d-flex align-items-center justify-content-between">
+                {{ form_widget(formTimer.pauseSeconds) }} sec.
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2 text-center align-self-end mt-lg-0 mt-4">
+        <button class="btn btn btn-primary btn-lg">{{ button_label|default('Valider') }}</button>
+    </div>
 </div>
-<button class="btn btn btn-primary btn-lg btn-block">{{ button_label|default('Valider') }}</button>
 {{ form_end(formTimer) }}
