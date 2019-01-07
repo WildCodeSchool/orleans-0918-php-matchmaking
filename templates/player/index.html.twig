@@ -6,7 +6,7 @@
     <div class="event_players container">
         <h1 class="text-center">Gestion des participants</h1>
         <h2 class="text-center pt-1">{{ event.title }}</h2>
-        <hr />
+        <hr/>
         <h2 class="text-center pt-1">{{ event.date|date('d M Y') }}</h2>
         <div class="row">
             <div class="col-6">
@@ -15,7 +15,8 @@
                     - Nombre d'inscrits {{ event.players|length ~ ' / '~ event.formatEvent.numberOfPlayers }}
                     - <span class="badge badge-{{ event.statusEvent.color }}">{{ event.statusEvent.name }}</span>
                 </p>
-                {% if (event.statusEvent.state < event.statusEvent.fullState) %}
+                {% if event.statusEvent.state < event.statusEvent.fullState
+                    and date() <= date(event.date) %}
                     <a class="btn btn-primary align-self-end" data-toggle="collapse" href="#collapsePlayerForm"
                        role="button" aria-expanded="false" aria-controls="collapsePlayerForm  ">
                         <i class="fas fa-user-plus"></i> Ajouter un participant
@@ -23,9 +24,12 @@
                 {% endif %}
             </div>
             <div class="col-6 align-self-end text-right">
-                <a class="btn btn-primary" data-toggle="collapse" href="" role="button" aria-expanded="false">
-                    <i class="fas fa-play"></i> Lancer l'événement
-                </a>
+                {% if event.statusEvent.state < event.statusEvent.inProgressState
+                    and event.date|date('m-d-Y') == "now"|date('m-d-Y') and event.players|length > 0 %}
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#playGame">
+                        <i class="fas fa-play"></i> Lancer l'événement
+                    </button>
+                {% endif %}
             </div>
         </div>
 
@@ -35,31 +39,40 @@
         </div>
 
         {% for player in players %}
-        <div class="row players align-items-center">
-            <div class="col-sm-1 col-xs-12">
-                <input type="checkbox" class="presence" id="presence_{{ player.id }}" name="presence"  value="{{ player.id }}"{% if player.isPresence == 1 %} checked {% endif %}>
-            </div>
-            <div class="col-sm-4 col-xs-12">
+            <div class="row players align-items-center">
+                <div class="col-sm-1 col-xs-12">
+                    {% if event.statusEvent.state < event.statusEvent.inProgressState %}
+                        <input type="checkbox" class="presence" id="presence_{{ player.id }}" name="presence"
+                               value="{{ player.id }}"{% if player.isPresence == 1 %} checked {% endif %}>
+                    {% elseif player.isPresence == 1 %}
+                        <i class="fas fa-check"></i>
+                    {% else %}
+                        <i class="fas fa-times"></i>
+                    {% endif %}
+                </div>
+                <div class="col-sm-4 col-xs-12">
                     <span class="icn"><i class="fas fa-user"></i></span>{{ player.firstname }}  {{ player.name }}
-            </div>
-            <div class="col-sm-3 col-xs-12">
+                </div>
+                <div class="col-sm-3 col-xs-12">
                     <span class="icn"><i class="fas fa-envelope"></i></span>{{ player.mail }}
-            </div>
-            <div class="col-sm-2 col-xs-12">
+                </div>
+                <div class="col-sm-2 col-xs-12">
                     <span class="icn"><i class="fas fa-mobile-alt"></i></span>{{ player.phoneNumber }}
+                </div>
+                {% if event.statusEvent.state < event.statusEvent.inProgressState %}
+                    <div class="col-sm-1 col-xs-12">
+                        <button class="listButton btn editFormBtn" id="{{ player.id }}" data-toggle="modal" data-target="#edit"><i class="fas fa-edit"></i></button>
+                    </div>
+                    <div class="col-sm-1 col-xs-12">
+                        <form method="post" action="{{ path('player_delete', {'id': event.id, 'player': player.id}) }}"
+                              onsubmit="return confirm('Etes vous sûr de vouloir supprimer ce participant ?');">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ player.id) }}">
+                            <button class="listButton btn"><i class="fas fa-times"></i></button>
+                        </form>
+                    </div>
+                {% endif %}
             </div>
-             <div class="col-sm-1 col-xs-12">
-                 <button class="listButton btn editFormBtn" id="{{ player.id }}" data-toggle="modal" data-target="#edit"><i class="fas fa-edit"></i></button>
-            </div>
-             <div class="col-sm-1 col-xs-12">
-                 <form method="post" action="{{ path('player_delete', {'id': event.id, 'player': player.id}) }}"
-                       onsubmit="return confirm('Etes vous sûr de vouloir supprimer ce participant ?');">
-                     <input type="hidden" name="_method" value="DELETE">
-                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ player.id) }}">
-                     <button class="listButton btn"><i class="fas fa-times"></i></button>
-                 </form>
-             </div>
-        </div>
         {% endfor %}
         <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="modalEdit" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -82,11 +95,20 @@
                 </div>
             </div>
         </div>
-        <div class="d-100">
-            <a class="btn btn btn-primary btn-lg btn-block" data-toggle="collapse" href="" role="button" aria-expanded="false">
-                <i class="fas fa-play"></i> Lancer l'événement
-            </a>
-        </div>
+        {% if event.statusEvent.state < event.statusEvent.inProgressState
+            and event.date|date('m-d-Y') == "now"|date('m-d-Y') and event.players|length > 0 %}
+            <div class="d-100">
+                <button type="button" class="btn btn-primary btn-block btn-lg" data-toggle="modal"
+                        data-target="#playGame">
+                    <i class="fas fa-play"></i> Lancer l'événement
+                </button>
+            </div>
+        {% endif %}
     </div>
+    {% include 'player/_modalStartGame.html.twig' %}
 {% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('players') }}
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'dashboardBase.html.twig' %}
+
+{% block body %}
+<div class="row pauseDashboard"> 
+        <div class="col-12">    
+            <div class="row statusBar bgCard">
+                <div class="col-1 text-center align-middle my-auto">
+                    <img class="img-fluid" src="/images/logos/{{ event.logo }}" alt="logo" />  
+                </div>
+                <div class="col-8 offset-1 text-center align-middle my-auto">{{ event.title }}</div>
+                <div class="col-2 text-center align-middle my-auto">{{ numberOfPlayers }} participants</div>
+            </div>
+            <div class="row tables">
+                <div class="col-12 bgCard slider h-100 d-flex flex-column justify-content-center align-items-center">
+                    {% include 'dashboard/_viewTables.html.twig' %}
+                </div>
+            </div>
+            <div class="row titleBar bgCard">
+                    <div class="col-12 text-center align-middle my-auto">
+                         <a href="{{ path('dashboard_pause', {'id': event.id, 'currentLap': 1}) }}" class="btn btn-link">
+                            <i class="fas fa-play"></i> Commencer l'événement
+                         </a>
+                    </div>
+                </div>
+            </div>
+    </div>
+{% endblock %}

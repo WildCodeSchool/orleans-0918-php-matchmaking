@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Event;
 use App\Entity\StatusEvent;
 use App\Form\EventType;
+use App\Repository\EventRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
@@ -162,5 +163,56 @@ class EventController extends AbstractController
         }
 
         return $this->redirectToRoute('event_index');
+    }
+
+    /**
+     * Return number of players present for event
+     * @Route("/manager/event/{id}/present", requirements={"id"="\d+"}, methods={"POST"})
+     * @param EventRepository $eventRepository
+     * @param Event $event
+     * @param Request $request
+     * @return Response
+     * @throws \Exception
+     */
+    public function getNumberPresentPlayers(EventRepository $eventRepository, Event $event, Request $request) : Response
+    {
+        if (!$request->isXmlHttpRequest()) {
+            throw new \Exception("This method can only be used with Ajax !");
+        }
+        $presentPlayers = $eventRepository->findPresentPlayer($event);
+        $numberPresentPlayers = 0;
+        if (count($presentPlayers) > 0) {
+            $numberPresentPlayers = count($presentPlayers[0]->getPlayers());
+        }
+
+        return $this->json($numberPresentPlayers);
+    }
+
+    /**
+     * @Route("/manager/event/{id}/start", name="event_start", requirements={"id"="\d+"}, methods={"GET"})
+     * @param EventRepository $eventRepository
+     * @param Event $event
+     * @return Response
+     */
+    public function start(EventRepository $eventRepository, Event $event) : Response
+    {
+        // assignment random speaker number to players
+        $presentPlayers = $eventRepository->findPresentPlayer($event);
+        $speakerNumbers = range(1, $event->getFormatEvent()->getNumberOfPlayers());
+
+        foreach ($presentPlayers[0]->getPlayers() as $player) {
+            $speakerNumber = array_rand($speakerNumbers);
+            $player->setSpeakerNumber($speakerNumbers[$speakerNumber]);
+            unset($speakerNumbers[$speakerNumber]);
+        }
+
+        // Modified event's status to In Progress
+        $em = $this->getDoctrine()->getmanager()->getRepository(StatusEvent::class);
+        $statusEvent = $em->findOneBy(['state' => $event->getStatusEvent()->getInProgressState()], []);
+        $statusEvent->addEvent($event);
+
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->redirectToRoute('dashboard_start', ['id' => $event->getId()]);
     }
 }

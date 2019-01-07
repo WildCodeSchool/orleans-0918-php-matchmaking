@@ -18,4 +18,16 @@ class EventRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Event::class);
     }
+
+    public function findPresentPlayer(Event $event): array
+    {
+        $query = $this->createQueryBuilder('e')
+            ->join('e.players', 'p', 'WITH', 'e.id = :event_id')
+            ->addSelect('p')
+            ->where('p.isPresence = true')
+            ->setParameter('event_id', $event->getId())
+            ->getQuery();
+
+        return $query->execute();
+    }
 }
