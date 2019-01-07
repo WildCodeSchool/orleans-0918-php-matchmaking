@@ -6,6 +6,7 @@ use App\Entity\Event;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\FormatEvent;
+use App\Entity\StatusEvent;
 
 /**
  * @Route("/dashboard")
@@ -64,6 +65,15 @@ class DashboardController extends AbstractController
     public function end(Event $event)
     {
         $numberOfPlayers = $event->getFormatEvent()->getNumberOfPlayers();
+
+        $status = $this->getDoctrine()->getmanager()
+        ->getRepository(StatusEvent ::class)
+        ->findOneBy(
+            ['state' => $event->getStatusEvent()-> getFinishState()], []
+        );
+        $event->setStatusEvent($status);
+
+        $this->getDoctrine()->getManager()->flush();
 
         return $this->render('dashboard/end.html.twig', [
             'event' => $event,
