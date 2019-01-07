@@ -7,14 +7,13 @@
     <div class="collapse navbar-collapse justify-content-end" id="navbarNavProjetIO">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a href="{{ path('app_logout') }}">
-                    <button class="btn btn-outline-primary"><span><i class="fas fa-sign-in-alt"></i></span>
+                <a href="{{ path('app_logout') }}" role="button" class="btn border border-primary">
+                    <i class="fas fa-sign-in-alt"></i>
                         {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER') %}
                             Deconnexion
                         {% else %}
                             Connexion
                         {% endif %}
-                    </button>
                 </a>
             </li>
         </ul>
