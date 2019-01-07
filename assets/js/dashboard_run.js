@@ -2,6 +2,10 @@ require('jquery-circle-progress');
 document.addEventListener('DOMContentLoaded', function () {
 
     let route = "/dashboard/pause/";
+    let bipAudio = $("#bipPlayer")[0];
+    let speakAudio = $("#speakPlayer")[0];
+    bipAudio.load();
+    speakAudio.load();
 
     // Round Timer
     let globalTimerElt = document.querySelector(".globalTimer");
@@ -14,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let playerTimerElt = document.querySelector(".roundTimer");
     let playerTextElt = document.querySelector(".timerText");
     let numberOfPlayers = playerTimerElt.dataset.numberOfPlayers;
-    let playerTime = Math.floor(((playerTimerElt.dataset.roundSeconds) / numberOfPlayers) - 1);
+    let playerTime = Math.floor( ((playerTimerElt.dataset.roundSeconds)/ numberOfPlayers)-1);
     let playerDefMinutes = Math.floor(playerTime / 60);
     let playerDefSeconds = ("0" + (playerTime - playerDefMinutes * 60)).slice(-2);
 
@@ -38,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (globalSeconds == 0 && globalMinutes == 0) {
             clearInterval(globalInterv);
+
             if (currentLap < maxLaps) {
                 currentLap++;
                 url = route + eventId + "/" + currentLap;
@@ -89,6 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (seconds == 0 && minutes == 0) {
                 clearInterval(circleInterv);
                 if (currentSpeaker < numberOfPlayers) {
+                    speakAudio.play();
                     currentSpeaker++;
                 }
                 playerTextElt.classList.remove("alert-timer");
@@ -99,6 +105,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     startCircleTimer();
                 }, 1000);
             } else if (minutes == 0 && seconds <= 5) {
+                bipAudio.play();
                 playerTextElt.classList.add("alert-timer");
             }
 
