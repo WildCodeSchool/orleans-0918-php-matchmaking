@@ -5,7 +5,7 @@ let currentPage = location.href.split('/').pop();
 
 societyFormElt.style.display = "none";
 
-$('.createButton').click(function() {
+$('.createButton').click(function () {
 
     document.getElementById("society_name").value = "";
 
@@ -18,9 +18,9 @@ $('.createButton').click(function() {
     document.getElementById("societyForm").children[0].action= currentPage+"0"+"/update";
 });
 
-$('.listButton').click(function() {
+$('.listButton').click(function () {
 
-    let div = this.parentNode.parentNode.parentNode
+    let div = this.parentNode.parentNode.parentNode;
     let societyId = div.childNodes[1].innerText;
     let name = div.childNodes[3].innerText;
 
