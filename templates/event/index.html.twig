@@ -13,6 +13,9 @@
             <div class="row d-flex align-items-center">
                 <div class="col-md-7 col-12">
                     <span class="badge badge-info">[{{ event.date|date('d/m/Y') }}]</span>
+                    <span class="badge badge-info">
+                        {{ event.players|length ~ "/" ~ event.formatEvent.numberOfPlayers ~ " participants" }}
+                    </span>
                     <span class="offset-1">{{ event.title }}</span>
                 </div>
                 <div class="col-md-2 col-6 text-md-right">
