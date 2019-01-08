@@ -5,11 +5,12 @@
 {% block body %}
     <section class="container event_list">
         <h1>Liste des sociétés</h1>
-        
-        <a href="{{ path('society_new') }}" class="btn btn-primary">Création d'une nouvelle société</a>
 
+        <button class="createButton btn btn-lg btn-primary">Ajouter une société</button>
+        {% include 'society/_form.html.twig' %}
         {% for society in societies %}
             <div class="row d-flex align-items-center">
+                <div class="hiddenField">{{ society.id }}</div>
                 <div class="col-md-7 col-12">
                     <span class="offset-1">{{ society.name }}</span>
                 </div>
@@ -21,7 +22,7 @@
                 </div>
 
                 <div class="col-md-1 col-2 text-md-right">
-                        <a href="{{ path('society_edit', {'id': society.id }) }}"><i class="fas fa-edit"></i></a>
+                    <div><button class="btn listButton"><i class="fas fa-edit"></i></button></div>
                 </div>
 
                 <div class="col-md-1 col-2">
@@ -36,4 +37,9 @@
         {% endfor %}
     </section>
 
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('society') }}
 {% endblock %}
