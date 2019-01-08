@@ -20,9 +20,9 @@ $('.createButton').click(function () {
 
 $('.listButton').click(function () {
 
-    let div = this.parentNode.parentNode.parentNode;
-    let societyId = div.childNodes[1].innerText;
-    let name = div.childNodes[3].innerText;
+    let parentDiv = this.parentNode.parentNode.parentNode;
+    let societyId = parentDiv.childNodes[1].innerText;
+    let name = parentDiv.childNodes[3].innerText;
 
     document.getElementById("society_name").value = name;
 
