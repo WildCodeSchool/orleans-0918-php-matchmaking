@@ -22,6 +22,7 @@
             </div>
             <div class="col-lg-9">
                 {{ form_widget(formEdit.statusEvent, {'label': 'Statut de l\'événement'}) }}
+                {{ form_errors(formEdit.statusEvent) }}
                 {% set sentence = '' %}
                 {% if event.statusEvent.state == event.statusEvent.registrationState and event.players|length > 0 %}
                     {% set sentence = 'Des participants sont inscrits à l\'événement.
@@ -54,6 +55,7 @@
                 </label>
                 {% if is_granted('ROLE_ADMIN') %}
                     {{ form_widget(formEdit.formatEvent) }}
+                    {{ form_errors(formEdit.formatEvent) }}
                 {% else %}
                     <p class="mb-0 border rounded p-2">{{ event.formatEvent.name }}</p>
                     <div class="hiddenField">
@@ -69,6 +71,7 @@
                     <i class="fas fa-image fa-2x color-icons-decoration mr-2"></i> Ajout d'un logo
                 </label>
                 {{ form_widget(formEdit.logoFile) }}
+                {{ form_errors(formEdit.logoFile) }}
             </div>
         </div>
     </fieldset>
@@ -97,6 +100,13 @@
                         {% endif %}
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-12">
+                        {{ form_errors(formEdit.date.date.day) }}
+                        {{ form_errors(formEdit.date.date.month) }}
+                        {{ form_errors(formEdit.date.date.year) }}
+                    </div>
+                </div>
             </div>
             <div class="col-lg-6 mt-lg-0 mt-4">
                 <p><u>Heure</u></p>
@@ -122,6 +132,12 @@
                         </div>
                     {% endif %}
                 </div>
+                <div class="row">
+                    <div class="col-12">
+                        {{ form_errors(formEdit.date.time.hour) }}
+                        {{ form_errors(formEdit.date.time.minute) }}
+                    </div>
+                </div>
             </div>
         </div>
     </fieldset>
@@ -142,6 +158,12 @@
                         {{ form_widget(formEdit.roundSeconds) }} sec.
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-12">
+                        {{ form_errors(formEdit.roundMinutes) }}
+                        {{ form_errors(formEdit.roundSeconds) }}
+                    </div>
+                </div>
             </div>
             <div class="col-lg-6 mt-lg-0 mt-4">
                 <p><u>Temps de pause</u></p>
@@ -154,6 +176,12 @@
                     </div>
                     <div class="col-5 d-flex align-items-center justify-content-between">
                         {{ form_widget(formEdit.pauseSeconds) }} sec.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        {{ form_errors(formEdit.pauseMinutes) }}
+                        {{ form_errors(formEdit.pauseSeconds) }}
                     </div>
                 </div>
             </div>
@@ -171,6 +199,7 @@
             <div class="col-lg-9">
                 {% if is_granted('ROLE_ADMIN') %}
                     {{ form_widget(formEdit.society, {'label': "Société :"}) }}
+                    {{ form_errors(formEdit.society) }}
                 {% else %}
                     <p class="mb-0 border rounded p-2">{{ app.user.society.name }}</p>
                     <div class="hiddenField">
