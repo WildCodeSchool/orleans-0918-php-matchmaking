@@ -1,25 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Connexion{% endblock %}
+{% block title %}Connexion - {{ parent() }}{% endblock %}
+
+{% block pageTitle %}Application MatchMaking{% endblock %}
 
 {% block body %}
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
-    <section class="container">
-        <form method="post">
-            <div>
-                <h1 class="mb-5 font-weight-normal col-lg-8">Connexion</h1>
-            </div>
-            <div class="mb-3 d-flex justify-content-center">
+    <form method="post" class="col-lg-6 mt-5 mx-auto">
+        <fieldset class="border py-3">
+            <legend class="d-inline">Connexion</legend>
+            <div class="my-3 d-flex justify-content-center">
                 <label for="inputEmail" class="sr-only">Email</label>
-                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control col-lg-8 text-center"
+                <input type="email" value="{{ last_username }}" name="email" id="inputEmail"
+                       class="form-control col-lg-8 text-center"
                        placeholder="Email" required autofocus>
             </div>
 
             <div class="mb-3 d-flex justify-content-center">
                 <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" name="password" id="inputPassword" class="form-control col-lg-8 text-center" placeholder="Password"
+                <input type="password" name="password" id="inputPassword" class="form-control col-lg-8 text-center"
+                       placeholder="Password"
                        required>
             </div>
 
@@ -32,6 +34,6 @@
                     S'identifier
                 </button>
             </div>
-        </form>
-    </section>
+        </fieldset>
+    </form>
 {% endblock %}

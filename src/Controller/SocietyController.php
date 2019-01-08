@@ -16,11 +16,22 @@ use Symfony\Component\Routing\Annotation\Route;
 class SocietyController extends AbstractController
 {
     /**
-     * @Route("/", name="society_index", methods="GET")
+     * @param SocietyRepository $SocietyRepository
+     * @return Response
+     * @Route("/", name="society_index", methods="GET|POST")
      */
     public function index(SocietyRepository $societyRepository): Response
     {
-        return $this->render('society/index.html.twig', ['societies' => $societyRepository->findAll()]);
+        $form=$this->createForm(SocietyType::class, null, [
+            'method' => 'POST',
+        ]);
+
+        $societies=$societyRepository->findAll();
+
+        return $this->render('society/index.html.twig', [
+            'form' => $form->createView(),
+            'societies' => $societies
+        ]);
     }
 
     /**
@@ -85,6 +96,41 @@ class SocietyController extends AbstractController
             $em->flush();
         }
 
+        return $this->redirectToRoute('society_index');
+    }
+
+    /**
+     * @Route("/{id}/update", name="update_society", methods="POST")
+     * @param Request $request
+     * @param Society $society
+     * @return Response
+     */
+    public function update(
+        Request $request,
+        Society $society = null
+    ): Response {
+        $form = $this->createForm(SocietyType::class, $society);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $society = $form->getData();
+
+            $this->getDoctrine()->getManager()->persist($society);
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash(
+                'success',
+                'Données sauvegardées !'
+            );
+        } else {
+            $errors = "";
+            foreach ($form->getErrors(true) as $error) {
+                $errors .= ' ' . $error->getMessage();
+            }
+            $this->addFlash(
+                'danger',
+                'Erreur. ' . $errors
+            );
+        }
         return $this->redirectToRoute('society_index');
     }
 }

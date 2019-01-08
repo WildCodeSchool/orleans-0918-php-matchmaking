@@ -1,4 +1,18 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<div class="userForm mb-4" id="societyForm">
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col-md-3">
+            {{ form_label(form.name, 'Nom de la société') }}
+            {{ form_widget(form.name) }}
+        </div>
+        <div class="col-md-12">
+            <button id="addButton" class="btn btn-lg btn-primary btn-block" name="add">
+                Créer
+            </button>
+            <button id="editButton" class="btn btn-lg btn-primary btn-block" name="edit">
+                Modifier
+            </button>
+        </div>
+    </div>
+    {{ form_end(form) }}
+</div>
