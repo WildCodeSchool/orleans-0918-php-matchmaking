@@ -7,7 +7,8 @@
 {% block body %}
     <div class="event_list">
         {% if is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('event_add') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter un événement</a>
+            <a href="{{ path('event_add') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter un
+                événement</a>
         {% endif %}
 
         {% for event in events %}
@@ -37,16 +38,16 @@
                     {% endif %}
                 </div>
                 {% if is_granted('ROLE_ADMIN') %}
-                <div class="col-md-1 col-2">
-                    {% if event.statusEvent.state != event.statusEvent.inProgressState %}
-                        <form method="post" action="{{ path('event_delete', {'id': event.id}) }}"
-                              onsubmit="return confirm('Voulez-vous vraiment supprimer cet événement ?');">
-                            <input type="hidden" name="_method" value="DELETE">
-                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ event.id) }}">
-                            <button class="btn btn-link"><i class="fas fa-times"></i></button>
-                        </form>
-                    {% endif %}
-                </div>
+                    <div class="col-md-1 col-2">
+                        {% if event.statusEvent.state != event.statusEvent.inProgressState %}
+                            <form method="post" action="{{ path('event_delete', {'id': event.id}) }}"
+                                  onsubmit="return confirm('Voulez-vous vraiment supprimer cet événement ?');">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ event.id) }}">
+                                <button class="btn btn-link"><i class="fas fa-times"></i></button>
+                            </form>
+                        {% endif %}
+                    </div>
                 {% endif %}
             </div>
         {% endfor %}

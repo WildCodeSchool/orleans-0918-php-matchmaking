@@ -1,107 +1,186 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Editer un événement{% endblock %}
+{% block title %}Editer un événement - {{ parent() }}{% endblock %}
 
+{% block pageTitle %}Edition : {{ event.title }}{% endblock %}
 
 
 {% block body %}
-    <div class="container">
-        <h1 class="text-center">Éditer un événement</h1>
+    <h2>Informations générales</h2>
+    {{ form_start(formEdit) }}
+    <fieldset class="border py-3">
+        <div class="row">
+            <div class="col-12">
+                {{ form_row(formEdit.title, {'label': 'Titre'}) }}
 
-        {{ form_start(formEdit) }}
-        {{ form_row(formEdit.title, {'label': 'Titre'}) }}
+            </div>
+        </div>
         <hr>
-        {{ form_row(formEdit.statusEvent, {'label': 'Statut de l\'événement'}) }}
-        {% set sentence = '' %}
-        {% if event.statusEvent.state == event.statusEvent.registrationState and event.players|length > 0 %}
-            {% set sentence = 'Des participants sont inscrits à l\'événement.
-                                   Pour remettre le statut "En préparation", veuillez les supprimer.' %}
-        {% elseif event.statusEvent.state == event.statusEvent.fullState %}
-            {% set sentence = 'L\'événement est complet. Si vous souhaitez plus de participants, contactez l\'administrateur.' %}
-        {% elseif  event.statusEvent.state == event.statusEvent.inProgressState %}
-            {% set sentence = 'L\'événement est en cours, il ne peut être modifié.' %}
-        {% elseif  event.statusEvent.state == event.statusEvent.finishState %}
-            {% set sentence = 'L\'événement est terminé, il ne peut être modifié.' %}
-        {% endif %}
+        <div class="row">
+            <div class="col-lg-3 align-self-center">
+                <label class="required" for="event_statusEvent">Statut de l'événement</label>
+            </div>
+            <div class="col-lg-9">
+                {{ form_widget(formEdit.statusEvent, {'label': 'Statut de l\'événement'}) }}
+                {% set sentence = '' %}
+                {% if event.statusEvent.state == event.statusEvent.registrationState and event.players|length > 0 %}
+                    {% set sentence = 'Des participants sont inscrits à l\'événement.
+                                               Pour remettre le statut "En préparation", veuillez les supprimer.' %}
+                {% elseif event.statusEvent.state == event.statusEvent.fullState %}
+                    {% set sentence = 'L\'événement est complet. Si vous souhaitez plus de participants, contactez l\'administrateur.' %}
+                {% elseif  event.statusEvent.state == event.statusEvent.inProgressState %}
+                    {% set sentence = 'L\'événement est en cours, il ne peut être modifié.' %}
+                {% elseif  event.statusEvent.state == event.statusEvent.finishState %}
+                    {% set sentence = 'L\'événement est terminé, il ne peut être modifié.' %}
+                {% endif %}
 
-        {% if sentence is not empty %}
-            <p>
-                <span class="badge badge-{{ event.statusEvent.color }}">{{ event.statusEvent.name }}</span>
-                <span class="text-{{ event.statusEvent.color }}">{{ sentence }}</span>
-            </p>
-        {% endif %}
+                {% if sentence is not empty %}
+                    <p class="mt-2 mb-0">
+                        <span class="badge badge-{{ event.statusEvent.color }}">{{ event.statusEvent.name }}</span>
+                        <span class="text-{{ event.statusEvent.color }}">{{ sentence }}</span>
+                    </p>
+                {% endif %}
+            </div>
+        </div>
         <hr>
         {{ form_row(formEdit.description) }}
-        <hr/>
+    </fieldset>
+
+    <fieldset class="border py-3">
         <div class="row">
             <div class="col-lg-6">
+                <label class="required d-flex align-items-center" for="event_formatEvent">
+                    <i class="fas fa-users fa-2x color-icons-decoration mr-2"></i> Format de l'événement
+                </label>
                 {% if is_granted('ROLE_ADMIN') %}
-                {{ form_row(formEdit.formatEvent, {'label': 'Format de l\'événement'}) }}
+                    {{ form_widget(formEdit.formatEvent) }}
                 {% else %}
-                    <p>
-                    Format de l'événement :
-                    {{ event.formatEvent.name }}
-                    </p>
+                    <p class="mb-0 border rounded p-2">{{ event.formatEvent.name }}</p>
                     <div class="hiddenField">
                         {{ form_row(formEdit.formatEvent) }}
                     </div>
                 {% endif %}
-                <p class="mb-0 text-secondary">
+                <p class="mb-0 mt-2 text-secondary">
                     <i>Nombre d'inscrits : {{ event.players|length ~ ' / '~ event.formatEvent.numberOfPlayers }}</i>
                 </p>
             </div>
             <div class="col-lg-6">
-                {{ form_row(formEdit.logoFile, {'label': 'Modification du logo'}) }}
+                <label class="required d-flex align-items-center" for="event_logoFile">
+                    <i class="fas fa-image fa-2x color-icons-decoration mr-2"></i> Ajout d'un logo
+                </label>
+                {{ form_widget(formEdit.logoFile) }}
             </div>
         </div>
-        <hr/>
-        {% if is_granted('ROLE_ADMIN') %}
-            <h4>Date / Heure</h4>
-            <div class="row ml-1">
-                {{ form_row(formEdit.date.date.day, {'label': 'Jours'}) }}
-                {{ form_row(formEdit.date.date.month, {'label': 'Mois'}) }}
-                {{ form_row(formEdit.date.date.year, {'label': 'Année'}) }}
-                <div class="offset-1">
-                    {{ form_row(formEdit.date.time.hour, {'label': 'Heure'}) }}
-                </div>
-                {{ form_row(formEdit.date.time.minute, {'label': 'Minute'}) }}
-            </div>
-        {% else %}
-            <h4>Date / Heure</h4>
-            <p>
-               Le {{ event.date.date|date('d/m/Y') }} à {{ event.date.date|date('H') }} heure {{ event.date.date|date('i') }} minutes
-            </p>
-            <div class="hiddenField">
-                {{ form_row(formEdit.date.date.day, {'label': 'Jours'}) }}
-                {{ form_row(formEdit.date.date.month, {'label': 'Mois'}) }}
-                {{ form_row(formEdit.date.date.year, {'label': 'Année'}) }}
-                <div class="offset-1">
-                    {{ form_row(formEdit.date.time.hour, {'label': 'Heure'}) }}
-                </div>
-                {{ form_row(formEdit.date.time.minute, {'label': 'Minute'}) }}
-            </div>
-        {% endif %}
-        <hr/>
-        <h4>Gestion des timers</h4>
+    </fieldset>
+
+    <h3>Date / Heure</h3>
+    <fieldset class="border py-3">
         <div class="row">
-            <div class="col-md-3 col-ms-6">{{ form_row(formEdit.roundMinutes, {'label': 'Temps de tour (minutes)'}) }}</div>
-            <div class="col-md-3 col-ms-6">{{ form_row(formEdit.roundSeconds, {'label': 'Temps de tour (secondes)'}) }}</div>
-            <div class="col-md-3 col-ms-6">{{ form_row(formEdit.pauseMinutes, {'label': 'Temps de pause (minutes)'}) }}</div>
-            <div class="col-md-3 col-ms-6">{{ form_row(formEdit.pauseSeconds, {'label': 'Temps de pause (secondes)'}) }}</div>
+            <div class="col-lg-6">
+                <p><u>Date</u></p>
+                <div class="row">
+                    <div class="col-2 text-right">
+                        <i class="fas fa-calendar-alt fa-2x color-icons-decoration"></i>
+                    </div>
+                    <div class="col-10 d-flex align-items-center justify-content-between">
+                        {% if is_granted('ROLE_ADMIN') %}
+                            {{ form_widget(formEdit.date.date.day) }}
+                            {{ form_widget(formEdit.date.date.month) }}
+                            {{ form_widget(formEdit.date.date.year) }}
+                        {% else %}
+                            <span class="font-weight-bold">{{ event.date.date|date('d / m / Y') }}</span>
+                            <div class="hiddenField">
+                                {{ form_widget(formEdit.date.date.day) }}
+                                {{ form_widget(formEdit.date.date.month) }}
+                                {{ form_widget(formEdit.date.date.year) }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mt-lg-0 mt-4">
+                <p><u>Heure</u></p>
+                <div class="row border-left border-left border-dark timer-settings">
+                    <div class="col-2 text-right">
+                        <i class="far fa-clock fa-2x color-icons-decoration"></i>
+                    </div>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <div class="col-5 d-flex align-items-center justify-content-between">
+                            {{ form_widget(formEdit.date.time.hour) }} <span class="ml-1">heure</span>
+                        </div>
+                        <div class="col-5 d-flex align-items-center justify-content-between">
+                            {{ form_widget(formEdit.date.time.minute) }} <span class="ml-1">min.</span>
+                        </div>
+                    {% else %}
+                        <div class="col-10 d-flex align-items-center justify-content-between">
+                            <span class="font-weight-bold">{{ event.date.date|date('H') }}</span> heure(s)
+                            <span class="font-weight-bold">{{ event.date.date|date('i') }}</span> minutes(s)
+                            <div class="hiddenField">
+                                {{ form_row(formEdit.date.time.hour) }}
+                                {{ form_row(formEdit.date.time.minute) }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
         </div>
-        <hr/>
-        <h4>Gestionnaires de l'évènement</h4>
-        {% if is_granted('ROLE_ADMIN') %}
-            {{ form_row(formEdit.society, {'label': "Société :"}) }}
-        {% else %}
-            <div>
-            {{ app.user.society.name }}
+    </fieldset>
+
+    <h3>Gestion des timers</h3>
+    <fieldset class="border py-3">
+        <div class="row timer-settings">
+            <div class="col-lg-6">
+                <p><u>Temps de parole</u></p>
+                <div class="row">
+                    <div class="col-2 text-right">
+                        <i class="far fa-clock fa-2x color-icons-decoration"></i>
+                    </div>
+                    <div class="col-5 d-flex align-items-center justify-content-between">
+                        {{ form_widget(formEdit.roundMinutes) }} min.
+                    </div>
+                    <div class="col-5 d-flex align-items-center justify-content-between">
+                        {{ form_widget(formEdit.roundSeconds) }} sec.
+                    </div>
+                </div>
             </div>
-            <div class="hiddenField">
-            {{ form_row(formEdit.society) }}
+            <div class="col-lg-6 mt-lg-0 mt-4">
+                <p><u>Temps de pause</u></p>
+                <div class="row border-left border-left border-dark">
+                    <div class="col-2 text-right">
+                        <i class="far fa-clock fa-2x color-icons-decoration"></i>
+                    </div>
+                    <div class="col-5 d-flex align-items-center justify-content-between">
+                        {{ form_widget(formEdit.pauseMinutes) }} min.
+                    </div>
+                    <div class="col-5 d-flex align-items-center justify-content-between">
+                        {{ form_widget(formEdit.pauseSeconds) }} sec.
+                    </div>
+                </div>
             </div>
-        {% endif %}
-        <button class="btn btn btn-primary btn-lg btn-block">{{ button_label|default('Valider') }}</button>
-        {{ form_end(formEdit) }}
-    </div>
+        </div>
+    </fieldset>
+
+    <h3>Gestionnaires de l'événement</h3>
+    <fieldset class="border py-3">
+        <div class="row">
+            <div class="col-lg-3 align-self-center">
+                <label class="required" for="event_society">
+                    <i class="fas fa-industry fa-2x color-icons-decoration mr-1"></i>
+                    Société</label>
+            </div>
+            <div class="col-lg-9">
+                {% if is_granted('ROLE_ADMIN') %}
+                    {{ form_widget(formEdit.society, {'label': "Société :"}) }}
+                {% else %}
+                    <p class="mb-0 border rounded p-2">{{ app.user.society.name }}</p>
+                    <div class="hiddenField">
+                        {{ form_row(formEdit.society) }}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </fieldset>
+
+    <button class="btn btn btn-primary btn-lg btn-block">{{ button_label|default('Valider') }}</button>
+    {{ form_end(formEdit) }}
 {% endblock %}
