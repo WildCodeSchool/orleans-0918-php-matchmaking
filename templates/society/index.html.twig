@@ -17,7 +17,7 @@
                     <span class="badge badge-{{ society.name }}"></span>
                 </div>
                 <div class="col-md-1 col-2 text-md-right">
-                    <a href=""><i class="fas fa-user"></i></a>
+                    <a href="{{ path('society_users_list', {'id': society.id }) }}"><i class="fas fa-user"></i></a>
                 </div>
 
                 <div class="col-md-1 col-2 text-md-right">
