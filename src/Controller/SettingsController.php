@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\FormatEvent;
 use App\Entity\Timer;
+use App\Exception\CsvException;
 use App\Form\FormatEventType;
 use App\Form\TimerType;
 use App\Service\CsvFormatEvent;
@@ -63,16 +64,17 @@ class SettingsController extends AbstractController
                     'success',
                     'Le nouveau format a été ajouté.'
                 );
-            } catch (\Exception $exception) {
+            } catch (CsvException $e) {
                 $this->getDoctrine()->getConnection()->rollBack();
-                $message = $exception->getMessage();
-
-                if (!is_null($exception->getPrevious()) && $exception->getPrevious()->getCode() === "23000") {
-                    $message = 'Ce format existe déjà.';
-                }
                 $this->addFlash(
                     'danger',
-                    $message
+                    $e->getMessage()
+                );
+            } catch (\Exception $e) {
+                $this->getDoctrine()->getConnection()->rollBack();
+                $this->addFlash(
+                    'danger',
+                    'Le nouveau format n\'a pas pu être enregistré en base de données.'
                 );
             }
 
