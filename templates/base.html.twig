@@ -1,35 +1,37 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}MatchMaking - Administration{% endblock %}</title>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}MatchMaking - Administration{% endblock %}</title>
 
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        <header>
-            {% include '_navbar.html.twig' %}
-        </header>
-        {%  if app.flashes is defined %}
-            <div class="container">
-            {% for label, messages in app.flashes %}
-                {% for message in messages %}
-                    <div class="row mt-3">
-                        <div class="col-lg-6 mx-auto alert alert-dismissible alert-{{ label }} flash-{{ label }} fade show">
-                            <button type="button" class="close" data-dismiss="alert">&times;</button>
-                            {{ message }}
-                        </div>
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+</head>
+<body>
+<header>
+    {% include '_navbar.html.twig' %}
+</header>
+<div class="container">
+    <h1 class="text-center">{% block pageTitle %}{% endblock %}</h1>
+
+    {% if app.flashes is defined %}
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="row">
+                    <div class="col-lg-6 mx-auto alert alert-dismissible alert-{{ label }} flash-{{ label }} fade show">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        {{ message }}
                     </div>
-                {% endfor %}
+                </div>
             {% endfor %}
-            </div>
-        {% endif %}
+        {% endfor %}
+    {% endif %}
 
-        {% block body %}{% endblock %}
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </body>
+    {% block body %}{% endblock %}
+</div>
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}
+</body>
 </html>

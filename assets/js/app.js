@@ -25,6 +25,7 @@ $(document).on('change', '.custom-file-input', function () {
 });
 
 import('./updateForm');
+import('./editPlayer');
 import('./presence');
 import toastr from 'toastr';
 window.toastr = toastr;

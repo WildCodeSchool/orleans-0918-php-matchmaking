@@ -3,7 +3,6 @@
     Gestion des participants
 {% endblock %}
 {% block body %}
-
     <div class="event_players container">
         <h1 class="text-center">Gestion des participants</h1>
         <h2 class="text-center pt-1">{{ event.title }}</h2>
@@ -62,7 +61,7 @@
                 </div>
                 {% if event.statusEvent.state < event.statusEvent.inProgressState %}
                     <div class="col-sm-1 col-xs-12">
-                        <a href=""><i class="fas fa-edit"></i></a>
+                        <button class="listButton btn editFormBtn" id="{{ player.id }}" data-toggle="modal" data-target="#edit"><i class="fas fa-edit"></i></button>
                     </div>
                     <div class="col-sm-1 col-xs-12">
                         <form method="post" action="{{ path('player_delete', {'id': event.id, 'player': player.id}) }}"
@@ -75,6 +74,27 @@
                 {% endif %}
             </div>
         {% endfor %}
+        <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="modalEdit" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edition</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="formEdit">
+                        {{ form_start(formEdit) }}
+                        {{ form_row(formEdit.name, {'label': 'Nom'}) }}
+                        {{ form_row(formEdit.firstname, {'label': 'Prénom'}) }}
+                        {{ form_row(formEdit.phoneNumber, {'label': 'Numéro de portable'}) }}
+                        {{ form_row(formEdit.mail, {'label': 'Email'}) }}
+                        <button class="btn btn-primary btn-lg btn-block">{{ button_label|default('Valider') }}</button>
+                        {{ form_end(formEdit) }}
+                    </div>
+                </div>
+            </div>
+        </div>
         {% if event.statusEvent.state < event.statusEvent.inProgressState
             and event.date|date('m-d-Y') == "now"|date('m-d-Y') and event.players|length > 0 %}
             <div class="d-100">
@@ -85,7 +105,6 @@
             </div>
         {% endif %}
     </div>
-
     {% include 'player/_modalStartGame.html.twig' %}
 {% endblock %}
 

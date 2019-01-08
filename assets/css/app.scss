@@ -3,6 +3,12 @@
 @import "~bootswatch/dist/lumen/bootswatch";
 
 $fontNavbarTitle:BrandonBold, Arial, sans-serif;
+$fontTitleHnBold:BrandonBold, Arial, sans-serif;
+$fontTitleHnRegular:BrandonRegular, Arial, sans-serif;
+$colorContainerShadow: #CCC;
+$colorTitleUnderline: #FF9800;
+$colorContainer: #FFF;
+
 $colorTitleProjetIO:#FF9800;
 $colorBackgroundProjetIO:#343a40;
 $colorBtnProjetIO:#17a2b8;
@@ -15,6 +21,23 @@ $listButtonColorHover : rgb(61, 168, 255);
 @font-face {
     font-family: BrandonBold;
     src: url(../../assets/fonts/BrandonText-Bold.otf);
+}
+
+@font-face {
+    font-family: BrandonRegular;
+    src: url(../../assets/fonts/BrandonText-Regular.otf);
+}
+
+body {
+    background-image: url("../../assets/pictures/60-lines.png");
+}
+
+.container {
+    background-color: $colorContainer;
+    box-shadow: 0px 5px 10px 2px $colorContainerShadow;
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+    padding: 3em 3em 3em 3em;
 }
 
 .navbarProjetIO {
@@ -64,12 +87,36 @@ $listButtonColorHover : rgb(61, 168, 255);
     }
 }
 
+h1, h2, h3 {
+    font-family: $fontTitleHnBold;
+    &::after {
+        content: '';
+        display: block;
+        background: $colorTitleUnderline;
+    }
+}
+
 h1 {
-    text-align: center;
-    padding: 0.2em;
-    margin: auto;
-    margin-top: 1em;
-    border: 1px solid $borderColorH1;
+    margin-bottom: 0.6em;
+    &::after {
+        margin:auto;
+        width: 12rem;
+        height: 0.2rem;
+        margin-top: 2rem;
+    }
+}
+
+h3 {font-family: $fontTitleHnRegular}
+
+h2::after, h3::after {
+    width: 3.125rem;
+    height: 0.125rem;
+    margin-bottom: 0.9375rem;
+}
+
+.timer-settings input {width:70%;}
+.container .color-icons-decoration {
+    color: $colorTitleUnderline;
 }
 
 .custom-file-label::after {
