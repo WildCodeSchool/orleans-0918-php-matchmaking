@@ -72,17 +72,10 @@ class CsvFormatEvent extends Csv
      */
     protected function __import(): void
     {
-        $this->getEm()->getConnection()->beginTransaction();
-
-        try {
-            $formatEvent = $this->addFormatEvent();
-            $formatEvent = $this->addRoundEvent($formatEvent);
-            $this->getEm()->persist($formatEvent);
-            $this->getEm()->flush();
-            $this->getEm()->getConnection()->commit();
-        } catch (\Exception $e) {
-            $this->getEm()->getConnection()->rollBack();
-        }
+        $formatEvent = $this->addFormatEvent();
+        $formatEvent = $this->addRoundEvent($formatEvent);
+        $this->getEm()->persist($formatEvent);
+        $this->getEm()->flush();
     }
 
     /**
