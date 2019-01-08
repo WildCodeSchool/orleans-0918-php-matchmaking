@@ -15,14 +15,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class SocietyController extends AbstractController
 {
-//    /**
-//     * @Route("/", name="society_index", methods="GET")
-//     */
-//    public function index(SocietyRepository $societyRepository): Response
-//    {
-//        return $this->render('society/index.html.twig', ['societies' => $societyRepository->findAll()]);
-//    }
-
     /**
      * @param SocietyRepository $SocietyRepository
      * @return Response
