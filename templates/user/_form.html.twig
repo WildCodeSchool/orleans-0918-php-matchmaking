@@ -1,5 +1,7 @@
 <div class="userForm mb-4" id="userForm">
     {{ form_start(form) }}
+    <fieldset class="border py-3">
+        <legend>Ajout</legend>
     <div class="row">
         <div class="col-md-3">
             {{ form_label(form.lastName, 'Nom') }}
@@ -33,5 +35,6 @@
             </button>
         </div>
     </div>
+    </fieldset>
     {{ form_end(form) }}
 </div>
