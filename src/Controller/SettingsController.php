@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\FormatEvent;
 use App\Entity\Timer;
-use App\Exception\CsvException;
 use App\Form\FormatEventType;
 use App\Form\TimerType;
 use App\Service\CsvFormatEvent;
@@ -53,17 +52,27 @@ class SettingsController extends AbstractController
             $csvFormatEvent->setName($dataset['name']);
             $csvFormatEvent->setPath($dataset['csvFile']->getPathName());
 
+            $em = $this->getDoctrine()->getConnection();
+            $em->beginTransaction();
+
             try {
                 $csvFormatEvent->validate();
                 $csvFormatEvent->import();
+                $em->commit();
                 $this->addFlash(
                     'success',
                     'Le nouveau format a été ajouté.'
                 );
-            } catch (CsvException | \Exception $csvException) {
+            } catch (\Exception $exception) {
+                $this->getDoctrine()->getConnection()->rollBack();
+                $message = $exception->getMessage();
+
+                if (!is_null($exception->getPrevious()) && $exception->getPrevious()->getCode() === "23000") {
+                    $message = 'Ce format existe déjà.';
+                }
                 $this->addFlash(
                     'danger',
-                    $csvException->getMessage()
+                    $message
                 );
             }
 
