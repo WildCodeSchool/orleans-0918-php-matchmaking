@@ -20,7 +20,7 @@ class SocietyController extends AbstractController
      * @return Response
      * @Route("/", name="society_index", methods="GET|POST")
      */
-    public function indexSociety(SocietyRepository $societyRepository): Response
+    public function index(SocietyRepository $societyRepository): Response
     {
         $form=$this->createForm(SocietyType::class, null, [
             'method' => 'POST',
