@@ -102,13 +102,11 @@ class SocietyController extends AbstractController
     /**
      * @Route("/{id}/update", name="update_society", methods="POST")
      * @param Request $request
-     * @param SocietyRepository $societyRepo
      * @param Society $society
      * @return Response
      */
     public function update(
         Request $request,
-        SocietyRepository $societyRepo,
         Society $society = null
     ): Response {
         $form = $this->createForm(SocietyType::class, $society);
