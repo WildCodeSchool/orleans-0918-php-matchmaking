@@ -43,18 +43,29 @@ class UserController extends AbstractController
 
     /**
      * @param UserRepository $userRepository
+     * @param Request $request
      * @return Response
      * @Route("/manager", name="manager_index", methods="GET|POST")
      */
-    public function indexManager(UserRepository $userRepository): Response
+    public function indexManager(UserRepository $userRepository, Request $request): Response
     {
         $form = $this->createForm(UserType::class, null, [
             'action' => $this->generateUrl("update", ["role" => "manager"]),
             'method' => 'POST',
         ]);
 
-        $users=$userRepository->findBy(['society' => $this->getUser()->getSociety()->getId()]);
-        $societyId = (string)$this->getUser()->getSociety()->getId();
+        $roles=$this->getUser()->getRoles();
+        $societyId="";
+
+        if (in_array('ROLE_ADMIN', $roles)) {
+            $users=$userRepository->findByRole(self::MANAGER_ROLE[0]);
+        } elseif ((in_array('ROLE_MANAGER', $roles))) {
+            $users=$userRepository->findBySocietyAndRole(
+                $this->getUser()->getSociety()->getId(),
+                self::MANAGER_ROLE[0]
+            );
+            $societyId = (string)$this->getUser()->getSociety()->getId();
+        }
 
         return $this->render('user/manager.html.twig', [
             'form' => $form->createView(),
@@ -225,7 +236,7 @@ class UserController extends AbstractController
      * @param UserRepository $userRepository
      * @param Society $society
      * @return Response
-     * @Route("/admin/society/{id}", name="society_users_list", methods="GET|POST")
+     * @Route("/society/{id}/admin", name="society_users_list", methods="GET|POST")
      */
     public function societyUsersList(UserRepository $userRepository, Society $society): Response
     {

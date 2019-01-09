@@ -2,6 +2,11 @@
 
 {% block title %}Ajouter un événement - {{ parent() }}{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('previewUpload') }}
+{% endblock %}
+
 {% block pageTitle %}Ajouter un événement{% endblock %}
 
 {% block body %}
@@ -41,6 +46,7 @@
                 </label>
                 {{ form_widget(formEvent.logoFile) }}
                 {{ form_errors(formEvent.logoFile) }}
+                {% include 'event/_previewUpload.html.twig' %}
             </div>
         </div>
     </fieldset>
@@ -154,4 +160,9 @@
 
     <button class="btn btn btn-primary btn-lg btn-block">{{ button_label|default('Valider') }}</button>
     {{ form_end(formEvent) }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('previewUpload') }}
 {% endblock %}
