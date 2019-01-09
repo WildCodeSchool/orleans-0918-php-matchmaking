@@ -1,5 +1,6 @@
 $borderShadowColor: rgba(0,0,0,0.1);
 $iconColor: rgb(0, 140, 255);
+$colorBackgroundModalStart: #F2F2F2;
 
 .event_players {
     h1 {
@@ -33,4 +34,8 @@ $iconColor: rgb(0, 140, 255);
             font-size: 30px;
         }
     }
+}
+
+.start-event-modal {
+    background-color: $colorBackgroundModalStart;
 }
