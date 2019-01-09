@@ -1,17 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Society index{% endblock %}
+{% block title %}Sociétés - {{ parent() }}{% endblock %}
+
+{% block pageTitle %}Gestion des Sociétés{% endblock %}
 
 {% block body %}
-    <section class="container event_list">
-        <h1>Liste des sociétés</h1>
-
-        <button class="createButton btn btn-lg btn-primary">Ajouter une société</button>
+    <section class="event_list">
+        <button class="createButton btn btn-lg btn-primary"><i class="fas fa-plus"></i> Ajouter une société</button>
         {% include 'society/_form.html.twig' %}
         {% for society in societies %}
             <div class="row d-flex align-items-center">
                 <div class="hiddenField societyId">{{ society.id }}</div>
                 <div class="col-md-7 col-12">
+                    <i class="fas fa-industry fa-2x color-icons-decoration mr-1"></i>
                     <span class="offset-1 societyName">{{ society.name }}</span>
                 </div>
                 <div class="col-md-2 col-6 text-md-right">

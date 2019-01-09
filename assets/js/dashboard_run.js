@@ -30,6 +30,10 @@ document.addEventListener('DOMContentLoaded', function () {
     let eventId = globalTimerElt.dataset.eventId;
     let maxLaps = globalTimerElt.dataset.maxLaps;
     let currentLap = globalTimerElt.dataset.currentLap;
+    let bipAudio = $("#bipPlayer")[0];
+    let speakAudio = $("#speakPlayer")[0];
+    bipAudio.load();
+    speakAudio.load();
 
     // interval Timer Round
     let globalInterv = setInterval(function () {
@@ -92,6 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (seconds == 0 && minutes == 0) {
                 clearInterval(circleInterv);
                 if (currentSpeaker < numberOfPlayers) {
+                    speakAudio.play();
                     currentSpeaker++;
                 }
                 playerTextElt.classList.remove("alert-timer");
@@ -102,6 +107,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     startCircleTimer();
                 }, 1000);
             } else if (minutes == 0 && seconds <= 5) {
+                bipAudio.play();
                 playerTextElt.classList.add("alert-timer");
             }
 

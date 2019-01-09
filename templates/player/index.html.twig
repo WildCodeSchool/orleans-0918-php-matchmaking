@@ -1,27 +1,29 @@
 {% extends 'base.html.twig' %}
-{% block title %}
-    Gestion des participants
-{% endblock %}
+
+{% block title %}Participants - {{ parent() }}{% endblock %}
+
+{% block pageTitle %}{{ event.title }}{% endblock %}
+
 {% block body %}
-    <div class="event_players container">
-        <h1 class="text-center">Gestion des participants</h1>
-        <h2 class="text-center pt-1">{{ event.title }}</h2>
-        <hr/>
-        <h2 class="text-center pt-1">{{ event.date|date('d M Y') }}</h2>
+    <div class="event_players">
+         <p class="text-center pt-1 h4 font-weight-bold">{{ event.date|date('d M Y') }}</p>
+
+        <h2 class="mt-3">Gestion des participants</h2>
+
         <div class="row">
             <div class="col-6">
                 <p class="pt-2">
-                    <strong><u>Participants</u></strong>
-                    - Nombre d'inscrits {{ event.players|length ~ ' / '~ event.formatEvent.numberOfPlayers }}
+                    Nombre d'inscrits {{ event.players|length ~ ' / '~ event.formatEvent.numberOfPlayers }}
                     - <span class="badge badge-{{ event.statusEvent.color }}">{{ event.statusEvent.name }}</span>
                 </p>
                 {% if event.statusEvent.state < event.statusEvent.fullState
                     and date() <= date(event.date) %}
                     <a class="btn btn-primary align-self-end" data-toggle="collapse" href="#collapsePlayerForm"
                        role="button" aria-expanded="false" aria-controls="collapsePlayerForm  ">
-                        <i class="fas fa-user-plus"></i> Ajouter un participant
+                        <i class="fas fa-user-plus mr-1"></i> Ajouter un participant
                     </a>
                 {% endif %}
+
             </div>
             <div class="col-6 align-self-end text-right">
                 {% if event.statusEvent.state < event.statusEvent.inProgressState
@@ -51,13 +53,14 @@
                     {% endif %}
                 </div>
                 <div class="col-sm-4 col-xs-12">
-                    <span class="icn"><i class="fas fa-user"></i></span>{{ player.firstname }}  {{ player.name }}
+                    <span class="icn"><i class="fas fa-user color-icons-decoration mr-1"></i></span>
+                    {{ player.name|upper }} {{ player.firstname }}
                 </div>
                 <div class="col-sm-3 col-xs-12">
-                    <span class="icn"><i class="fas fa-envelope"></i></span>{{ player.mail }}
+                    <span class="icn"><i class="fas fa-envelope color-icons-decoration mr-1"></i></span>{{ player.mail }}
                 </div>
                 <div class="col-sm-2 col-xs-12">
-                    <span class="icn"><i class="fas fa-mobile-alt"></i></span>{{ player.phoneNumber }}
+                    <span class="icn"><i class="fas fa-mobile-alt color-icons-decoration mr-1"></i></span>{{ player.phoneNumber }}
                 </div>
                 {% if event.statusEvent.state < event.statusEvent.inProgressState %}
                     <div class="col-sm-1 col-xs-12">
@@ -74,27 +77,7 @@
                 {% endif %}
             </div>
         {% endfor %}
-        <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="modalEdit" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Edition</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body" id="formEdit">
-                        {{ form_start(formEdit) }}
-                        {{ form_row(formEdit.name, {'label': 'Nom'}) }}
-                        {{ form_row(formEdit.firstname, {'label': 'Prénom'}) }}
-                        {{ form_row(formEdit.phoneNumber, {'label': 'Numéro de portable'}) }}
-                        {{ form_row(formEdit.mail, {'label': 'Email'}) }}
-                        <button class="btn btn-primary btn-lg btn-block">{{ button_label|default('Valider') }}</button>
-                        {{ form_end(formEdit) }}
-                    </div>
-                </div>
-            </div>
-        </div>
+        {% include 'player/_formEditPlayer.html.twig' %}
         {% if event.statusEvent.state < event.statusEvent.inProgressState
             and event.date|date('m-d-Y') == "now"|date('m-d-Y') and event.players|length > 0 %}
             <div class="d-100">
