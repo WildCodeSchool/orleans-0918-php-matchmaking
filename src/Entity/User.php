@@ -26,7 +26,6 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\Email(
      *     message = "L'e-mail que vous avez fourni n'est pas une adresse valide.",
-     *     checkMX = true
      * )
      * @Assert\Length(
      *      min = 5,
