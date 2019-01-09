@@ -4,8 +4,12 @@
 
 $font:BrandonBold,Arial,sans-serif;
 $cardBackColor : rgba(255, 255, 255, 1);
+$cardColorShadow: #666;
 $borderBgCard : rgba(255, 255, 255, 1);
+$cardBackColorBar : #343a40;
+$cardFontColorBar : #FFF;
 $colorIcons: #FF9800;
+$hrColor: #FF9800;
 $circleColor : #FFF;
 $circleBorderColor : darken(#FF9800,10%);
 $circleActiveColor : #FF9800;
@@ -16,18 +20,19 @@ $circleActiveColor : #FF9800;
 }
 
 body {
+  font-family: $font;
   background-image: url("../../assets/pictures/60-lines.png");
 }
 
 .bgCard {
   background-color: $cardBackColor;
   border-radius: 5px;
-  box-shadow: 2px 2px 5px #666;
+  box-shadow: 2px 2px 5px $cardColorShadow;
 }
 
 hr {
   width: 25%;
-  border-top: 3px solid orange;
+  border-top: 3px solid $hrColor;
 }
 
 .color-icons-decoration {
@@ -36,12 +41,12 @@ hr {
 
 .pauseDashboard {
   height: 100vh;
-  font-family: $font;
   padding: 10px;
 
   .titleBar {
     height: 10vh;
-    background-color: #343a40;
+    background-color: $cardBackColorBar;
+    color: $cardFontColorBar;
 
     p {
       font-size: 4vh;
@@ -57,8 +62,8 @@ hr {
   .statusBar {
     height: 10vh;
     font-size: 3vh;
-    background-color: #343a40;
-    color: #FFF;
+    background-color: $cardBackColorBar;
+    color: $cardFontColorBar;
 
   }
 
@@ -71,7 +76,7 @@ hr {
     padding-left: 0;
 
     .table {
-      box-shadow: 2px 2px 5px #666;
+      box-shadow: 2px 2px 5px $cardColorShadow;
        th, td {
          font-size: 2vh;
          padding: 0.75vh 0.75rem 0.75vh 0.75rem;
