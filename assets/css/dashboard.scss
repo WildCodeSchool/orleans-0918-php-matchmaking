@@ -18,7 +18,7 @@ $hrColor: #FF9800;
 $alertTimer: #FF9800;
 
 $circleColor : #FFF;
-$circleBorderColor : darken(#FF9800,10%);
+$circleBorderColor : #FF9800;
 $circleActiveColor : #FF9800;
 
 @font-face {
@@ -61,18 +61,9 @@ hr {
     }
   }
 
-  .roundTimer,
-  .endMessage {
+  .roundTimer
+  {
     height: $sidesHeight - 2*$titlesHeight;
-  }
-
-  .endMessage {
-    p {
-      font-size: 3vw;
-    }
-    .circle {
-      top: 0;
-    }
   }
 
   .timerText {
@@ -150,6 +141,12 @@ hr {
 
   }
 
+  .endMessage {
+    p {
+      font-size: 3vw;
+    }
+  }
+
   a {
     font-size: 2vh;
   }
@@ -180,18 +177,3 @@ hr {
     background-color: $circleActiveColor;
   }
 }
-
-/*
-
-
-$bgColor: rgb(56, 165, 255);
-
-.runDashboard,
-.startDashboard {
-
-
-
-
-
-}
-*/
