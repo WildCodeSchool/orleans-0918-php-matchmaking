@@ -51,7 +51,8 @@
                     {% endif %}
                 </div>
                 <div class="col-sm-4 col-xs-12">
-                    <span class="icn"><i class="fas fa-user"></i></span>{{ player.firstname }}  {{ player.name }}
+                    <span class="icn"><i class="fas fa-user"></i></span>
+                    {{ player.name|upper }} {{ player.firstname }}
                 </div>
                 <div class="col-sm-3 col-xs-12">
                     <span class="icn"><i class="fas fa-envelope"></i></span>{{ player.mail }}
