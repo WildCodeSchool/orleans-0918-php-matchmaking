@@ -3,13 +3,20 @@
 @import "~bootswatch/dist/lumen/bootswatch";
 
 $font:BrandonBold,Arial,sans-serif;
+
 $cardBackColor : rgba(255, 255, 255, 1);
 $cardColorShadow: #666;
 $borderBgCard : rgba(255, 255, 255, 1);
 $cardBackColorBar : #343a40;
 $cardFontColorBar : #FFF;
+
+$titlesHeight: 20vh;
+$sidesHeight: 98vh;
+
 $colorIcons: #FF9800;
 $hrColor: #FF9800;
+$alertTimer: #FF9800;
+
 $circleColor : #FFF;
 $circleBorderColor : darken(#FF9800,10%);
 $circleActiveColor : #FF9800;
@@ -37,6 +44,82 @@ hr {
 
 .color-icons-decoration {
   color: $colorIcons;
+}
+
+.runDashboard,
+.startDashboard {
+  height: 100vh;
+  padding: 10px;
+
+  .title,
+  .speak,
+  .backLink {
+    height: $titlesHeight;
+
+    p {
+      font-size: 6vh;
+    }
+  }
+
+  .roundTimer,
+  .endMessage {
+    height: $sidesHeight - 2*$titlesHeight;
+  }
+
+  .endMessage {
+    p {
+      font-size: 3vw;
+    }
+    .circle {
+      top: 0;
+    }
+  }
+
+  .timerText {
+    position: absolute;
+    font-size: 7vw;
+    top:30%;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    text-align:center;
+    vertical-align: middle;
+  }
+
+  .alert-timer {
+    color: $alertTimer;
+  }
+
+  .speak {
+    font-size: 3vw;
+    top:0;
+    left: 0;
+    width: 100%;
+    text-align:center;
+    vertical-align: middle;
+  }
+
+  .left-side {
+    height: $sidesHeight;
+    padding-top: 8vh;
+
+    .round {
+      height: 20vh;
+      font-size: 5vh;
+    }
+
+    .globalTimer {
+      height: 20vh;
+      font-size: 10vh;
+    }
+
+    .logo {
+      img {
+        padding-top: 10vh;
+        width: 25vw;
+      }
+    }
+  }
 }
 
 .pauseDashboard {
@@ -99,89 +182,16 @@ hr {
 }
 
 /*
-$sidesHeight: 98vh;
-$titlesHeight: 20vh;
+
+
 $bgColor: rgb(56, 165, 255);
-
-
-
-
-
 
 .runDashboard,
 .startDashboard {
-  height: 100vh;
-  font-family: $font;
-  padding: 10px;
 
-  .title,
-  .speak,
-  .backLink {
-    height: $titlesHeight;
 
-    p {
-      font-size: 6vh;
-    }
-  }
 
-  .roundTimer,
-  .endMessage {
-    height: $sidesHeight - 2*$titlesHeight;
-  }
 
-  .endMessage {
-    p {
-      font-size: 3vw;
-    }
-    .circle {
-      top: 0;
-    }
-  }
 
-  .timerText {
-    position: absolute;
-    font-size: 7vw;
-    top:30%;
-    left: 0;
-    width: 100%;
-    height: 50%;
-    text-align:center;
-    vertical-align: middle;
-  }
-  
-  .alert-timer {
-    color:red;
-  }
-
-  .speak {
-    font-size: 3vw;
-    top:0;
-    left: 0;
-    width: 100%;
-    text-align:center;
-    vertical-align: middle;
-  }
-
-  .left-side {
-    height: $sidesHeight;
-    padding-top: 8vh;
-
-    .round {
-      height: 20vh;
-      font-size: 5vh;
-    }
-
-    .globalTimer {
-      height: 15vh;
-      font-size: 10vh;
-    }
-
-    .logo {
-      img {
-        padding-top: 10vh;
-        width: 25vw;
-      }
-    }
-  }
 }
 */
