@@ -13,18 +13,19 @@
                 {% set tableName = round.tableEvent.name %}
                 {% if loop.index0 > 0 %} </tbody></table></div> {% endif %}
             <div class="col-4">
-                <table class="table table-striped bg-light w-75 mx-auto">
+                <table class="table table-striped w-75 mx-auto">
                     <thead>
                     <tr class="bg-dark text-white text-center">
-                        <td colspan="2">TABLE {{ round.tableEvent.name }}</td>
+                        <td colspan="3">TABLE {{ round.tableEvent.name }}</td>
                     </tr>
                     </thead>
                     <tbody>
                     {% endif %}
                     <tr>
-                        <td>{{ round.speaker }}</td>
+                        <td class="col-1">{{ round.speaker }}</td>
+                        <td class="col-1"><i class="fas fa-user color-icons-decoration"></i></td>
                         {% if players[round.speaker] is defined %}
-                            <td>{{ players[round.speaker][0] }} <b>{{ players[round.speaker][1] }}</b></td>
+                            <td><b>{{ players[round.speaker][1] }}</b> <span class="text-secondary">{{ players[round.speaker][0] }}</span></td>
                         {% else %}
                             <td> -</td>
                         {% endif %}

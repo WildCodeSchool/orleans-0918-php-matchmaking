@@ -3,14 +3,12 @@
 @import "~bootswatch/dist/lumen/bootswatch";
 
 $font:BrandonBold,Arial,sans-serif;
-$sidesHeight: 98vh;
-$titlesHeight: 20vh;
-$bgColor: rgb(56, 165, 255);
-$cardBackColor : rgba(255, 255, 255, .2);
-$borderBgCard : rgba(255, 255, 255, .3);
+$cardBackColor : rgba(255, 255, 255, 1);
+$borderBgCard : rgba(255, 255, 255, 1);
+$colorIcons: #FF9800;
 $circleColor : #FFF;
-$circleBorderColor : #000;
-$circleActiveColor : #000;
+$circleBorderColor : darken(#FF9800,10%);
+$circleActiveColor : #FF9800;
 
 @font-face {
   font-family: BrandonBold;
@@ -18,14 +16,92 @@ $circleActiveColor : #000;
 }
 
 body {
-  background: linear-gradient(50deg, $bgColor, darken(saturate($bgColor, 40%), 10%));
+  background-image: url("../../assets/pictures/60-lines.png");
 }
 
 .bgCard {
   background-color: $cardBackColor;
-  border: 1px solid $borderBgCard;
   border-radius: 5px;
+  box-shadow: 2px 2px 5px #666;
 }
+
+hr {
+  width: 25%;
+  border-top: 3px solid orange;
+}
+
+.color-icons-decoration {
+  color: $colorIcons;
+}
+
+.pauseDashboard {
+  height: 100vh;
+  font-family: $font;
+  padding: 10px;
+
+  .titleBar {
+    height: 10vh;
+    background-color: #343a40;
+
+    p {
+      font-size: 4vh;
+    }
+  }
+
+  .tables {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 71vh;
+  }
+
+  .statusBar {
+    height: 10vh;
+    font-size: 3vh;
+    background-color: #343a40;
+    color: #FFF;
+
+  }
+
+  a {
+    font-size: 2vh;
+  }
+
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+
+    .table {
+      box-shadow: 2px 2px 5px #666;
+       th, td {
+         font-size: 2vh;
+         padding: 0.75vh 0.75rem 0.75vh 0.75rem;
+      }
+    }
+  }
+
+  .circle-display-screen {
+    background-color: $circleColor;
+    border:2px solid $circleBorderColor;
+    border-radius:50%;
+    width:2vh;
+    height:2vh;
+    margin:1vh;
+  }
+
+  .active-circle-display-screen {
+    background-color: $circleActiveColor;
+  }
+}
+
+/*
+$sidesHeight: 98vh;
+$titlesHeight: 20vh;
+$bgColor: rgb(56, 165, 255);
+
+
+
+
+
 
 .runDashboard,
 .startDashboard {
@@ -103,58 +179,4 @@ body {
     }
   }
 }
-
-.pauseDashboard {
-  height: 100vh;
-  font-family: $font;
-  padding: 10px;
-
-  .titleBar {
-    height: 10vh;
-
-    p {
-      font-size: 4vh;
-    }
-  }
-
-  .tables {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    height: 77vh;
-  }
-
-  .statusBar {
-    height: 10vh;
-    font-size: 3vh;
-
-  }
-  
-  a {
-    font-size: 3vh;
-  }
-
-  ul {
-    list-style-type: none;
-    padding-left: 0;
-
-    .table {
-      th, td {
-        padding: 0.75vh 0.75rem 0.75vh 0.75rem;
-        font-size: calc(2vh + 20%);
-      }
-    }
-  }
-
-  .circle-display-screen {
-    background-color: $circleColor;
-    border:2px solid $circleBorderColor;
-    border-radius:50%;
-    width:2vh;
-    height:2vh;
-    margin:1vh;
-  }
-
-  .active-circle-display-screen {
-    background-color: $circleActiveColor;
-  }
-}
+*/
