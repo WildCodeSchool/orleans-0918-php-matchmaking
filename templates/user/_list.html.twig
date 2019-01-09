@@ -16,6 +16,7 @@
              <td>{{ user.firstName }}</td>
              <td>{{ user.email }}</td>
              <td>{{ user.society.name }}</td>
+             <td class="hiddenField">{{ user.society.id }}</td>
              <td><button class="btn listButton"><i class="fas fa-edit"></i></button></td>
              <td>{% include 'user/_delete_form.html.twig' %}</td>
          </tr>
