@@ -236,7 +236,7 @@ class UserController extends AbstractController
      * @param UserRepository $userRepository
      * @param Society $society
      * @return Response
-     * @Route("/admin/society/{id}", name="society_users_list", methods="GET|POST")
+     * @Route("/society/{id}/admin", name="society_users_list", methods="GET|POST")
      */
     public function societyUsersList(UserRepository $userRepository, Society $society): Response
     {
