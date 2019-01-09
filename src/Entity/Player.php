@@ -43,6 +43,7 @@ class Player
      * max=10,
      * maxMessage = "Le numéro de téléphone n'est pas valide"
      * )
+     * @Assert\Regex("/0[0-9]{9}/")
      */
     private $phoneNumber;
 

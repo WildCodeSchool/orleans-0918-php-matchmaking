@@ -1,11 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gestion des utilisateurs{% endblock %}
+{% block title %}Gestionnaires - {{ parent() }}{% endblock %}
+
+{% block pageTitle %}Gestion des Gestionnaires{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <h1>Gestion des utilisateurs</h1>
-        <button class="createButton btn btn-lg btn-primary  mt-4 mb-2">Ajouter un utilisateur</button>
+    <div>
+        {% if society is defined %}
+            <h2 class="text-center mt-4">{{ society.name }}</h2>
+        {% endif %}
+        <button class="createButton btn btn-lg btn-primary  mt-4">
+            <i class="fas fa-user-plus mr-2"></i> Ajouter un gestionnaire</button>
+        <hr>
         {% include 'user/_form.html.twig' %}
         {% include 'user/_list.html.twig' %}
     </div>

@@ -53,17 +53,28 @@ class SettingsController extends AbstractController
             $csvFormatEvent->setName($dataset['name']);
             $csvFormatEvent->setPath($dataset['csvFile']->getPathName());
 
+            $em = $this->getDoctrine()->getConnection();
+            $em->beginTransaction();
+
             try {
                 $csvFormatEvent->validate();
                 $csvFormatEvent->import();
+                $em->commit();
                 $this->addFlash(
                     'success',
                     'Le nouveau format a été ajouté.'
                 );
-            } catch (CsvException $csvException) {
+            } catch (CsvException $e) {
+                $this->getDoctrine()->getConnection()->rollBack();
                 $this->addFlash(
                     'danger',
-                    $csvException->getMessage()
+                    $e->getMessage()
+                );
+            } catch (\Exception $e) {
+                $this->getDoctrine()->getConnection()->rollBack();
+                $this->addFlash(
+                    'danger',
+                    'Le nouveau format n\'a pas pu être enregistré en base de données.'
                 );
             }
 

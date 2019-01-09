@@ -19,6 +19,12 @@
                 {{ form_widget(formTimer.roundSeconds) }} sec.
             </div>
         </div>
+        <div class="row">
+            <div class="col-12">
+                {{ form_errors(formTimer.roundMinutes) }}
+                {{ form_errors(formTimer.roundSeconds) }}
+            </div>
+        </div>
     </div>
     <div class="col-lg-5 mt-lg-0 mt-4">
         <p><u>Temps de pause</u></p>
@@ -31,6 +37,12 @@
             </div>
             <div class="col-5 d-flex align-items-center justify-content-between">
                 {{ form_widget(formTimer.pauseSeconds) }} sec.
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                {{ form_errors(formTimer.pauseMinutes) }}
+                {{ form_errors(formTimer.pauseSeconds) }}
             </div>
         </div>
     </div>

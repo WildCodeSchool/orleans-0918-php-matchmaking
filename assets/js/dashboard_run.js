@@ -14,9 +14,10 @@ document.addEventListener('DOMContentLoaded', function () {
     let playerTimerElt = document.querySelector(".roundTimer");
     let playerTextElt = document.querySelector(".timerText");
     let numberOfPlayers = playerTimerElt.dataset.numberOfPlayers;
-    let playerTime = Math.floor(playerTimerElt.dataset.roundSeconds / numberOfPlayers);
+    let playerTime = Math.floor( ((playerTimerElt.dataset.roundSeconds)/ numberOfPlayers)-1);
     let playerDefMinutes = Math.floor(playerTime / 60);
     let playerDefSeconds = ("0" + (playerTime - playerDefMinutes * 60)).slice(-2);
+
     let gradientStart = "#9999ff";
     let gradientEnd = "#5555ff";
 
@@ -27,26 +28,31 @@ document.addEventListener('DOMContentLoaded', function () {
     let eventId = globalTimerElt.dataset.eventId;
     let maxLaps = globalTimerElt.dataset.maxLaps;
     let currentLap = globalTimerElt.dataset.currentLap;
+    let bipAudio = $("#bipPlayer")[0];
+    let speakAudio = $("#speakPlayer")[0];
+    bipAudio.load();
+    speakAudio.load();
 
     // interval Timer Round
-    setInterval(function () {
+    let globalInterv = setInterval(function () {
         let url = "";
+        if (globalSeconds <= 0) globalMinutes--;
         globalSeconds = --globalSeconds <= -1 ? 59 : globalSeconds;
-        if (globalSeconds == 0) {
-            if (globalMinutes == 0) {
-                if (currentLap < maxLaps) {
-                    currentLap++;
-                    url = route + eventId + "/" + currentLap;
-                } else {
-                    url = "/dashboard/end/" + eventId;
-                }
-                window.location.replace(url);
+        globalTextElt.textContent = globalMinutes + " : " + ("0" + globalSeconds).slice(-2);
+
+        if (globalSeconds == 0 && globalMinutes == 0) {
+            clearInterval(globalInterv);
+
+            if (currentLap < maxLaps) {
+                currentLap++;
+                url = route + eventId + "/" + currentLap;
             } else {
-                globalMinutes--;
+                url = "/dashboard/end/" + eventId;
             }
+            window.location.replace(url);
+
         }
 
-        globalTextElt.textContent = globalMinutes + " : " + ("0" + globalSeconds).slice(-2);
     }, 1000);
 
     function startCircleTimer() {
@@ -70,27 +76,40 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // interval Timer Player
         let circleInterv = setInterval(function () {
-
-            seconds = --seconds <= -1 ? 59 : seconds;
-            //affichage du temps sur la page
-            
-            if (seconds == 0) {
-                if (minutes == 0) {
-                    clearInterval(circleInterv);
-                    currentSpeaker++;
-                    startCircleTimer();
-                } else {
-                    minutes--;
-                }
+            if (seconds <= 0) minutes--;
+            if (currentSpeaker < numberOfPlayers) {
+                seconds = --seconds <= -1 ? 59 : seconds;
+            } else if (currentSpeaker == numberOfPlayers) {
+                seconds = globalSeconds;
+                minutes = globalMinutes;
             }
-            
+            playerTextElt.textContent = minutes + " : " + ("0" + seconds).slice(-2);
+
             // actualisation du cercle
             $('.circle').circleProgress({
                 value: (minutes * 60 + seconds) / playerTime,
                 animation: false,
             });
 
-            playerTextElt.textContent = minutes + " : " + ("0" + seconds).slice(-2);
+            if (seconds == 0 && minutes == 0) {
+                clearInterval(circleInterv);
+                if (currentSpeaker < numberOfPlayers) {
+                    speakAudio.play();
+                    currentSpeaker++;
+                }
+                playerTextElt.classList.remove("alert-timer");
+                setTimeout(() => {
+                    seconds = 0;
+                    playerTextElt.textContent = minutes + " : " + ("0" + seconds).slice(-2);
+
+                    startCircleTimer();
+                }, 1000);
+            } else if (minutes == 0 && seconds <= 5) {
+                bipAudio.play();
+                playerTextElt.classList.add("alert-timer");
+            }
+
+
         }, 1000);
     }
 

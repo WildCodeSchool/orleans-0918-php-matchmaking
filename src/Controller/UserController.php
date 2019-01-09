@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Society;
 use App\Entity\User;
 use App\Form\User1Type;
 use App\Form\UserType;
@@ -218,5 +219,27 @@ class UserController extends AbstractController
         } else {
             return $this->redirectToRoute('manager_index');
         }
+    }
+
+    /**
+     * @param UserRepository $userRepository
+     * @param Society $society
+     * @return Response
+     * @Route("/admin/society/{id}", name="society_users_list", methods="GET|POST")
+     */
+    public function societyUsersList(UserRepository $userRepository, Society $society): Response
+    {
+        $form = $this->createForm(UserType::class, null, [
+            'action' => $this->generateUrl("update", ["role" => "manager"]),
+            'method' => 'POST',
+        ]);
+
+        $users=$userRepository->findBy(['society' => $society]);
+
+        return $this->render('user/manager.html.twig', [
+            'form' => $form->createView(),
+            'users' => $users,
+            'society' => $society
+        ]);
     }
 }
