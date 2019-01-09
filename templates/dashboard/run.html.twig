@@ -8,8 +8,8 @@
                         <p class="text-center mb-0">TOUR {{ currentLap }}/{{ maxLaps }}</p>
                     </div>
                 </div>
-                <hr class="mt-1">
-                <div class="globalTimer row" 
+                <hr class="mt-0">
+                <div class="globalTimer row"
                 data-global-seconds="{{ event.roundSeconds }}" 
                 data-global-minutes="{{ event.roundMinutes }}" 
                 data-event-id="{{ event.id }}"
@@ -32,7 +32,7 @@
                             <p class="text-center mb-0">{{ event.title }}</p>
                         </div>
                     </div>
-                    <hr class="mt-1 mb-1">
+                    <hr class="mt-0 mb-0">
                     <div class="roundTimer row"
                     data-round-seconds="{{ event.roundMinutes *60+ event.roundSeconds }}"
                     data-event-id="{{event.id}}"
