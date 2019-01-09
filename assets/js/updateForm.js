@@ -11,7 +11,6 @@ userFormElt.style.display = "none";
         document.getElementById("user_firstName").value = "";
         document.getElementById("user_lastName").value = "";
         document.getElementById("user_email").value = "";
-        document.getElementById("user_society").selectedIndex=0;
 
         addButton.style.display = "block";
         editButton.style.display = "none";
