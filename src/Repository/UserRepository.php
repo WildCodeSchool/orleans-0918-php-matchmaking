@@ -32,4 +32,21 @@ class UserRepository extends ServiceEntityRepository
             ->getQuery();
         return $qb->execute();
     }
+
+    /**
+     * @param $role
+     * @param $society
+     * @return array
+     */
+    public function findBySocietyAndRole($society, $role): array
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->andWhere('u.society = :society')
+            ->andWhere('u.roles LIKE :role')
+            ->setParameter('role', '%"' . $role . '"%')
+            ->setParameter('society', $society)
+            ->orderBy('u.lastName', 'ASC')
+            ->getQuery();
+        return $qb->execute();
+    }
 }
