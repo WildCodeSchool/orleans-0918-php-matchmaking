@@ -8,6 +8,14 @@ document.addEventListener('DOMContentLoaded', function () {
     pauseTimerElt.textContent = minutes + " : " + ("0" +seconds).slice(-2);
     let maxLaps = pauseTimerElt.dataset.maxLaps;
     let currentLap = pauseTimerElt.dataset.currentLap;
+    let audio = $("#audioPlayer")[0];
+    let soundPlayed = false;
+    audio.load();
+
+    if(!soundPlayed) {
+        soundPlayed = true;
+        audio.play(); 
+    }
     
     setInterval(function () {
         seconds = --seconds <= -1 ? 59 : seconds;
