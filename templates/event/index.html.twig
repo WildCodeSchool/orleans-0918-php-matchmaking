@@ -11,12 +11,22 @@
                 événement</a>
         {% endif %}
 
-        {% if weekEvents and events.currentPageNumber == 1 %}
+        {% if events.currentPageNumber == 1 %}
             <h2>Événements des 7 prochains jours</h2>
-            {% for event in weekEvents %}
-               {% include 'event/_event.html.twig' %}
-            {% endfor %}
+            {% if weekEvents  %}
+                {% for event in weekEvents %}
+                    {% include 'event/_event.html.twig' %}
+                {% endfor %}
+            {% else %}
+                <div class="row d-flex align-items-center">
+                    <div class="col-12 text-center">
+                            <strong>Pas d'événements ces 7 prochains jours</strong>
+                    </div>
+                </div>
+            {% endif %}
         {% endif %}
+
+              
         
         {% if events.currentPageNumber == 1 %}
             <h2 class="mt-4">Autres événements</h2>
