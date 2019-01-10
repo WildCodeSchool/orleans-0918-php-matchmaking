@@ -13,7 +13,7 @@
 
         {% if events.currentPageNumber == 1 %}
             <h2>Événements des 7 prochains jours</h2>
-            {% if weekEvents  %}
+            {% if weekEvents %}
                 {% for event in weekEvents %}
                     {% include 'event/_event.html.twig' %}
                 {% endfor %}
@@ -25,8 +25,6 @@
                 </div>
             {% endif %}
         {% endif %}
-
-              
         
         {% if events.currentPageNumber == 1 %}
             <h2 class="mt-4">Autres événements</h2>
