@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Event;
 use App\Entity\RoundEvent;
+use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,6 +24,10 @@ class DashboardController extends AbstractController
      */
     public function pause(Event $event, int $currentLap) : Response
     {
+        if ($this->checkEventStatus($event)===false) {
+            return $this->redirectToRoute('event_index');
+        }
+
         $maxLaps = sqrt($event->getFormatEvent()->getNumberOfPlayers())+1;
 
         $rounds = $this->getDoctrine()->getManager()->getRepository(RoundEvent::class)
@@ -54,6 +59,10 @@ class DashboardController extends AbstractController
      */
     public function run(Event $event, int $currentLap) : Response
     {
+        if ($this->checkEventStatus($event)===false) {
+            return $this->redirectToRoute('event_index');
+        }
+
         $maxLaps = sqrt($event->getFormatEvent()->getNumberOfPlayers())+1;
 
         return $this->render('dashboard/run.html.twig', [
@@ -72,6 +81,10 @@ class DashboardController extends AbstractController
      */
     public function start(Event $event) : Response
     {
+        if ($this->checkEventStatus($event)===false) {
+            return $this->redirectToRoute('event_index');
+        }
+
         $numberOfPlayers = $event->getFormatEvent()->getNumberOfPlayers();
         $maxLaps = sqrt($event->getFormatEvent()->getNumberOfPlayers())+1;
 
@@ -102,6 +115,10 @@ class DashboardController extends AbstractController
      */
     public function end(Event $event)
     {
+        if ($this->checkEventStatus($event)===false) {
+            return $this->redirectToRoute('event_index');
+        }
+
         $numberOfPlayers = $event->getFormatEvent()->getNumberOfPlayers();
 
         $status = $this->getDoctrine()->getmanager()
@@ -115,5 +132,21 @@ class DashboardController extends AbstractController
             'numberOfPlayers' => $numberOfPlayers,
             'society' => $event->getSociety(),
         ]);
+    }
+
+    /**
+     * @param Event $event
+     * @return bool
+     */
+    private function checkEventStatus(Event $event) : bool
+    {
+        if ($event->getStatusEvent()->getState()!=$event->getStatusEvent()->getInProgressState()) {
+            $this->addFlash(
+                'danger',
+                'L\'accès au dashboard est réservé aux évènements en cours uniquement !'
+            );
+            return false;
+        }
+        return true;
     }
 }

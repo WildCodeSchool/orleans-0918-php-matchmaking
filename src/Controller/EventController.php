@@ -116,6 +116,14 @@ class EventController extends AbstractController
      */
     public function edit(Request $request, Event $event): Response
     {
+        if ($event->getStatusEvent()->getState()>=$event->getStatusEvent()->getInProgressState()) {
+            $this->addFlash(
+                'danger',
+                'L\'évènement n\'est plus modifiable !'
+            );
+            return $this->redirectToRoute('event_index');
+        }
+
         $form = $this->createForm(EventType::class, $event, [
             'status' => $event->getStatusEvent()->getState(),
             'statusFullState' => $event->getStatusEvent()->getFullState(),
