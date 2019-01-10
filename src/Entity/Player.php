@@ -48,8 +48,7 @@ class Player
     private $phoneNumber;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
+     * @ORM\Column(type="string", nullable=true, length=255)
      * @Assert\Email(
      * message = "L'e-mail que vous avez fourni n'est pas une adresse valide.",
      * )
