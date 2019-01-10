@@ -1,7 +1,7 @@
 {% extends 'dashboardBase.html.twig' %}
 
 {% block body %}
-    <div class="row pauseDashboard">
+    <div class="row endDashboard">
         <div class="col-12">
             <div class="row statusBar bgCard">
                 <div class="col-12 text-center align-middle my-auto">{{ event.title }}</div>
@@ -11,7 +11,7 @@
                 <div class="col-12 bgCard slider h-100 d-flex flex-column justify-content-center align-items-center">
                     <div class="endMessage row">
                         <div class="col-4 text-center align-middle my-auto">
-                        <img class="img-fluid rounded" src="/images/logos/{{ event.logo }}" alt="logo" />
+                        <img class="img-end rounded" src="/images/logos/{{ event.logo }}" alt="logo" />
                         </div>
                         <div class="col-8 align-middle text-center my-auto">
                             <p>Evénement terminé !</p>
