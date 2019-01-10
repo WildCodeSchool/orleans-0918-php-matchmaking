@@ -224,6 +224,13 @@ class EventController extends AbstractController
     {
         // assignment random speaker number to players
         $presentPlayers = $eventRepository->findPresentPlayer($event);
+        if (empty($presentPlayers)) {
+            $this->addFlash(
+                'danger',
+                'Impossible de lancer l\'évènement sans aucun participant présent !'
+            );
+            return $this->redirectToRoute('event_index');
+        }
         $speakerNumbers = range(1, $event->getFormatEvent()->getNumberOfPlayers());
 
         foreach ($presentPlayers[0]->getPlayers() as $player) {
