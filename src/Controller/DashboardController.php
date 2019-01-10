@@ -143,5 +143,6 @@ class DashboardController extends AbstractController
             );
             return false;
         }
+        return true;
     }
 }
