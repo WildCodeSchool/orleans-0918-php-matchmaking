@@ -7,6 +7,7 @@ $fontTitleHnBold:BrandonBold, Arial, sans-serif;
 $fontTitleHnRegular:BrandonRegular, Arial, sans-serif;
 $colorContainerShadow: #CCC;
 $colorTitleUnderline: #FF9800;
+$colorIcons: #FF9800;
 $colorContainer: #FFF;
 
 $colorTitleProjetIO:#FF9800;
@@ -63,6 +64,9 @@ body {
     #addButton, #editButton {
         display:none;
         margin-top : 31px !important;
+        &:hover {
+            margin-top : 32px !important;
+        }
     }
 }
 
@@ -116,7 +120,7 @@ h2::after, h3::after {
 
 .timer-settings input {width:70%;}
 .color-icons-decoration {
-    color: $colorTitleUnderline;
+    color: $colorIcons;
 }
 
 .custom-file-label::after {

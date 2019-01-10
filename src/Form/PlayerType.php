@@ -20,7 +20,9 @@ class PlayerType extends AbstractType
             ->add('phoneNumber', TelType::class, [
                 'required' => false,
                 'attr' => ['maxlength' => 10, 'minLenght' => 10]])
-            ->add('mail', EmailType::class)
+            ->add('mail', EmailType::class, [
+                'required' => false
+            ])
         ;
     }
 

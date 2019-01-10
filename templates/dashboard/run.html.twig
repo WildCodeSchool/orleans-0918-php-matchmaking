@@ -1,15 +1,15 @@
 {% extends 'dashboardBase.html.twig' %}
 
-
 {% block body %}
     <div class="row runDashboard">
-            <div class="left-side bgCard col-4 align-middle my-auto">
+            <div class="left-side bgCard col-4 align-middle">
                 <div class="round row">
                     <div class="col-12 align-middle my-auto">
-                        <p class="text-center">TOUR {{ currentLap }}/{{ maxLaps }}</p>
+                        <p class="text-center mb-0">TOUR {{ currentLap }}/{{ maxLaps }}</p>
                     </div>
                 </div>
-                <div class="globalTimer row" 
+                <hr class="mt-0">
+                <div class="globalTimer row"
                 data-global-seconds="{{ event.roundSeconds }}" 
                 data-global-minutes="{{ event.roundMinutes }}" 
                 data-event-id="{{ event.id }}"
@@ -27,11 +27,11 @@
             </div>
             <div class="right-side col-8">
                 <div class="bgCard">
-
                     <div class="title row">
                         <div class="col-12 align-middle my-auto">
-                            <p class="text-center">{{ event.title }}</p>
+                            <p class="text-center mb-0">{{ event.title }}</p>
                         </div>
+                    <hr class="mt-0 mb-0">
                     </div>
                     <div class="roundTimer row"
                     data-round-seconds="{{ event.roundMinutes *60+ event.roundSeconds }}"
@@ -43,7 +43,7 @@
                     </div>
                     <div class="speak row">
                     <div class="col-12 align-middle my-auto">
-                        prise de parole
+                        <i class="fas fa-user-clock mr-2"></i> Prise de parole
                         <div class="speakerRound ">
                         </div></div>
                     </div>

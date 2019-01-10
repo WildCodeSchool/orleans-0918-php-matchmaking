@@ -31,14 +31,34 @@ class EventController extends AbstractController
         } elseif (in_array("ROLE_MANAGER", $this->getUser()->getRoles())) {
             $events = $em->findBy(['society' => $this->getUser()->getSociety()->getId()], ['date' => 'DESC']);
         }
+
+        $todayDate = new \DateTime();
+        $weekEvents = [];
+        $otherEvents = [];
+        foreach ($events as $event) {
+            if (($todayDate->diff($event->getDate())->format('%a') < 7) && $todayDate <= $event->getDate()) {
+                $weekEvents[] = $event;
+            } else {
+                $otherEvents[] = $event;
+            }
+        }
+        usort($weekEvents, function ($a, $b) {
+            if ($a->getDate() == $b->getDate()) {
+                return 0;
+            }
+            return ($a->getDate() < $b->getDate()) ? -1 : 1;
+        });
+
         $result = $paginator->paginate(
-            $events,
+            $otherEvents,
             $request->query->getInt('page', 1),
             $request->query->getInt('limit', 6)
         );
 
+
         return $this->render('event/index.html.twig', [
-            'events' => $result
+            'events' => $result,
+            'weekEvents' => $weekEvents
         ]);
     }
 
@@ -102,6 +122,14 @@ class EventController extends AbstractController
      */
     public function edit(Request $request, Event $event): Response
     {
+        if ($event->getStatusEvent()->getState()>=$event->getStatusEvent()->getInProgressState()) {
+            $this->addFlash(
+                'danger',
+                'L\'évènement n\'est plus modifiable !'
+            );
+            return $this->redirectToRoute('event_index');
+        }
+
         $form = $this->createForm(EventType::class, $event, [
             'status' => $event->getStatusEvent()->getState(),
             'statusFullState' => $event->getStatusEvent()->getFullState(),
@@ -202,6 +230,13 @@ class EventController extends AbstractController
     {
         // assignment random speaker number to players
         $presentPlayers = $eventRepository->findPresentPlayer($event);
+        if (empty($presentPlayers)) {
+            $this->addFlash(
+                'danger',
+                'Impossible de lancer l\'évènement sans aucun participant présent !'
+            );
+            return $this->redirectToRoute('event_index');
+        }
         $speakerNumbers = range(1, $event->getFormatEvent()->getNumberOfPlayers());
 
         foreach ($presentPlayers[0]->getPlayers() as $player) {

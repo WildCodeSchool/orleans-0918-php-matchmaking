@@ -1,0 +1,41 @@
+ <div class="row d-flex align-items-center">
+    <div class="col-2 text-center">
+        <p class="border rounded font-weight-bold d-flex justify-content-center mb-0 p-1">
+            <i class="fas fa-calendar-alt fa-2x color-icons-decoration mr-2"></i>
+            <span class="mt-1">{{ event.date|date('d / m / Y') }}</span>
+        </p>
+        <span class="badge badge-info">
+        {{ event.players|length ~ " / " ~ event.formatEvent.numberOfPlayers ~ " participants" }}
+        </span>
+    </div>
+    <div class="col-5 py-2 border-left border-warning">
+        <strong>{{ event.title }}</strong>
+        <span class="text-secondary ml-2"><small>{{ event.society.name }}</small></span>
+    </div>
+    <div class="col-md-2 col-6 text-md-right">
+        <span class="badge badge-{{ event.statusEvent.color }}">{{ event.statusEvent.name }}</span>
+    </div>
+    <div class="col-md-1 col-2 text-md-right">
+        {% if event.statusEvent.state != event.statusEvent.inPreparationState %}
+            <a href="{{ path('player', {'id': event.id}) }}"><i class="fas fa-user"></i></a>
+        {% endif %}
+    </div>
+
+    <div class="col-md-1 col-2 text-md-right">
+        {% if event.statusEvent.state < event.statusEvent.inProgressState %}
+            <a href="{{ path('event_edit', {'id': event.id }) }}"><i class="fas fa-edit"></i></a>
+        {% endif %}
+    </div>
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="col-md-1 col-2">
+            {% if event.statusEvent.state != event.statusEvent.inProgressState %}
+                <form method="post" action="{{ path('event_delete', {'id': event.id}) }}"
+                    onsubmit="return confirm('Voulez-vous vraiment supprimer cet événement ?');">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ event.id) }}">
+                    <button class="btn btn-link"><i class="fas fa-times"></i></button>
+                </form>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>

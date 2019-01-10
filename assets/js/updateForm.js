@@ -11,6 +11,7 @@ userFormElt.style.display = "none";
         document.getElementById("user_firstName").value = "";
         document.getElementById("user_lastName").value = "";
         document.getElementById("user_email").value = "";
+        document.getElementById("formLegend").innerText = "Ajout";
 
         addButton.style.display = "block";
         editButton.style.display = "none";
@@ -34,6 +35,7 @@ userFormElt.style.display = "none";
         document.getElementById("user_lastName").value = lastName;
         document.getElementById("user_email").value = email;
         document.getElementById("user_society").selectedIndex=society;
+        document.getElementById("formLegend").innerText = "Edition";
 
         addButton.style.display = "none";
         editButton.style.display = "block";
