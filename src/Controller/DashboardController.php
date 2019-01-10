@@ -138,7 +138,7 @@ class DashboardController extends AbstractController
      * @param Event $event
      * @return bool
      */
-    public function checkEventStatus(Event $event) : bool
+    private function checkEventStatus(Event $event) : bool
     {
         if ($event->getStatusEvent()->getState()!=$event->getStatusEvent()->getInProgressState()) {
             $this->addFlash(
