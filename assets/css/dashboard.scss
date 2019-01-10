@@ -51,6 +51,10 @@ hr {
   height: 100vh;
   padding: 10px;
 
+  img {
+    max-width: 15vw;
+  }
+
   .title,
   .speak,
   .backLink {
@@ -113,10 +117,15 @@ hr {
   }
 }
 
-.pauseDashboard {
+.pauseDashboard,
+.endDashboard {
   height: 100vh;
   padding: 10px;
 
+  .col-1 {
+    width: 10%;
+  }
+  
   .titleBar {
     height: 10vh;
     background-color: $cardBackColorBar;
@@ -175,5 +184,18 @@ hr {
 
   .active-circle-display-screen {
     background-color: $circleActiveColor;
+  }
+}
+
+.pauseDashboard {
+  img {
+    max-height: 10vh;
+  }
+}
+
+.endDashboard {
+  .img {
+    width: 50vw;
+    object-fit: contain;
   }
 }
