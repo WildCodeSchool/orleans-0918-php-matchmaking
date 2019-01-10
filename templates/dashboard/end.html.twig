@@ -1,40 +1,34 @@
 {% extends 'dashboardBase.html.twig' %}
 
 {% block body %}
-    <div class="row runDashboard">
-            <div class="left-side bgCard col-4 align-middle my-auto">
-                <div class="globalTimer row">
-                    <div class="col-12 align-middle my-auto">
-                        <p class="text-center"><strong></strong></p>
-                    </div>
-                </div>
-                <div class="logo row">
-                    <div class="col-12 text-center align-middle my-auto">
-                        <img class="img-fluid" src="/images/logos/{{ event.logo }}" alt="logo" />
-                    </div>
-                </div>
+    <div class="row pauseDashboard">
+        <div class="col-12">
+            <div class="row statusBar bgCard">
+                <div class="col-12 text-center align-middle my-auto">{{ event.title }}</div>
             </div>
-            <div class="right-side col-8">
-                <div class="bgCard">
-
-                    <div class="title row">
-                        <div class="col-12 align-middle my-auto">
-                            <p class="text-center">{{ event.title }}</p>
-                        </div>
-                    </div>
+            <hr>
+            <div class="row tables">
+                <div class="col-12 bgCard slider h-100 d-flex flex-column justify-content-center align-items-center">
                     <div class="endMessage row">
-                        <div class="col-12 align-middle text-center my-auto">
-                            <p>Evenement terminé !</p>
-                            <p>Cet événement était organisé par {{ society.name }} !</p>
+                        <div class="col-4 text-center align-middle my-auto">
+                        <img class="img-fluid rounded" src="/images/logos/{{ event.logo }}" alt="logo" />
+                        </div>
+                        <div class="col-8 align-middle text-center my-auto">
+                            <p>Evénement terminé !</p>
+                            <p>Cet événement était organisé par :</p>
+                            <p>{{ society.name }} !</p>
                             <p>Merci aux participants !</p>
                         </div>
                     </div>
-                    <div class="backLink row">
-                        <div class="col-12 text-center align-middle my-auto">
-                            <p><a href="{{ path('event_index') }}">Fin de l'événement</a></p>
-                        </div>
-                    </div>
                 </div>
             </div>
+            <hr>
+            <div class="row titleBar bgCard">
+                <div class="col-12 text-center align-middle my-auto">
+                    <a class="btn btn-link" href="{{ path('event_index') }}">
+                            <i class="fas fa-stop mr-2"></i> Fin de l'événement</a>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

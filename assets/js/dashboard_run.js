@@ -1,3 +1,5 @@
+require('@fortawesome/fontawesome-free/js/all.js');
+
 require('jquery-circle-progress');
 document.addEventListener('DOMContentLoaded', function () {
 

@@ -35,7 +35,7 @@ $(document).ready(function () {
                     currentCircle.addClass("active-circle-display-screen");
 
                     slideDisplayTables();
-                }, 6000);
+                }, 8000);
             }
 
             slideDisplayTables();

@@ -3,14 +3,23 @@
 @import "~bootswatch/dist/lumen/bootswatch";
 
 $font:BrandonBold,Arial,sans-serif;
-$sidesHeight: 98vh;
+
+$cardBackColor : rgba(255, 255, 255, 1);
+$cardColorShadow: #666;
+$borderBgCard : rgba(255, 255, 255, 1);
+$cardBackColorBar : #343a40;
+$cardFontColorBar : #FFF;
+
 $titlesHeight: 20vh;
-$bgColor: rgb(56, 165, 255);
-$cardBackColor : rgba(255, 255, 255, .2);
-$borderBgCard : rgba(255, 255, 255, .3);
+$sidesHeight: 97vh;
+
+$colorIcons: #FF9800;
+$hrColor: #FF9800;
+$alertTimer: #FF9800;
+
 $circleColor : #FFF;
-$circleBorderColor : #000;
-$circleActiveColor : #000;
+$circleBorderColor : #FF9800;
+$circleActiveColor : #FF9800;
 
 @font-face {
   font-family: BrandonBold;
@@ -18,19 +27,28 @@ $circleActiveColor : #000;
 }
 
 body {
-  background: linear-gradient(50deg, $bgColor, darken(saturate($bgColor, 40%), 10%));
+  font-family: $font;
+  background-image: url("../../assets/pictures/60-lines.png");
 }
 
 .bgCard {
   background-color: $cardBackColor;
-  border: 1px solid $borderBgCard;
   border-radius: 5px;
+  box-shadow: 2px 2px 5px $cardColorShadow;
+}
+
+hr {
+  width: 25%;
+  border-top: 3px solid $hrColor;
+}
+
+.color-icons-decoration {
+  color: $colorIcons;
 }
 
 .runDashboard,
 .startDashboard {
   height: 100vh;
-  font-family: $font;
   padding: 10px;
 
   .title,
@@ -43,18 +61,9 @@ body {
     }
   }
 
-  .roundTimer,
-  .endMessage {
+  .roundTimer
+  {
     height: $sidesHeight - 2*$titlesHeight;
-  }
-
-  .endMessage {
-    p {
-      font-size: 3vw;
-    }
-    .circle {
-      top: 0;
-    }
   }
 
   .timerText {
@@ -67,9 +76,9 @@ body {
     text-align:center;
     vertical-align: middle;
   }
-  
+
   .alert-timer {
-    color:red;
+    color: $alertTimer;
   }
 
   .speak {
@@ -106,11 +115,12 @@ body {
 
 .pauseDashboard {
   height: 100vh;
-  font-family: $font;
   padding: 10px;
 
   .titleBar {
     height: 10vh;
+    background-color: $cardBackColorBar;
+    color: $cardFontColorBar;
 
     p {
       font-size: 4vh;
@@ -120,17 +130,25 @@ body {
   .tables {
     margin-top: 10px;
     margin-bottom: 10px;
-    height: 77vh;
+    height: 71vh;
   }
 
   .statusBar {
     height: 10vh;
     font-size: 3vh;
+    background-color: $cardBackColorBar;
+    color: $cardFontColorBar;
 
   }
-  
+
+  .endMessage {
+    p {
+      font-size: 3vw;
+    }
+  }
+
   a {
-    font-size: 3vh;
+    font-size: 2vh;
   }
 
   ul {
@@ -138,9 +156,10 @@ body {
     padding-left: 0;
 
     .table {
-      th, td {
-        padding: 0.75vh 0.75rem 0.75vh 0.75rem;
-        font-size: calc(2vh + 20%);
+      box-shadow: 2px 2px 5px $cardColorShadow;
+       th, td {
+         font-size: 2vh;
+         padding: 0.75vh 0.75rem 0.75vh 0.75rem;
       }
     }
   }
