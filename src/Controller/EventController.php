@@ -35,8 +35,8 @@ class EventController extends AbstractController
         $todayDate = new \DateTime();
         $weekEvents = [];
         $otherEvents = [];
-        foreach($events as $event) {
-            if( ($todayDate->diff($event->getDate())->format('%a') < 7) && $todayDate <= $event->getDate() ) {
+        foreach ($events as $event) {
+            if (($todayDate->diff($event->getDate())->format('%a') < 7) && $todayDate <= $event->getDate()) {
                 $weekEvents[] = $event;
             } else {
                 $otherEvents[] = $event;
