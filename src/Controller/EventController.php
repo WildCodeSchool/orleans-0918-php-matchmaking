@@ -31,14 +31,28 @@ class EventController extends AbstractController
         } elseif (in_array("ROLE_MANAGER", $this->getUser()->getRoles())) {
             $events = $em->findBy(['society' => $this->getUser()->getSociety()->getId()], ['date' => 'DESC']);
         }
+
+        $todayDate = new \DateTime();
+        $weekEvents = [];
+        $otherEvents = [];
+        foreach ($events as $event) {
+            if (($todayDate->diff($event->getDate())->format('%a') < 7) && $todayDate <= $event->getDate()) {
+                $weekEvents[] = $event;
+            } else {
+                $otherEvents[] = $event;
+            }
+        }
+
         $result = $paginator->paginate(
-            $events,
+            $otherEvents,
             $request->query->getInt('page', 1),
             $request->query->getInt('limit', 6)
         );
 
+
         return $this->render('event/index.html.twig', [
-            'events' => $result
+            'events' => $result,
+            'weekEvents' => $weekEvents
         ]);
     }
 
