@@ -42,6 +42,12 @@ class EventController extends AbstractController
                 $otherEvents[] = $event;
             }
         }
+        usort($weekEvents, function ($a, $b) {
+            if ($a->getDate() == $b->getDate()) {
+                return 0;
+            }
+            return ($a->getDate() < $b->getDate()) ? -1 : 1;
+        });
 
         $result = $paginator->paginate(
             $otherEvents,
