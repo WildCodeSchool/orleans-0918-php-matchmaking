@@ -64,6 +64,9 @@ body {
     #addButton, #editButton {
         display:none;
         margin-top : 31px !important;
+        &:hover {
+            margin-top : 32px !important;
+        }
     }
 }
 
