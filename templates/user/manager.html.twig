@@ -2,7 +2,13 @@
 
 {% block title %}Gestionnaires - {{ parent() }}{% endblock %}
 
-{% block pageTitle %}Gestion des Gestionnaires{% endblock %}
+{% block pageTitle %}
+    {% if society is defined %}
+        Gestion des Utilisateurs
+    {% else %}
+        Gestion des Gestionnaires
+    {% endif %}
+{% endblock %}
 
 {% block body %}
     <div>
