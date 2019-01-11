@@ -235,7 +235,7 @@ class EventController extends AbstractController
                 'danger',
                 'Impossible de lancer l\'évènement sans aucun participant présent !'
             );
-            return $this->redirectToRoute('event_index');
+            return $this->redirectToRoute('player', ['id'=> $event->getId()]);
         }
         $speakerNumbers = range(1, $event->getFormatEvent()->getNumberOfPlayers());
 
