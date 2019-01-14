@@ -209,7 +209,8 @@ class UserController extends AbstractController
     {
         $roles = $user->getRoles();
 
-        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
+        if (($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token')))
+            && ($this->getUser()->getId() != $user->getId())) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($user);
             $em->flush();
@@ -221,7 +222,7 @@ class UserController extends AbstractController
         } else {
             $this->addFlash(
                 'danger',
-                "Votre utilisateur n\'a pas pu été supprimé !"
+                "Vous ne pouvez pas vous supprimer !"
             );
         }
 
