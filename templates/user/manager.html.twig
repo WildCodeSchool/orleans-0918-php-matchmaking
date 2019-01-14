@@ -1,8 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gestionnaires - {{ parent() }}{% endblock %}
+{% set usersName='Gestionnaires' %}
+{% if society is defined %}
+    {% set usersName='Utilisateurs' %}
+{% endif %}
+{% block title %}{{ usersName }} - {{ parent() }}{% endblock %}
 
-{% block pageTitle %}Gestion des Gestionnaires{% endblock %}
+{% block pageTitle %}
+    Gestion des {{ usersName }}
+{% endblock %}
 
 {% block body %}
     <div>
