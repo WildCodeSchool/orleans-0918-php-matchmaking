@@ -1,6 +1,7 @@
 <table class="table">
     <thead>
     <tr>
+        <th class="hiddenField">Id</th>
         <th></th>
         <th>Nom</th>
         <th>Prénom</th>
@@ -12,6 +13,7 @@
     <tbody>
     {% for user in users %}
          <tr class="userList my-5">
+             <td class="hiddenField">{{ user.id }}</td>
              <td>
                  {% if 'ROLE_ADMIN' in user.roles %}
                     <i class="fas fa-user-shield fa-2x color-icons-decoration"></i>
