@@ -11,17 +11,19 @@
 
 {% block body %}
     <h2>Informations générales</h2>
+    <p class="requiredFields">(*) Champs obligatoires</p>
     {{ form_start(formEvent) }}
     <fieldset class="border py-3">
         <div class="row">
             <div class="col-12">
-                {{ form_row(formEvent.title, {'label': 'Titre'}) }}
+                {{ form_label(formEvent.title, 'Titre') }}<span class="requiredFields"> *</span>
+                {{ form_widget(formEvent.title) }}
             </div>
         </div>
         <hr>
         <div class="row">
             <div class="col-lg-3 align-self-center">
-                <label class="required" for="event_statusEvent">Statut de l'événement</label>
+                <label class="required" for="event_statusEvent">Statut de l'événement</label><span class="requiredFields"> *</span>
             </div>
             <div class="col-lg-9">
                 {{ form_widget(formEvent.statusEvent) }}
@@ -29,7 +31,8 @@
             </div>
         </div>
         <hr>
-        {{ form_row(formEvent.description) }}
+        {{ form_label(formEvent.description, 'Description') }}<span class="requiredFields"> *</span>
+        {{ form_widget(formEvent.description) }}
     </fieldset>
     <fieldset class="border py-3">
         <div class="row">
