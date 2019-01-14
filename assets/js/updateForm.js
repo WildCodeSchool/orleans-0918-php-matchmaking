@@ -31,10 +31,10 @@ userFormElt.style.display = "none";
         let td=this.parentNode.parentNode;
 
         let userId=td.children[0].innerText;
-        let firstName=td.children[2].innerText;
-        let lastName=td.children[1].innerText;
-        let email=td.children[3].innerText;
-        let society=td.children[5].innerText-1;
+        let firstName=td.children[3].innerText;
+        let lastName=td.children[2].innerText;
+        let email=td.children[4].innerText;
+        let society=td.children[6].innerText-1;
 
         document.getElementById("user_firstName").value = firstName;
         document.getElementById("user_lastName").value = lastName;
