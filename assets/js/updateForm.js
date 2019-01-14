@@ -4,6 +4,11 @@ let addButton = document.getElementById('addButton');
 let editButton = document.getElementById('editButton');
 let currentPage = location.href.split('/').pop();
 
+let society = location.href.indexOf("society");
+if (society !== -1) {
+    currentPage="manager";
+}
+
 userFormElt.style.display = "none";
 
     $('.createButton').click(function() {

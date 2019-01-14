@@ -29,6 +29,16 @@ class PlayerController extends AbstractController
      */
     public function addPlayer(Request $request, Event $event): Response
     {
+
+        if (in_array("ROLE_MANAGER", $this->getUser()->getRoles())
+        && $event->getSociety()->getId() !== $this->getUser()->getSociety()->getId()) {
+            $this->addFlash(
+                'danger',
+                'Vous n\'avez pas accès à cet événement !'
+            );
+            return $this->redirectToRoute('event_index');
+        }
+
         $player = new Player();
         $form = $this->createForm(PlayerType::class, $player);
         $form->handleRequest($request);

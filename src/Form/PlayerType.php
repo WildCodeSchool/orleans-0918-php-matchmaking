@@ -19,7 +19,7 @@ class PlayerType extends AbstractType
             ->add('firstname', TextType::class)
             ->add('phoneNumber', TelType::class, [
                 'required' => false,
-                'attr' => ['maxlength' => 10, 'minLenght' => 10]])
+                'attr' => ['maxlength' => 10, 'minlength' => 10]])
             ->add('mail', EmailType::class, [
                 'required' => false
             ])

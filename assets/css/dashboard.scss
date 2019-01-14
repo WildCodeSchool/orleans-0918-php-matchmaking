@@ -194,8 +194,9 @@ hr {
 }
 
 .endDashboard {
-  .img {
-    width: 50vw;
+  img {
+    max-width: 30vw;
     object-fit: contain;
+    margin-right: 5vw;
   }
 }

@@ -5,7 +5,7 @@
 {% block pageTitle %}Gestion des Sociétés{% endblock %}
 
 {% block body %}
-    <section class="event_list">
+    <div class="event_list">
         <button class="createButton btn btn-lg btn-primary"><i class="fas fa-plus"></i> Ajouter une société</button>
         {% include 'society/_form.html.twig' %}
         {% for society in societies %}
@@ -36,7 +36,7 @@
                 </div>
             </div>
         {% endfor %}
-    </section>
+    </div>
 
 {% endblock %}
 
