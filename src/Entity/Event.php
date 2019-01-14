@@ -40,11 +40,7 @@ class Event
     private $date;
 
     /**
-     * @ORM\Column(type="text")
-     * @Assert\Length(
-     *  min=3,
-     *  minMessage = "Le contenu doit contenit {{ limit }} caractères minimum"
-     * )
+     * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 
