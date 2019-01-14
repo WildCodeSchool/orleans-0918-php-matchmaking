@@ -209,7 +209,8 @@ class UserController extends AbstractController
     {
         $roles = $user->getRoles();
 
-        if (($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) && ($this->getUser()->getId() != $user->getId())) {
+        if (($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token')))
+            && ($this->getUser()->getId() != $user->getId())) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($user);
             $em->flush();
