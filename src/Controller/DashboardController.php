@@ -24,6 +24,10 @@ class DashboardController extends AbstractController
      */
     public function pause(Event $event, int $currentLap) : Response
     {
+        if (!$this->checkAuthorizedUser($event)) {
+            return $this->redirectToRoute('event_index');
+        }
+
         if ($this->checkEventStatus($event)===false) {
             return $this->redirectToRoute('event_index');
         }
@@ -59,6 +63,10 @@ class DashboardController extends AbstractController
      */
     public function run(Event $event, int $currentLap) : Response
     {
+        if (!$this->checkAuthorizedUser($event)) {
+            return $this->redirectToRoute('event_index');
+        }
+
         if ($this->checkEventStatus($event)===false) {
             return $this->redirectToRoute('event_index');
         }
@@ -81,6 +89,10 @@ class DashboardController extends AbstractController
      */
     public function start(Event $event) : Response
     {
+        if (!$this->checkAuthorizedUser($event)) {
+            return $this->redirectToRoute('event_index');
+        }
+
         if ($this->checkEventStatus($event)===false) {
             return $this->redirectToRoute('event_index');
         }
@@ -115,6 +127,10 @@ class DashboardController extends AbstractController
      */
     public function end(Event $event)
     {
+        if (!$this->checkAuthorizedUser($event)) {
+            return $this->redirectToRoute('event_index');
+        }
+
         if ($this->checkEventStatus($event)===false) {
             return $this->redirectToRoute('event_index');
         }
@@ -144,6 +160,24 @@ class DashboardController extends AbstractController
             $this->addFlash(
                 'danger',
                 'L\'accès au dashboard est réservé aux évènements en cours uniquement !'
+            );
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * @param Event $event
+     * @return bool
+     */
+    private function checkAuthorizedUser(Event $event) : bool
+    {
+
+        if (in_array("ROLE_MANAGER", $this->getUser()->getRoles())
+        && $event->getSociety()->getId() !== $this->getUser()->getSociety()->getId()) {
+            $this->addFlash(
+                'danger',
+                'Vous n\'avez pas accès à cet événement !'
             );
             return false;
         }
