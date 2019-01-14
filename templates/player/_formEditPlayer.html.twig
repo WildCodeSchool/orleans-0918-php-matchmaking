@@ -11,11 +11,14 @@
                 {{ form_start(formEdit) }}
                 <p class="requiredFields">(*) Champs obligatoires</p>
                 {{ form_label(formEdit.name, 'Nom') }}<span class="requiredFields"> *</span>
-                {{ form_widget(formEdit.name, {'attr': {'id': 'player_name_edit'}}) }}
+                {{ form_widget(formEdit.name, {'id': 'player_name_edit'}) }}
                 {{ form_label(formEdit.firstname, 'Prénom') }}<span class="requiredFields"> *</span>
-                {{ form_widget(formEdit.firstname, {'attr': {'id': 'player_firstname_edit'}}) }}
-                {{ form_row(formEdit.phoneNumber, {'label': 'Numéro de portable'}) }}
-                {{ form_row(formEdit.mail, {'label': 'Email'}) }}
+                {{ form_widget(formEdit.firstname, {'id': 'player_firstname_edit'}) }}
+                {{ form_label(formEdit.phoneNumber, 'Numéro de portable') }}
+                {{ form_widget(formEdit.phoneNumber, {'id': 'player_phone_edit'}) }}
+                {{ form_label(formEdit.mail, 'Email') }}
+                {{ form_widget(formEdit.mail, {'id': 'player_mail_edit'}) }}
+                <hr>
                 <button class="btn btn-primary btn-lg btn-block">{{ button_label|default('Valider') }}</button>
                 {{ form_widget(formEdit._token, {'id': 'player__token_edit'}) }}
                 {{ form_end(formEdit) }}

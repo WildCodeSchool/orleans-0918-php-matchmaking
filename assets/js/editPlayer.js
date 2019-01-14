@@ -11,8 +11,8 @@ $('.editFormBtn').click(function(){
 function fillForm(data, id){
     let event=window.location.pathname.split("/").pop();
     document.getElementById('formEdit').childNodes[1].action="/manager/player/"+event+"/edit/"+id;
-    document.getElementById('formEdit').childNodes[1].childNodes[1].childNodes[1].value=data[0];
-    document.getElementById('formEdit').childNodes[1].childNodes[3].childNodes[1].value=data[1];
-    document.getElementById('formEdit').childNodes[1].childNodes[5].childNodes[1].value=data[2];
-    document.getElementById('formEdit').childNodes[1].childNodes[7].childNodes[1].value=data[3];
+    document.getElementById('player_name_edit').value=data[0];
+    document.getElementById('player_firstname_edit').value=data[1];
+    document.getElementById('player_phone_edit').value=data[2];
+    document.getElementById('player_mail_edit').value=data[3];
 }
