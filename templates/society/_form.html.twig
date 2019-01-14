@@ -1,8 +1,9 @@
 <div class="userForm mb-4" id="societyForm">
     {{ form_start(form) }}
+    <p class="requiredFields">(*) Champs obligatoires</p>
     <div class="row">
         <div class="col-md-3">
-            {{ form_label(form.name, 'Nom de la société') }}
+            {{ form_label(form.name, 'Nom de la société') }}<span class="requiredFields"> *</span>
             {{ form_widget(form.name) }}
         </div>
         <div class="col-md-12">

@@ -11,17 +11,19 @@
 
 {% block body %}
     <h2>Informations générales</h2>
+    <p class="requiredFields">(*) Champs obligatoires</p>
     {{ form_start(formEvent) }}
     <fieldset class="border py-3">
         <div class="row">
             <div class="col-12">
-                {{ form_row(formEvent.title, {'label': 'Titre'}) }}
+                {{ form_label(formEvent.title, 'Titre') }}<span class="requiredFields"> *</span>
+                {{ form_widget(formEvent.title) }}
             </div>
         </div>
         <hr>
         <div class="row">
             <div class="col-lg-3 align-self-center">
-                <label class="required" for="event_statusEvent">Statut de l'événement</label>
+                <label class="required" for="event_statusEvent">Statut de l'événement</label><span class="requiredFields"> *</span>
             </div>
             <div class="col-lg-9">
                 {{ form_widget(formEvent.statusEvent) }}
@@ -29,13 +31,14 @@
             </div>
         </div>
         <hr>
-        {{ form_row(formEvent.description) }}
+        {{ form_label(formEvent.description, 'Description') }}<span class="requiredFields"> *</span>
+        {{ form_widget(formEvent.description) }}
     </fieldset>
     <fieldset class="border py-3">
         <div class="row">
             <div class="col-lg-6">
                 <label class="required d-flex align-items-center" for="event_formatEvent">
-                    <i class="fas fa-users fa-2x color-icons-decoration mr-2"></i> Format de l'événement
+                    <i class="fas fa-users fa-2x color-icons-decoration mr-2"></i> Format de l'événement <span class="requiredFields"> *</span>
                 </label>
                 {{ form_widget(formEvent.formatEvent) }}
                 {{ form_errors(formEvent.statusEvent) }}
@@ -55,7 +58,7 @@
     <fieldset class="border py-3">
         <div class="row">
             <div class="col-lg-6">
-                <p><u>Date</u></p>
+                <p><u>Date</u><span class="requiredFields"> *</span></p>
                 <div class="row">
                     <div class="col-2 text-right">
                         <i class="fas fa-calendar-alt fa-2x color-icons-decoration"></i>
@@ -75,7 +78,7 @@
                 </div>
             </div>
             <div class="col-lg-6 mt-lg-0 mt-4">
-                <p><u>Heure</u></p>
+                <p><u>Heure</u><span class="requiredFields"> *</span></p>
                 <div class="row border-left border-left border-dark timer-settings">
                     <div class="col-2 text-right">
                         <i class="far fa-clock fa-2x color-icons-decoration"></i>
@@ -101,7 +104,7 @@
     <fieldset class="border py-3">
         <div class="row timer-settings">
             <div class="col-lg-6">
-                <p><u>Temps de parole</u></p>
+                <p><u>Temps de parole</u><span class="requiredFields"> *</span></p>
                 <div class="row">
                     <div class="col-2 text-right">
                         <i class="far fa-clock fa-2x color-icons-decoration"></i>
@@ -121,7 +124,7 @@
                 </div>
             </div>
             <div class="col-lg-6 mt-lg-0 mt-4">
-                <p><u>Temps de pause</u></p>
+                <p><u>Temps de pause</u><span class="requiredFields"> *</span></p>
                 <div class="row border-left border-left border-dark">
                     <div class="col-2 text-right">
                         <i class="far fa-clock fa-2x color-icons-decoration"></i>
@@ -149,7 +152,7 @@
             <div class="col-lg-3 align-self-center">
                 <label class="required" for="event_society">
                     <i class="fas fa-industry fa-2x color-icons-decoration mr-1"></i>
-                    Société</label>
+                    Société<span class="requiredFields"> *</span></label>
             </div>
             <div class="col-lg-9">
                 {{ form_widget(formEvent.society) }}

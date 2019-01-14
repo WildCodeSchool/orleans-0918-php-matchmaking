@@ -9,10 +9,13 @@
             </div>
             <div class="modal-body" id="formEdit">
                 {{ form_start(formEdit) }}
-                {{ form_row(formEdit.name, {'id': 'player_name_edit', 'label': 'Nom'}) }}
-                {{ form_row(formEdit.firstname, {'id': 'player_firstname_edit', 'label': 'Prénom'}) }}
-                {{ form_row(formEdit.phoneNumber, {'id': 'player_phoneNumber_edit', 'label': 'Numéro de portable'}) }}
-                {{ form_row(formEdit.mail, {'id': 'player_mail_edit','label': 'Email'}) }}
+                <p class="requiredFields">(*) Champs obligatoires</p>
+                {{ form_label(formEdit.name, 'Nom') }}<span class="requiredFields"> *</span>
+                {{ form_widget(formEdit.name, {'attr': {'id': 'player_name_edit'}}) }}
+                {{ form_label(formEdit.firstname, 'Prénom') }}<span class="requiredFields"> *</span>
+                {{ form_widget(formEdit.firstname, {'attr': {'id': 'player_firstname_edit'}}) }}
+                {{ form_row(formEdit.phoneNumber, {'label': 'Numéro de portable'}) }}
+                {{ form_row(formEdit.mail, {'label': 'Email'}) }}
                 <button class="btn btn-primary btn-lg btn-block">{{ button_label|default('Valider') }}</button>
                 {{ form_widget(formEdit._token, {'id': 'player__token_edit'}) }}
                 {{ form_end(formEdit) }}

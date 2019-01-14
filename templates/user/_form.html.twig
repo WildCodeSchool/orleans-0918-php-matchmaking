@@ -2,22 +2,23 @@
     {{ form_start(form) }}
     <fieldset class="border py-3">
         <legend id="formLegend">Ajout</legend>
+    <p class="requiredFields">(*) Champs obligatoires</p>
     <div class="row">
         <div class="col-md-3">
-            {{ form_label(form.lastName, 'Nom') }}
+            {{ form_label(form.lastName, 'Nom') }}<span class="requiredFields"> *</span>
             {{ form_widget(form.lastName) }}
         </div>
         <div class="col-md-3">
-            {{ form_label(form.firstName, 'Prénom') }}
+            {{ form_label(form.firstName, 'Prénom') }}<span class="requiredFields"> *</span>
             {{ form_widget(form.firstName) }}
         </div>
         <div class="col-md-3">
-            {{ form_label(form.email, 'E-mail') }}
+            {{ form_label(form.email, 'E-mail') }}<span class="requiredFields"> *</span>
             {{ form_widget(form.email) }}
         </div>
         {% if is_granted('ROLE_ADMIN') %}
         <div class="col-md-3">
-            {{ form_label(form.society, 'Entreprise') }}
+            {{ form_label(form.society, 'Entreprise') }}<span class="requiredFields"> *</span>
             {{ form_widget(form.society) }}
         </div>
         {% else %}

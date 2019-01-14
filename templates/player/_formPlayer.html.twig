@@ -1,12 +1,15 @@
 {{ form_start(form) }}
 <fieldset class="border p-3 px-5">
     <legend>Ajout d'un participant</legend>
+    <p class="requiredFields">(*) Champs obligatoires</p>
     <div class="row">
         <div class="col-md-3">
-            {{ form_row(form.name, {'label': 'Nom'}) }}
+            {{ form_label(form.name, 'Nom') }}<span class="requiredFields"> *</span>
+            {{ form_widget(form.name) }}
         </div>
         <div class="col-md-3">
-            {{ form_row(form.firstname, {'label': 'Prénom'}) }}
+            {{ form_label(form.firstname, 'Prénom') }}<span class="requiredFields"> *</span>
+            {{ form_widget(form.firstname) }}
         </div>
         <div class="col-md-3">
             {{ form_row(form.phoneNumber, {'label': 'Numéro de portable'}) }}
