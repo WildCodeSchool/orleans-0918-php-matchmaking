@@ -9,8 +9,11 @@
             </div>
             <div class="modal-body" id="formEdit">
                 {{ form_start(formEdit) }}
-                {{ form_row(formEdit.name, {'label': 'Nom'}) }}
-                {{ form_row(formEdit.firstname, {'label': 'Prénom'}) }}
+                <p class="requiredFields">(*) Champs obligatoires</p>
+                {{ form_label(formEdit.name, 'Nom') }}<span class="requiredFields"> *</span>
+                {{ form_widget(formEdit.name) }}
+                {{ form_label(formEdit.firstname, 'Prénom') }}<span class="requiredFields"> *</span>
+                {{ form_widget(formEdit.firstname) }}
                 {{ form_row(formEdit.phoneNumber, {'label': 'Numéro de portable'}) }}
                 {{ form_row(formEdit.mail, {'label': 'Email'}) }}
                 <button class="btn btn-primary btn-lg btn-block">{{ button_label|default('Valider') }}</button>
