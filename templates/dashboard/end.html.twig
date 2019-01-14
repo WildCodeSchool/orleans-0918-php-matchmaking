@@ -31,4 +31,10 @@
             </div>
         </div>
     </div>
+    <audio id="audioPlayer" src="/sounds/gong.wav"></audio>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('dashboard_end') }}
 {% endblock %}

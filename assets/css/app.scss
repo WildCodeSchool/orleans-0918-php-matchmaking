@@ -18,6 +18,7 @@ $browse: "Parcourir";
 $listButtonBgColor: #ffffff;
 $listButtonColor: rgb(0, 140, 255);
 $listButtonColorHover : rgb(61, 168, 255);
+$requiredFieldsColor : red;
 
 @font-face {
     font-family: BrandonBold;
@@ -137,4 +138,9 @@ legend {
     font-weight: bold;
     width: inherit;
     padding: 0 10px;
+}
+
+.requiredFields
+{
+    color: $requiredFieldsColor;
 }

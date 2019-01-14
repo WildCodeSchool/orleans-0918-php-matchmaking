@@ -21,6 +21,7 @@ Encore
     .addEntry('dashboard' , './assets/js/dashboard.js')
     .addEntry('dashboard_pause' , './assets/js/dashboard_pause.js')
     .addEntry('dashboard_run' , './assets/js/dashboard_run.js')
+    .addEntry('dashboard_end' , './assets/js/dashboard_end.js')
     .addEntry('players', './assets/js/players.js')
     .addEntry('previewUpload', './assets/js/previewUpload.js')
     .addEntry('society', './assets/js/society.js')
@@ -41,7 +42,7 @@ Encore
     .enableBuildNotifications()
     .enableSourceMaps(!Encore.isProduction())
     // enables hashed filenames (e.g. app.abc123.css)
-    //.enableVersioning(Encore.isProduction())
+    .enableVersioning(Encore.isProduction())
 
     // enables Sass/SCSS support
     .enableSassLoader()
