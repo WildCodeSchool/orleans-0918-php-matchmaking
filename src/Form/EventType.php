@@ -43,7 +43,7 @@ class EventType extends AbstractType
                         ->orderBy('s.state', 'ASC');
                 }
             ])
-            ->add('description', TextareaType::class)
+            ->add('description', TextareaType::class, ['required' => false])
             ->add('date', DateTimeType::class)
             ->add('formatEvent', EntityType::class, [
                 'class' => FormatEvent::class,
