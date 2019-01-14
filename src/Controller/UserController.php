@@ -221,7 +221,7 @@ class UserController extends AbstractController
         } else {
             $this->addFlash(
                 'danger',
-                "Vous ne pouvez pas vous supprimé !"
+                "Vous ne pouvez pas vous supprimer !"
             );
         }
 
